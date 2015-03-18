@@ -1,0 +1,51 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tyn.jasca</groupId>
+	<artifactId>jasca</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<name>jasca</name>
+	<description>jasca</description>
+	
+	<modules>
+		<module>../jasca-core</module>
+		<module>../jasca-findbugs</module>
+		<module>../jasca-pmd</module>
+	</modules>
+	
+	<properties>
+		<findbugs.version>3.0.0</findbugs.version>
+		<findbugs.security.version>1.3.1</findbugs.security.version>
+		<pmd.version>5.2.3</pmd.version>
+	</properties>
+	
+	<dependencies>
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+</project>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessageCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="messagecollection.xsd">
+	
+	<Plugin>
+		<ShortDescription>Jasca FindBugs plugin</ShortDescription>
+		<Details>This plugin contains all of Jasca FindBugs detectors.</Details>
+	</Plugin>
+	
+	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavaxDetector">
+		<Details>
+			Detect XQeury Injection.
+		</Details>
+	</Detector>
+	<BugPattern type="XQUERY_INJECTION">
+		<ShortDescription>잠재적인 XQuery 인젝션 취약점</ShortDescription>
+		<LongDescription>The use of {3} is vulnerable to XQuery injection</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+XQuery 인젝션 취약점이 있어염
+</p>
+<br/>
+<p>
+<b>References</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/652.html">CWE-652: Improper Neutralization of Data within XQuery Expressions ('XQuery Injection')</a><br/>
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	<BugCode abbrev="SJH">SJH's BugCode</BugCode>
+	
+	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatStringDetector">
+		<Details>
+			Detect Uncontrolled Format String.
+		</Details>
+	</Detector>
+	<BugPattern type="UNCONTROL_FORMAT_STRING">
+		<ShortDescription>포맷 스트링 삽입</ShortDescription>
+		<LongDescription>포맷 스트링 삽입</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+포맷 스트링 삽입 취약점이 있어염
+</p>
+<br/>
+<p>
+<b>References</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/134.html">CWE-134: Uncontrolled Format String</a><br/>
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	<BugCode abbrev="SJH2">SJH2's BugCode</BugCode>
+	
+</MessageCollection>

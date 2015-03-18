@@ -1,0 +1,17 @@
+<FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
+		pluginid="com.tyn.jasca.findbugs"
+		version="0.0.1"
+		provider="Jasca project"
+		website="http://www.tynetworks.co.kr/"
+		update-url="http://www.tynetworks.co.kr/update-check">
+	
+	<!-- XQUERY_INJECTION -->
+	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavaxDetector" reports="XQUERY_INJECTION" />
+	<BugPattern type="XQUERY_INJECTION" abbrev="SJH" category="JASCA" />
+	
+	<!-- UNCONTROL_FORMAT_STRING -->
+	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatStringDetector" reports="UNCONTROL_FORMAT_STRING" />
+	<BugPattern type="UNCONTROL_FORMAT_STRING" abbrev="SJH" category="JASCA" />	
+
+</FindbugsPlugin>

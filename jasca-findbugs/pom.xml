@@ -1,0 +1,33 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>com.tyn.jasca</groupId>
+		<artifactId>jasca</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<artifactId>jasca-findbugs</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>jasca-findbugs</name>
+	<description>jasca-findbugs</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>findbugs</artifactId>
+			<version>${findbugs.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h3xstream.findsecbugs</groupId>
+			<artifactId>findsecbugs-plugin</artifactId>
+			<version>${findbugs.security.version}</version>
+		</dependency>
+	</dependencies>
+	
+</project>

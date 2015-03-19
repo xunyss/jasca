@@ -17,7 +17,6 @@ import net.sourceforge.pmd.RuleSets;
 import net.sourceforge.pmd.RulesetsFactoryUtils;
 import net.sourceforge.pmd.benchmark.Benchmark;
 import net.sourceforge.pmd.benchmark.Benchmarker;
-import net.sourceforge.pmd.cli.PMDCommandLineInterface;
 import net.sourceforge.pmd.lang.Language;
 import net.sourceforge.pmd.lang.LanguageVersion;
 import net.sourceforge.pmd.lang.LanguageVersionDiscoverer;
@@ -112,15 +111,8 @@ public class PmdAnalyzer extends Analyzer {
 			renderer.flush();
 		}
 		catch (Exception e) {
-			String message = e.getMessage();
-			if (message != null) {
-				LOG.severe(message);
-			}
-			else {
-				LOG.log(Level.SEVERE, "Exception during processing", e);
-			}
-			LOG.log(Level.FINE, "Exception during processing", e);
-			LOG.info(PMDCommandLineInterface.buildUsageText());
+			// TODO
+			e.printStackTrace();
 		}
 		finally {
 			Benchmarker.mark(Benchmark.Reporting, System.nanoTime() - reportStart, 0);

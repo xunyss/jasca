@@ -2,7 +2,7 @@ package com.tyn.jasca.analizer.findbugs;
 
 import org.junit.Test;
 
-import com.tyn.jasca.TempProgress;
+import com.tyn.jasca.JascaProgress;
 import com.tyn.jasca.analyzer.findbugs.FindBugsAnalyzer;
 import com.tyn.jasca.analyzer.findbugs.FindBugsConfiguration;
 import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.Priority;

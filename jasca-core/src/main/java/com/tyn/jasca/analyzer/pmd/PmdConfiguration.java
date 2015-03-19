@@ -12,7 +12,7 @@ import net.sourceforge.pmd.lang.LanguageVersion;
 import net.sourceforge.pmd.renderers.Renderer;
 
 import com.tyn.jasca.analyzer.Configuration;
-import com.tyn.jasca.analyzer.pmd.PmdConstant.ReportFormat;
+import com.tyn.jasca.analyzer.pmd.PmdConstant.RenderFormat;
 import com.tyn.jasca.analyzer.pmd.renderer.DelegatingRenderer;
 import com.tyn.jasca.analyzer.pmd.renderer.ProgressRenderer;
 
@@ -36,7 +36,7 @@ public class PmdConfiguration implements Configuration {
 	private DelegatingRenderer delegator = null;
 	private boolean progress = false;
 	private PmdProgress progressCallback = null;
-	private ReportFormat format = ReportFormat.TEXT;
+	private RenderFormat format = RenderFormat.TEXT;
 	private Class<? extends Renderer> renderer = null;
 	private Properties properties = new Properties();
 	private String reportfile = null;
@@ -281,7 +281,7 @@ public class PmdConfiguration implements Configuration {
 	 * 
 	 * @return
 	 */
-	public ReportFormat getFormat() {
+	public RenderFormat getFormat() {
 		return format;
 	}
 	
@@ -293,7 +293,7 @@ public class PmdConfiguration implements Configuration {
 	 * 
 	 * @param format report format type
 	 */
-	public void setFormat(ReportFormat format) {
+	public void setFormat(RenderFormat format) {
 		this.format = format;
 	}
 	
@@ -310,7 +310,7 @@ public class PmdConfiguration implements Configuration {
 	 * @param renderer
 	 */
 	public void setRenderer(Class<? extends Renderer> renderer) {
-		this.format = ReportFormat.CUSTOM;
+		this.format = RenderFormat.CUSTOM;
 		this.renderer = renderer;
 	}
 	
@@ -410,7 +410,7 @@ public class PmdConfiguration implements Configuration {
 		
 		configuration.setInputPaths(dir);
 		configuration.setInputUri(uri);
-		configuration.setReportFormat(format != ReportFormat.CUSTOM ?
+		configuration.setReportFormat(format != RenderFormat.CUSTOM ?
 				format.getReportFormat() : renderer.getCanonicalName());
 		configuration.setBenchmark(benchmark);
 		configuration.setDebug(debug);

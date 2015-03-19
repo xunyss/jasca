@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.tyn.jasca.analyzer.pmd.PmdAnalyzer;
 import com.tyn.jasca.analyzer.pmd.PmdConfiguration;
-import com.tyn.jasca.analyzer.pmd.PmdConstant.ReportFormat;
+import com.tyn.jasca.analyzer.pmd.PmdConstant.RenderFormat;
 import com.tyn.jasca.analyzer.pmd.PmdProgress;
 
 /**
@@ -26,7 +26,7 @@ public class PmdTest {
 		config.setDir("D:/securecoding/workspace/sampleweb");
 	//	config.setDir("D:/securecoding/workspace/sampleweb/src/com/tyn/wweb/W47.java");
 		config.setMinimumpriority(RulePriority.LOW);
-		config.setFormat(ReportFormat.HTML);
+		config.setFormat(RenderFormat.HTML);
 	//	config.setRenderer(JascaRenderer.class);
 		config.setProgress(true);
 		config.setReportfile("D:/xdev/git/jasca/jasca-core/target/pmd.html");

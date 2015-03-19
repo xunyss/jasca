@@ -1,7 +1,7 @@
 package com.tyn.jasca;
 
-import com.tyn.jasca.MyListener;
-import com.tyn.jasca.Violation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.umd.cs.findbugs.AbstractBugReporter;
 import edu.umd.cs.findbugs.AnalysisError;
@@ -19,7 +19,7 @@ public class JascaBugReporter extends AbstractBugReporter {
 	/**
 	 * 
 	 */
-//	private static final Logger log = LoggerFactory.getLogger(JascaBugReporter.class);
+	private static final Logger log = LoggerFactory.getLogger(JascaBugReporter.class);
 	
 	/**
 	 * 
@@ -65,7 +65,8 @@ public class JascaBugReporter extends AbstractBugReporter {
 		violation.setSeverity(bugInstance.getPriority());
 		violation.setType(bugInstance.getType());
 		
-		MyListener.add(violation);
+		ViolationResult.getInstance()
+			.add(violation);
 	}
 	
 	/**

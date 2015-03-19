@@ -10,8 +10,6 @@ import net.sourceforge.pmd.util.datasource.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tyn.jasca.analyzer.pmd.PmdProgress;
-
 /**
  * 
  * @author S.J.H.
@@ -79,7 +77,8 @@ public class JascaRenderer extends AbstractRenderer {
 			violation.setSeverity(ruleViolation.getRule().getPriority().getPriority());
 			violation.setType(ruleViolation.getRule().getName());
 			
-			MyListener.add(violation);
+			ViolationResult.getInstance()
+				.add(violation);
 		}
 	}
 	

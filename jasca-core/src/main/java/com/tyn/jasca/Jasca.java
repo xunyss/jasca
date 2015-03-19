@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.analyzer.findbugs.FindBugsAnalyzer;
 import com.tyn.jasca.analyzer.findbugs.FindBugsConfiguration;
-import com.tyn.jasca.analyzer.findbugs.FindBugsConstant;
 import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.Priority;
+import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
 import com.tyn.jasca.analyzer.pmd.PmdAnalyzer;
 import com.tyn.jasca.analyzer.pmd.PmdConfiguration;
-import com.tyn.jasca.analyzer.pmd.PmdConstant;
+import com.tyn.jasca.analyzer.pmd.PmdConstant.RenderFormat;
 
 
 /**
@@ -61,8 +61,11 @@ public class Jasca {
 
 	public void run() {
 		try {
+			ViolationResult.getInstance().create();
+			
 			runFindbugs();
 			runPmd();
+			
 			Htmler.make();
 		}
 		catch (Exception e) {
@@ -70,24 +73,23 @@ public class Jasca {
 		}
 	}
 	
+	private JascaProgress progressCallback = new JascaProgress();
+	
 	private void runFindbugs() {
 		FindBugsConfiguration configuration = new FindBugsConfiguration();
+		configuration.setInput(target);
 		configuration.setScanNestedArchives(false);
 		configuration.setPriority(Priority.LOW);
-		configuration.setReportFormat(FindBugsConstant.ReportFormat.CUSTOM);
+		configuration.setReportFormat(ReportFormat.CUSTOM);
 		configuration.setBugReporter(new JascaBugReporter());
 		configuration.setOutput(output);
-		configuration.setProgress(true);
-		configuration.setInput(target);
+		configuration.setProgress(progressCallback);
 		
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
 		engine.loadPluginUsingClass("com.h3xstream.findsecbugs.endpoint.CookieDetector");
-		engine.loadPluginUsingJarFilePath("D:/securecoding/workspace/jasca-findbugs/target/jasca-findbugs-0.0.1-SNAPSHOT.jar");
+		engine.loadPluginUsingJarFilePath("D:/xdev/git/jasca/jasca-findbugs/target/jasca-findbugs-0.0.1-SNAPSHOT.jar");
 		engine.applyConfiguration(configuration);
-		
-		log.info("JASCA - FindBugs start");
 		engine.execute();
-		log.info("JASCA - FindBugs finish");
 	}
 	
 	private void runPmd() {
@@ -97,19 +99,16 @@ public class Jasca {
 				",jasca-jasca";
 		
 		PmdConfiguration config = new PmdConfiguration();
+		config.setDir(target);
 		config.setMinimumpriority(RulePriority.LOW);
-		config.setFormat(PmdConstant.ReportFormat.CUSTOM);
+		config.setFormat(RenderFormat.CUSTOM);
 		config.setRenderer(JascaRenderer.class);
 		config.setReportfile(output);
-		config.setProgress(true);
+		config.setProgress(progressCallback);
 		config.setRulesets(rulesets);
-		config.setDir(target);
 		
 		PmdAnalyzer engine = new PmdAnalyzer();
 		engine.applyConfiguration(config);
-		
-		log.info("JASCA - PMD start");
 		engine.execute();
-		log.info("JASCA - PMD finish");
 	}
 }

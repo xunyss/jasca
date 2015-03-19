@@ -27,10 +27,10 @@ public class Htmler {
 	}
 	
 	private static void start() throws Exception {
-		File file = new File("D:/securecoding/workspace/jasca-core/target/htmler.html");
+		File file = new File("D:/xdev/git/jasca/jasca-core/target/htmler.html");
 		writer = new BufferedWriter(new FileWriter(file));
 		
-		list = MyListener.list;
+		list = ViolationResult.getInstance().getViolations();
 		Collections.sort(list, new Comparator<Violation>() {
 			@Override
 			public int compare(Violation o1, Violation o2) {

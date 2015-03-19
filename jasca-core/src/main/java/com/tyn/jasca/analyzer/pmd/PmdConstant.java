@@ -9,7 +9,7 @@ public class PmdConstant {
 	/**
 	 * 
 	 */
-	public enum ReportFormat {
+	public enum RenderFormat {
 		TEXT		("text"),
 		TEXTPAD		("textpad"),
 		TEXTCOLOR	("textcolor"),
@@ -26,7 +26,7 @@ public class PmdConstant {
 		
 		private String reportformat;
 		
-		private ReportFormat(String reportformat) {
+		private RenderFormat(String reportformat) {
 			this.reportformat = reportformat;
 		}
 		

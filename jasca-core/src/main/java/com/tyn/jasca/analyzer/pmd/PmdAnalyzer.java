@@ -27,6 +27,8 @@ import net.sourceforge.pmd.util.datasource.DataSource;
 
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.Configuration;
+import com.tyn.jasca.analyzer.pmd.renderer.DelegatingRenderer;
+import com.tyn.jasca.analyzer.pmd.renderer.ProgressRenderer;
 
 /**
  * 
@@ -37,7 +39,9 @@ public class PmdAnalyzer extends Analyzer {
 	private static final Logger LOG = Logger.getLogger(PmdAnalyzer.class.getName());
 	
 	private PMDConfiguration internalConfiguration;
-	private boolean progress;
+	
+	private DelegatingRenderer delegator = null;
+	private boolean progress = false;
 	
 	public PmdAnalyzer() {
 		internalConfiguration = new PMDConfiguration();
@@ -47,6 +51,11 @@ public class PmdAnalyzer extends Analyzer {
 	public void applyConfiguration(Configuration configuration) {
 		PmdConfiguration pmdConfiguration = (PmdConfiguration) configuration;
 		pmdConfiguration.transform(internalConfiguration);
+		
+		/**
+		 * added configurations
+		 */
+		delegator = pmdConfiguration.getDelegator();
 		progress = pmdConfiguration.isProgress();
 	}
 	
@@ -74,17 +83,20 @@ public class PmdAnalyzer extends Analyzer {
 		long reportStart = System.nanoTime();
 		try {
 			Renderer renderer = internalConfiguration.createRenderer();
+			/*******************************************************************
+			 * S.J.H.
+			 * for DelegatingRenderer & PmdProgress
+			 */
+			if (delegator != null) {
+				delegator.setRealRenderer(renderer);
+				renderer = delegator;
+			}
+			if (progress && renderer instanceof ProgressRenderer) {
+				renderer.setProperty(ProgressRenderer.TOTAL_COUNT_PROPERTY, files.size());
+			}
+			/******************************************************************/
 			List<Renderer> renderers = new LinkedList<Renderer>();
 			renderers.add(renderer);
-			
-			/**
-			 * S.J.H.
-			 * for progress..
-			 */
-			if (progress && renderer instanceof PmdProgress) {
-				((PmdProgress) renderer).startAnalyze(files.size());
-			}
-			/***/
 			
 			renderer.setWriter(IOUtil.createWriter(internalConfiguration.getReportFile()));
 			renderer.start();

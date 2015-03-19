@@ -13,6 +13,8 @@ import net.sourceforge.pmd.renderers.Renderer;
 
 import com.tyn.jasca.analyzer.Configuration;
 import com.tyn.jasca.analyzer.pmd.PmdConstant.ReportFormat;
+import com.tyn.jasca.analyzer.pmd.renderer.DelegatingRenderer;
+import com.tyn.jasca.analyzer.pmd.renderer.ProgressRenderer;
 
 /**
  * 
@@ -31,6 +33,7 @@ public class PmdConfiguration implements Configuration {
 	private String language = null;
 	private String version = null;
 	private RulePriority minimumpriority = RulePriority.LOW;
+	private DelegatingRenderer delegator = null;
 	private boolean progress = false;
 	private PmdProgress progressCallback = null;
 	private ReportFormat format = ReportFormat.TEXT;
@@ -214,6 +217,22 @@ public class PmdConfiguration implements Configuration {
 	 * 
 	 * @return
 	 */
+	public DelegatingRenderer getDelegator() {
+		return delegator;
+	}
+	
+	/**
+	 * 
+	 * @param delegator
+	 */
+	public void setDelegator(DelegatingRenderer delegator) {
+		this.delegator = delegator;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isProgress() {
 		return progress;
 	}
@@ -228,6 +247,22 @@ public class PmdConfiguration implements Configuration {
 	 */
 	public void setProgress(boolean progress) {
 		this.progress = progress;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public PmdProgress getProgressCallback() {
+		return progressCallback;
+	}
+	
+	/**
+	 * 
+	 * @param progressCallback
+	 */
+	public void setProgressCallback(PmdProgress progressCallback) {
+		this.progressCallback = progressCallback;
 	}
 	
 	/**
@@ -364,8 +399,7 @@ public class PmdConfiguration implements Configuration {
 		configuration.setInputPaths(dir);
 		configuration.setInputUri(uri);
 		configuration.setReportFormat(format != ReportFormat.CUSTOM ?
-				format.getReportFormat() :
-					renderer.getCanonicalName());
+				format.getReportFormat() : renderer.getCanonicalName());
 		configuration.setBenchmark(benchmark);
 		configuration.setDebug(debug);
 		configuration.setMinimumPriority(minimumpriority);
@@ -391,6 +425,12 @@ public class PmdConfiguration implements Configuration {
 		}
 		catch (IOException ioe) {
 			throw new IllegalArgumentException();
+		}
+		
+		//----------------------------------------------------------------------
+		
+		if (progress && progressCallback != null) {
+			delegator = new ProgressRenderer(delegator, progressCallback);
 		}
 	}
 	

@@ -246,7 +246,18 @@ public class PmdConfiguration implements Configuration {
 	 * @param progress
 	 */
 	public void setProgress(boolean progress) {
+		if (progressCallback != null && !progress) {
+			throw new IllegalStateException();
+		}
 		this.progress = progress;
+	}
+	
+	/**
+	 * 
+	 * @param progressCallback
+	 */
+	public void setProgress(PmdProgress progressCallback) {
+		setProgressCallback(progressCallback);
 	}
 	
 	/**
@@ -262,6 +273,7 @@ public class PmdConfiguration implements Configuration {
 	 * @param progressCallback
 	 */
 	public void setProgressCallback(PmdProgress progressCallback) {
+		this.progress = true;
 		this.progressCallback = progressCallback;
 	}
 	

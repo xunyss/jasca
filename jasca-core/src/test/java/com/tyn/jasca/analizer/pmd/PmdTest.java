@@ -29,21 +29,6 @@ public class PmdTest {
 		config.setFormat(ReportFormat.HTML);
 	//	config.setRenderer(JascaRenderer.class);
 		config.setProgress(true);
-		config.setProgressCallback(new PmdProgress() {
-			@Override
-			public void startAnalyze(int totalCount) {
-				System.out.println("111111111111111111111111 >> " + totalCount);
-			}
-			@Override
-			public void analyzeFile(int passCount) {
-				System.out.println("333333333333333333333333 >> " + passCount);
-			}
-			@Override
-			public void finishAnalyze() {
-				System.out.println("5555555555555555555555555");
-			}
-			
-		});
 		config.setReportfile("D:/xdev/git/jasca/jasca-core/target/pmd.html");
 		config.setRulesets(rulesets);
 		

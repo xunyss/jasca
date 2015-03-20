@@ -19,7 +19,7 @@ public class JascaProgress implements FindBugsProgress, PmdProgress {
 	private static final Logger log = LoggerFactory.getLogger(JascaProgress.class);
 	
 	
-	private static void w(String s) {
+	private static void show(String s) {
 		log.info(s);
 	}
 	
@@ -63,8 +63,8 @@ public class JascaProgress implements FindBugsProgress, PmdProgress {
 	
 	@Override
 	public void finishClass() {
-		w(String.format("FB  Analyze(Step:%d/%d) > [%4d / %4d] [%3d%%]",
-				stepPass, stepTotal, ++classPass, classTotal, percent(classPass, classTotal, stepPass, stepTotal)));
+		show(String.format("FB  Analyze(Step:%d/%d) > [%4d / %4d] [%3d%%]",
+				stepPass, stepTotal, ++classPass, classTotal, percent(classPass, classTotal)));
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class JascaProgress implements FindBugsProgress, PmdProgress {
 
 	@Override
 	public void analyzeFile(int passCount) {
-		w(String.format("PMD Analyze           > [%4d / %4d] [%3d%%]",
+		show(String.format("PMD Analyze           > [%4d / %4d] [%3d%%]",
 				passCount, totalCount, percent(passCount, totalCount)));
 	}
 

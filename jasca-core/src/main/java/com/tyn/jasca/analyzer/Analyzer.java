@@ -2,8 +2,9 @@ package com.tyn.jasca.analyzer;
 
 public abstract class Analyzer {
 	
-	protected void log(Object o) {
-		System.out.println(">>>> " + o);
+	public enum AnalyzerEngine {
+		FINDBUGS,
+		PMD;
 	}
 	
 	public abstract void applyConfiguration(Configuration configuration);

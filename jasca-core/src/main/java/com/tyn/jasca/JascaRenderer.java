@@ -1,14 +1,19 @@
 package com.tyn.jasca;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import net.sourceforge.pmd.Report;
+import net.sourceforge.pmd.RulePriority;
 import net.sourceforge.pmd.RuleViolation;
 import net.sourceforge.pmd.renderers.AbstractRenderer;
 import net.sourceforge.pmd.util.datasource.DataSource;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 
 /**
  * 
@@ -25,7 +30,7 @@ public class JascaRenderer extends AbstractRenderer {
 	 * 
 	 */
 	public JascaRenderer() {
-		super("jascaRenderer", "jascaRenderer");
+		super("", "");
 	}
 	
 	/**
@@ -70,11 +75,12 @@ public class JascaRenderer extends AbstractRenderer {
 	public void renderFileReport(Report report) throws IOException {
 		for (RuleViolation ruleViolation : report) {
 			Violation violation = new Violation();
-			violation.setEngine("P");
+			violation.setAnalyzer(AnalyzerEngine.PMD);
 			violation.setFilename(ruleViolation.getFilename());
-			violation.setLine(ruleViolation.getBeginLine());
+			violation.setBeginline(ruleViolation.getBeginLine());
+			violation.setEndline(ruleViolation.getEndLine());
 			violation.setMessage(ruleViolation.getDescription());
-			violation.setSeverity(ruleViolation.getRule().getPriority().getPriority());
+			violation.setSeverity(toSeverity(ruleViolation.getRule().getPriority()));
 			violation.setType(ruleViolation.getRule().getName());
 			
 			ViolationResult.getInstance()
@@ -89,5 +95,46 @@ public class JascaRenderer extends AbstractRenderer {
 	@Override
 	public void end() throws IOException {
 		
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public void flush() {
+		try {
+			writer.flush();
+		}
+		catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+		finally {
+			if (!writer.getClass().equals(OutputStreamWriter.class)) {
+				IOUtils.closeQuietly(writer);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param rulePriority
+	 * @return
+	 */
+	private Severity toSeverity(RulePriority rulePriority) {
+		switch (rulePriority) {
+		case HIGH:
+		case MEDIUM_HIGH:
+			return Severity.HIGH;
+		
+		case MEDIUM:
+			return Severity.MEDIUM;
+		
+		case MEDIUM_LOW:
+		case LOW:
+			return Severity.LOW;
+		
+		default:
+			throw new IllegalArgumentException();
+		}
 	}
 }

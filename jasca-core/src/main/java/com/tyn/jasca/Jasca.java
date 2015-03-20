@@ -61,12 +61,21 @@ public class Jasca {
 
 	public void run() {
 		try {
-			ViolationResult.getInstance().create();
+			ViolationResult violationResult = ViolationResult.getInstance();
+			violationResult.create();
 			
 			runFindbugs();
 			runPmd();
 			
-			Htmler.make();
+			ReportBuilder.build(
+					violationResult.getViolations(),
+					new JascaConverter(target),
+					new HtmlFormatter(),
+					"D:/xdev/git/jasca/jasca-core/target/jasca.html");
+			
+			violationResult.clear();
+			
+			log.debug("ºÐ¼®³¡³µÀ½.");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -79,10 +88,9 @@ public class Jasca {
 		FindBugsConfiguration configuration = new FindBugsConfiguration();
 		configuration.setInput(target);
 		configuration.setScanNestedArchives(false);
-		configuration.setPriority(Priority.LOW);
+		configuration.setPriority(Priority.IGNORE);
 		configuration.setReportFormat(ReportFormat.CUSTOM);
 		configuration.setBugReporter(new JascaBugReporter());
-		configuration.setOutput(output);
 		configuration.setProgress(progressCallback);
 		
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
@@ -103,7 +111,6 @@ public class Jasca {
 		config.setMinimumpriority(RulePriority.LOW);
 		config.setFormat(RenderFormat.CUSTOM);
 		config.setRenderer(JascaRenderer.class);
-		config.setReportfile(output);
 		config.setProgress(progressCallback);
 		config.setRulesets(rulesets);
 		

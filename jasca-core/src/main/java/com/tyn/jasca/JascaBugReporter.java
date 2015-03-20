@@ -3,10 +3,13 @@ package com.tyn.jasca;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
+
 import edu.umd.cs.findbugs.AbstractBugReporter;
 import edu.umd.cs.findbugs.AnalysisError;
 import edu.umd.cs.findbugs.BugCollection;
 import edu.umd.cs.findbugs.BugInstance;
+import edu.umd.cs.findbugs.Priorities;
 import edu.umd.cs.findbugs.SourceLineAnnotation;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 
@@ -58,11 +61,12 @@ public class JascaBugReporter extends AbstractBugReporter {
 		SourceLineAnnotation primarySourceLineAnnotation = bugInstance.getPrimarySourceLineAnnotation();
 		
 		Violation violation = new Violation();
-		violation.setEngine("F");
+		violation.setAnalyzer(AnalyzerEngine.FINDBUGS);
 		violation.setFilename(primarySourceLineAnnotation.getSourcePath());
-		violation.setLine(primarySourceLineAnnotation.getStartLine());
-		violation.setMessage(bugInstance.getMessage());
-		violation.setSeverity(bugInstance.getPriority());
+		violation.setBeginline(primarySourceLineAnnotation.getStartLine());
+		violation.setEndline(primarySourceLineAnnotation.getEndLine());
+		violation.setMessage(bugInstance.getMessageWithoutPrefix());
+		violation.setSeverity(toSeverity(bugInstance.getPriority()));
 		violation.setType(bugInstance.getType());
 		
 		ViolationResult.getInstance()
@@ -85,5 +89,24 @@ public class JascaBugReporter extends AbstractBugReporter {
 	@Override
 	public void reportMissingClass(String string) {
 		
+	}
+	
+	
+	private Severity toSeverity(int priority) {
+		switch (priority) {
+		case Priorities.HIGH_PRIORITY:
+			return Severity.HIGH;
+		
+		case Priorities.NORMAL_PRIORITY:
+			return Severity.MEDIUM;
+		
+		case Priorities.LOW_PRIORITY:
+		case Priorities.EXP_PRIORITY:
+		case Priorities.IGNORE_PRIORITY:
+			return Severity.LOW;
+		
+		default:
+			throw new IllegalArgumentException();
+		}
 	}
 }

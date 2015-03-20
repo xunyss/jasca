@@ -1,22 +1,19 @@
 package com.tyn.jasca.common;
 
-import java.util.Properties;
+import java.io.FileWriter;
+import java.io.Writer;
 
-import org.junit.Test;
+import net.sourceforge.pmd.util.IOUtil;
 
 public class UtilsTest {
 	
-	@Test
-	public void propertyConverterTest() throws Exception {
-		Properties p = new Properties();
+	public static void main(String[] args) {
+		Writer w = IOUtil.createWriter();
 		
-		p.setProperty("a", "aval");
-		p.setProperty("b", "bval");
+		System.out.println(w);
 		
-		String s = Utils.serializeProperties(p);
-		System.out.println(s);
+		System.out.println(w.getClass().getName());
 		
-		
-		System.out.println(Utils.deserializeProperties(s));
+		System.out.println(w.getClass().equals(FileWriter.class));
 	}
 }

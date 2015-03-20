@@ -1,5 +1,8 @@
 package com.tyn.jasca;
 
+import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
+
+
 
 /**
  * 
@@ -7,59 +10,67 @@ package com.tyn.jasca;
  */
 public class Violation {
 	
-	private String engine;
+	private AnalyzerEngine analyzer;
 	private String filename;
-	private int line;
+	private int beginline;
+	private int endline;
 	private String message;
-	private int severity;
+	private Severity severity;
 	private String type;
 	
-	public String getEngine() {
-		return engine;
+	public AnalyzerEngine getAnalyzer() {
+		return analyzer;
 	}
-	public void setEngine(String engine) {
-		this.engine = engine;
+	
+	public void setAnalyzer(AnalyzerEngine analyzer) {
+		this.analyzer = analyzer;
 	}
+	
 	public String getFilename() {
-		return to(filename);
+		return filename;
 	}
+	
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	public int getLine() {
-		return line;
+	
+	public int getBeginline() {
+		return beginline;
 	}
-	public void setLine(int line) {
-		this.line = line;
+	
+	public void setBeginline(int beginline) {
+		this.beginline = beginline;
 	}
+	
+	public int getEndline() {
+		return endline;
+	}
+	
+	public void setEndline(int endline) {
+		this.endline = endline;
+	}
+	
 	public String getMessage() {
 		return message;
 	}
+	
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public int getSeverity() {
+	
+	public Severity getSeverity() {
 		return severity;
 	}
-	public void setSeverity(int severity) {
+	
+	public void setSeverity(Severity severity) {
 		this.severity = severity;
 	}
+	
 	public String getType() {
 		return type;
 	}
+	
 	public void setType(String type) {
 		this.type = type;
-	}
-	
-	private String to(String path) {
-		String to = null;
-		if ("F".equals(engine)) {
-			to = "/src/" + path;
-		}
-		else if ("P".equals(engine)) {
-			to = path.replace('\\', '/');
-			to = to.substring(35);
-		}
-		return to;
 	}
 }

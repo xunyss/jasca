@@ -1,18 +1,18 @@
-package com.tyn.jasca.test;
+package com.tyn.jasca.analyzer.pmd;
 
 import net.sourceforge.pmd.cli.PMDCommandLineInterface;
 
 import org.junit.Test;
 
-public class PMDLauncher2 {
+public class PMDSimpleLaunchTest {
 
 	@Test
 	public void runPMD() throws Exception {
 		String[] options = {
 				"-d", "D:\\securecoding\\workspace\\sampleweb",
-			//	"-debug",
-				"-f", "html",
-				"-r", "D:\\securecoding\\workspace\\jasca\\target\\pmd2.html",
+				"-debug",
+				"-f", "xml",
+				"-r", "D:\\xdev\\git\\jasca\\jasca-analyzer\\target\\simple-pmd.xml",
 			//	"-rulesets", "java-basic,java-design,jsp-basic"
 			//	"-rulesets", "jasca_rules.xml"
 				"-rulesets", "java-basic,java-design,jsp-basic" +

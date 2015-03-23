@@ -9,6 +9,10 @@ import java.io.Writer;
  */
 public interface Formatter {
 	
+	void setInput(String input);
+	
+	void setOutput(String output);
+	
 	void setWriter(Writer writer);
 	
 	void start();

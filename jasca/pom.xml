@@ -13,9 +13,10 @@
 	<description>jasca</description>
 	
 	<modules>
-		<module>../jasca-core</module>
 		<module>../jasca-findbugs</module>
 		<module>../jasca-pmd</module>
+		<module>../jasca-analyzer</module>
+		<module>../jasca-core</module>
 	</modules>
 	
 	<properties>

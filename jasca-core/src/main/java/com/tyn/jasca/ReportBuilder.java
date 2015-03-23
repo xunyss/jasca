@@ -18,31 +18,32 @@ public class ReportBuilder {
 	 * @param violations
 	 * @param converter
 	 * @param formatter
+	 * @param input
 	 * @param output
 	 * @throws IOException
 	 */
 	public static void build(List<Violation> violations,
-			JascaConverter converter,
-			HtmlFormatter formatter,
+			ViolationConverter converter,
+			Formatter formatter,
+			String input,
 			String output
 			) throws IOException {
 		
 		sort(violations);
 		
-		BufferedWriter writer = new BufferedWriter(new FileWriter(output));
+		converter.setInput(input);
+		converter.setOutput(output);
 		
-		formatter.setWriter(writer);
+		formatter.setInput(input);
+		formatter.setOutput(output);
+		formatter.setWriter(new BufferedWriter(new FileWriter(output)));
 		
 		formatter.start();
-		
 		formatter.writeHead();
-		
 		for (Violation violation : violations) {
 			formatter.writeBody(converter.convert(violation));
 		}
-		
 		formatter.writeTail();
-		
 		formatter.finish();
 	}
 	

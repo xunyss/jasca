@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+body {
+	font-family: Malgun Gothic;
+	font-size: 12px;
+}
+p.smr span.prj {
+	font-size: 14px;
+	font-style: italic;
+}
+p.smr span.adt {
+	float: right;
+	font-style: italic;
+}
+table {
+	width: 100%;
+	border: 0px;
+	border-collapse: collapse;
+}
+thead {
+	background-color: #EEF8ED;
+	text-align: center;
+	font-weight: bold;
+}
+thead td, tbody td {
+	border: 1px solid #c0c4c8;
+	padding: 4px;
+}
+tbody tr:nth-child(odd) {
+	border-top: 2px solid #BBD6F9;
+}
+tbody tr[sv="1"] {
+	background-color: #FF9E9E;
+}
+tbody tr[sv="2"] {
+	background-color: #FFC66D;
+}
+tbody tr[sv="3"] {
+	background-color: #FCFF6D;
+}
+tbody tr:nth-child(odd) td:nth-child(1), tbody tr:nth-child(odd) td:nth-child(2) {
+	text-align: center;
+}
+tbody tr:nth-child(odd) td:nth-child(3), tbody tr:nth-child(odd) td:nth-child(4) {
+	font-weight: bold;
+}
+tbody tr:nth-child(odd) td:nth-child(3)[eg="f"] {
+	background: url("eg-f.png") 4px 6px no-repeat;
+	padding-left: 22px;
+}
+tbody tr:nth-child(odd) td:nth-child(3)[eg="p"] {
+	background: url("eg-p.png") 4px 6px no-repeat;
+	padding-left: 22px;
+}
+tbody tr:nth-child(even) td a span.dtl {
+	background: url("detail.png") no-repeat;
+	float: right;
+	width: 40px;
+	cursor: pointer; 
+}

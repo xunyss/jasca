@@ -1,8 +1,14 @@
 package com.tyn.jasca.common;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
@@ -15,23 +21,47 @@ public class Utils {
 	
 	/**
 	 * 
-	 * @param clazz
+	 */
+	public static final int EOF = -1;
+	
+	/**
+	 * 
+	 * @param path
 	 * @return
 	 */
-	public static String getSlashedClassName(Class<?> clazz) {
-		return getSlashedClassName(clazz.getName());
+	public static String getSlashedPath(String path) {
+		return path.replace('\\', '/');
 	}
 	
 	/**
 	 * 
-	 * @param className
+	 * @param filepath
 	 * @return
 	 */
-	public static String getSlashedClassName(String className) {
-		if (className.indexOf('.') >= 0) {
-			return className.replace('.', '/');
-		}
-		return className;
+	public static String getDirName(String filepath) {
+		final String path = getSlashedPath(filepath);
+		final int offset = path.lastIndexOf('/');
+		return path.substring(0, offset);
+	}
+	
+	/**
+	 * 
+	 * @param filepath
+	 * @return
+	 */
+	public static String getFileName(String filepath) {
+		final String path = getSlashedPath(filepath);
+		final int offset = path.lastIndexOf('/');
+		return path.substring(offset + 1);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static String getCurrDatetime() {
+		return new SimpleDateFormat("yyyy.MM.dd HH:mm:ss")
+			.format(Calendar.getInstance().getTime());
 	}
 	
 	/**
@@ -71,5 +101,73 @@ public class Utils {
 		finally {
 			IOUtils.closeQuietly(bis);
 		}
+	}
+	
+	/**
+	 * 
+	 * @param resource
+	 * @param filepath
+	 * @throws IOException
+	 */
+	public static void resourceToFile(String resource, String filepath) throws IOException {
+		final int BUFFER_SIZE = 10240;
+		ClassLoader classLoader = Utils.class.getClassLoader();
+		
+		InputStream resourceInputStream = null;
+		BufferedOutputStream fileOutputStream = null;
+		
+		try {
+			resourceInputStream = classLoader.getResourceAsStream(resource);
+			fileOutputStream = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+			
+			int readSize = 0;
+			byte[] buffer = new byte[BUFFER_SIZE];
+			while ((readSize = resourceInputStream.read(buffer)) != EOF) {
+				fileOutputStream.write(buffer, 0, readSize);
+			}
+		}
+		catch (IOException ioe) {
+			throw ioe;
+		}
+		finally {
+			IOUtils.closeQuietly(resourceInputStream);
+			IOUtils.closeQuietly(fileOutputStream);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param resources
+	 * @param basepath
+	 */
+	public static void resourcesToFiles(String[] resources, String basepath) throws IOException {
+		if (!basepath.endsWith("/")) {
+			basepath += "/";
+		}
+		
+		for (String resource : resources) {
+			resourceToFile(resource, basepath + getFileName(resource));
+		}
+	}
+	
+	/**
+	 * 
+	 * @param srcBasepath
+	 * @param srcFilenames
+	 * @param tgtBasepath
+	 * @throws IOException
+	 */
+	public static void resourcesToFiles(String srcBasepath, String[] srcFilenames, String tgtBasepath) throws IOException {
+		if (!srcBasepath.endsWith("/")) {
+			srcBasepath += "/";
+		}
+		
+		int index = 0;
+		String[] resources = new String[srcFilenames.length];
+		for (String srcFilename : srcFilenames) {
+			resources[index++] = srcBasepath + srcFilename;
+		}
+		
+		resourcesToFiles(resources, tgtBasepath);
 	}
 }

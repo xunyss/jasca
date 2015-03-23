@@ -1,8 +1,5 @@
 package com.tyn.jasca;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 
 import edu.umd.cs.findbugs.AbstractBugReporter;
@@ -22,7 +19,7 @@ public class JascaBugReporter extends AbstractBugReporter {
 	/**
 	 * 
 	 */
-	private static final Logger log = LoggerFactory.getLogger(JascaBugReporter.class);
+//	private static final Logger log = LoggerFactory.getLogger(JascaBugReporter.class);
 	
 	/**
 	 * 

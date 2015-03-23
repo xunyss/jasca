@@ -8,10 +8,17 @@ import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
  */
 public class JascaConverter implements ViolationConverter {
 	
-	private String dir = null;
+	private String input = null;
+//	private String output = null;
 	
-	public JascaConverter(String dir) {
-		this.dir = dir + (dir.endsWith("/") ? "" : "/");
+	@Override
+	public void setInput(String input) {
+		this.input = input + (input.endsWith("/") ? "" : "/");
+	}
+	
+	@Override
+	public void setOutput(String output) {
+//		this.output = output;
 	}
 	
 	@Override
@@ -67,7 +74,7 @@ public class JascaConverter implements ViolationConverter {
 		 * filename
 		 */
 		String filepath = violation.getFilename();
-		filepath = filepath.replace('\\', '/').substring(dir.length());
+		filepath = filepath.replace('\\', '/').substring(input.length());
 		if (filepath.endsWith(".java")) {
 			filepath = filepath.substring("/src".length());
 		}

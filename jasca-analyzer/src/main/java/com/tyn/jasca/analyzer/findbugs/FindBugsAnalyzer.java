@@ -6,13 +6,13 @@ import java.net.URL;
 
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.Configuration;
-import com.tyn.jasca.common.Utils;
 
 import edu.umd.cs.findbugs.FindBugs;
 import edu.umd.cs.findbugs.FindBugs2;
 import edu.umd.cs.findbugs.IFindBugsEngine;
 import edu.umd.cs.findbugs.Plugin;
 import edu.umd.cs.findbugs.PluginException;
+import edu.umd.cs.findbugs.TextUICommandLine;
 
 /**
  * 
@@ -105,9 +105,9 @@ public class FindBugsAnalyzer extends Analyzer {
 	 * @param className
 	 */
 	public void loadPluginUsingClass(String className) {
-		String detectorClassName = Utils.getSlashedClassName(className);
+		String detectorClassSig = className.replace('.', '/');
 		String detectorClassURL = FindBugs.class.getClassLoader()
-				.getResource(detectorClassName + ".class").toString();
+				.getResource(detectorClassSig + ".class").toString();
 		
 		String jarFilePath = detectorClassURL.substring(4, detectorClassURL.indexOf("!/"));
 		loadPluginUsingJarFilePath(jarFilePath);

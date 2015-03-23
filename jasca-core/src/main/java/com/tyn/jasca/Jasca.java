@@ -69,9 +69,9 @@ public class Jasca {
 			
 			ReportBuilder.build(
 					violationResult.getViolations(),
-					new JascaConverter(target),
+					new JascaConverter(),
 					new HtmlFormatter(),
-					"D:/xdev/git/jasca/jasca-core/target/jasca.html");
+					target, output);
 			
 			violationResult.clear();
 			

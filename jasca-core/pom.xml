@@ -18,40 +18,13 @@
 	<description>jasca-core</description>
 	
 	<dependencies>
-	
-		<!-- slf4j + log4j2 -->
+		
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.10</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>2.2</version>
+			<groupId>com.tyn.jasca</groupId>
+			<artifactId>jasca-analyzer</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
-		<!-- class loading 순서 때문에 추가 함. -->
-		<dependency>
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>findbugs</artifactId>
-			<version>${findbugs.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tyn.jasca</groupId>
-			<artifactId>jasca-findbugs</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.tyn.jasca</groupId>
-			<artifactId>jasca-pmd</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 	
 </project>

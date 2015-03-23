@@ -10,8 +10,6 @@ import net.sourceforge.pmd.renderers.AbstractRenderer;
 import net.sourceforge.pmd.util.datasource.DataSource;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 
@@ -24,7 +22,7 @@ public class JascaRenderer extends AbstractRenderer {
 	/**
 	 * 
 	 */
-	private static final Logger log = LoggerFactory.getLogger(JascaRenderer.class);
+//	private static final Logger log = LoggerFactory.getLogger(JascaRenderer.class);
 	
 	/**
 	 * 

@@ -6,5 +6,9 @@ package com.tyn.jasca;
  */
 public interface ViolationConverter {
 	
+	void setInput(String input);
+	
+	void setOutput(String output);
+	
 	Violation convert(Violation violation);
 }

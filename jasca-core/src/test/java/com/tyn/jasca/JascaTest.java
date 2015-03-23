@@ -2,6 +2,10 @@ package com.tyn.jasca;
 
 import org.junit.Test;
 
+/**
+ * 
+ * @author S.J.H.
+ */
 public class JascaTest {
 	
 	@Test

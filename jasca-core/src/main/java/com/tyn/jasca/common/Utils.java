@@ -57,6 +57,17 @@ public class Utils {
 	
 	/**
 	 * 
+	 * @param filepath
+	 * @return
+	 */
+	public static String getFileNameExcludeExt(String filepath) {
+		final String filename = getFileName(filepath);
+		final int offset = filename.lastIndexOf('.');
+		return filename.substring(0, offset);
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	public static String getCurrDatetime() {

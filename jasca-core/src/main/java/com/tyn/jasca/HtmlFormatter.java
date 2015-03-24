@@ -20,13 +20,15 @@ public class HtmlFormatter implements Formatter {
 	
 	private static final String CRLF = "\r\n";
 	
-	private static final String STYLE_DIR = "html-style";
+	private static final String STYLE_DIR = "jasca-css";
+	private static final String DEFAULT_STYLE = "default";
 	private static final Map<String, String[]> STYLES = new HashMap<String, String[]>();
 	static {
-		STYLES.put("jasca-default", new String[] { "jasca-default.css", "eg-f.png", "eg-p.png", "detail.png" });
+		STYLES.put(DEFAULT_STYLE, new String[] { "default.css", "detail.png", "eg-f.png", "eg-p.png" });
 	}
 	
 	private String style = null;
+	
 	private String input = null;
 	private String output = null;
 	private Writer writer = null;
@@ -38,7 +40,7 @@ public class HtmlFormatter implements Formatter {
 	}
 	
 	public HtmlFormatter() {
-		this("jasca-default");
+		this(DEFAULT_STYLE);
 	}
 	
 	public HtmlFormatter(String style) {
@@ -63,7 +65,7 @@ public class HtmlFormatter implements Formatter {
 	@Override
 	public void start() {
 		try {
-			String targetDir = Utils.getDirName(output) + "/" + style;
+			String targetDir = Utils.getDirName(output) + "/" + Utils.getFileNameExcludeExt(output);
 			
 			File saveDir = new File(targetDir);
 			if (!saveDir.isDirectory()) {
@@ -84,7 +86,7 @@ public class HtmlFormatter implements Formatter {
 		wr("<html>");
 		wr("	<head>");
 		wr("		<title>Jasca Report</title>");
-		wr("		<link rel='stylesheet' type='text/css' href='" + style + "/" + style + ".css' />");
+		wr("		<link rel='stylesheet' type='text/css' href='" + Utils.getFileNameExcludeExt(output) + "/" + style + ".css' />");
 		wr("	</head>");
 		wr("	<body>");
 		wr("		<h3>취약점 진단 REPORT</h3>");

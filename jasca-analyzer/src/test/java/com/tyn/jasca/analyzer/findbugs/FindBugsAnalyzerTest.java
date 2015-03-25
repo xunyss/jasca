@@ -18,10 +18,11 @@ public class FindBugsAnalyzerTest {
 		FindBugsConfiguration config = new FindBugsConfiguration();
 		config.setSystemOption();
 		config.setScanNestedArchives(false);
-		config.setPriority(Priority.MEDIUM);
+		config.setPriority(Priority.LOW);
 		config.setReportFormat(ReportFormat.HTML);
 		config.setOutput("D:/xdev/git/jasca/jasca-analyzer/target/analyzer-findbugs.html");
-		config.setInput("D:/securecoding/workspace/sampleweb");
+	//	config.setInput("D:/securecoding/workspace/sampleweb");
+		config.setInput("D:/securecoding/workspace/sampleweb/build/classes/com/tyn/wweb/W27.class");
 		config.setProgress(true);
 		
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();

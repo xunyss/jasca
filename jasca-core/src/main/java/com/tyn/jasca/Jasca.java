@@ -12,6 +12,11 @@ import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
 import com.tyn.jasca.analyzer.pmd.PmdAnalyzer;
 import com.tyn.jasca.analyzer.pmd.PmdConfiguration;
 import com.tyn.jasca.analyzer.pmd.PmdConstant.RenderFormat;
+import com.tyn.jasca.engine.HtmlFormatter;
+import com.tyn.jasca.engine.JascaConverter;
+import com.tyn.jasca.engine.JascaProgress;
+import com.tyn.jasca.engine.findbugs.JascaBugReporter;
+import com.tyn.jasca.engine.pmd.JascaRenderer;
 
 
 /**
@@ -75,7 +80,7 @@ public class Jasca {
 			
 			violationResult.clear();
 			
-			log.debug("분석끝났음.");
+			log.info("분석 종료");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

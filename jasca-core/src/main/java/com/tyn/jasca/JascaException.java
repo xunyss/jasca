@@ -4,7 +4,7 @@ package com.tyn.jasca;
  * 
  * @author S.J.H.
  */
-public class JascaException extends Exception {
+public class JascaException extends RuntimeException {
 
 	/**
 	 * 

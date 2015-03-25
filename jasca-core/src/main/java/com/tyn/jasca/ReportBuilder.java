@@ -29,10 +29,14 @@ public class ReportBuilder {
 			String output
 			) throws IOException {
 		
-		sort(violations);
-		
 		converter.setInput(input);
 		converter.setOutput(output);
+		
+		for (Violation violation : violations) {
+			converter.convert(violation);
+		}
+		
+		sort(violations);
 		
 		formatter.setInput(input);
 		formatter.setOutput(output);
@@ -40,9 +44,11 @@ public class ReportBuilder {
 		
 		formatter.start();
 		formatter.writeHead();
+		
 		for (Violation violation : violations) {
-			formatter.writeBody(converter.convert(violation));
+			formatter.writeBody(violation);
 		}
+		
 		formatter.writeTail();
 		formatter.finish();
 	}

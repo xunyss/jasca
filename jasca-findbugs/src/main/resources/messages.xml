@@ -53,4 +53,26 @@ XQuery 인젝션 취약점이 있어염
 	</BugPattern>
 	<BugCode abbrev="SJH2">SJH2's BugCode</BugCode>
 	
+	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookiesDetector">
+		<Details>
+			Detect Information Exposure Through Persistent Cookies.
+		</Details>
+	</Detector>
+	<BugPattern type="INFO_EXPOSURE_BY_COOKIES">
+		<ShortDescription>사용자 하드디스크에 저장되는 쿠키를 통한 정보노출</ShortDescription>
+		<LongDescription>사용자 하드디스크에 저장되는 쿠키를 통한 정보노출</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+사용자 하드디스크에 저장되는 쿠키를 통한 정보노출
+</p>
+<br/>
+<p>
+<b>References</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/539.html">CWE-539: Information Exposure Through Persistent Cookies</a><br/>
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	
 </MessageCollection>

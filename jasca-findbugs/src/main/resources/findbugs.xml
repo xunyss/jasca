@@ -13,5 +13,9 @@
 	<!-- UNCONTROL_FORMAT_STRING -->
 	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatStringDetector" reports="UNCONTROL_FORMAT_STRING" />
 	<BugPattern type="UNCONTROL_FORMAT_STRING" abbrev="SJH" category="JASCA" />	
-
+	
+	<!-- INFO_EXPOSURE_BY_COOKIES -->
+	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookiesDetector" reports="INFO_EXPOSURE_BY_COOKIES" />
+	<BugPattern type="INFO_EXPOSURE_BY_COOKIES" abbrev="SJH" category="JASCA" />	
+	
 </FindbugsPlugin>

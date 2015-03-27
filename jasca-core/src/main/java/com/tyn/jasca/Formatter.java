@@ -1,7 +1,6 @@
 package com.tyn.jasca;
 
 import java.io.IOException;
-import java.io.Writer;
 
 /**
  * 
@@ -13,15 +12,17 @@ public interface Formatter {
 	
 	void setOutput(String output);
 	
-	void setWriter(Writer writer);
-	
 	void start();
 	
-	void writeHead() throws IOException;
+	void writeDocumentHead() throws IOException;
 	
-	void writeBody(Violation violation) throws IOException;
+	void writeViolationHead() throws IOException;
 	
-	void writeTail() throws IOException;
+	void writeViolationBody(Violation violation) throws IOException;
+	
+	void writeViolationTail() throws IOException;
+	
+	void writeDocumentTail() throws IOException;
 	
 	void finish();
 }

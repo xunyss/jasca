@@ -8,8 +8,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -18,6 +16,7 @@ import com.tyn.jasca.JascaException;
 import com.tyn.jasca.Severity;
 import com.tyn.jasca.Violation;
 import com.tyn.jasca.ViolationConverter;
+import com.tyn.jasca.ViolationSource;
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 import com.tyn.jasca.common.Utils;
 
@@ -30,7 +29,7 @@ public class JascaConverter implements ViolationConverter {
 	/**
 	 * 
 	 */
-	private static final Logger log = LoggerFactory.getLogger(JascaConverter.class);
+//	private static final Logger log = LoggerFactory.getLogger(JascaConverter.class);
 	
 	private static final String CONVERSION_DEFINE_XML = "jasca-violations.xml";
 	
@@ -123,8 +122,7 @@ public class JascaConverter implements ViolationConverter {
 			isInitialize = true;
 		}
 		catch (Exception e) {
-			log.error("XML 파싱중 에러 발생", e);
-			throw new JascaException();
+			throw new JascaException(CONVERSION_DEFINE_XML + "로딩 에러", e);
 		}
 		finally {
 			IOUtils.closeQuietly(inputStream);
@@ -137,34 +135,5 @@ public class JascaConverter implements ViolationConverter {
 			return ellist.item(0).getTextContent();
 		}
 		return null;
-	}
-	
-	static class ViolationSource {
-		AnalyzerEngine analyzer;
-		String type;
-		
-		ViolationSource(AnalyzerEngine analyzer, String type) {
-			this.analyzer = analyzer;
-			this.type = type;
-		}
-		
-		@Override
-		public boolean equals(Object object) {
-			if (object == this) {
-				return true;
-			}
-			if (object instanceof ViolationSource) {
-				ViolationSource vsrc = (ViolationSource) object;
-				return
-						vsrc.analyzer == analyzer &&
-						vsrc.type.equals(type);
-			}
-			return false;
-		}
-		
-		@Override
-		public int hashCode() {
-			return type.hashCode() & analyzer.ordinal();
-		}
 	}
 }

@@ -5,6 +5,7 @@ package com.tyn.jasca;
  * @author S.J.H.
  */
 public enum Severity {
+	
 	HIGH	(1, "High"),
 	MEDIUM	(2, "Medium"),
 	LOW		(3, "Low");

@@ -13,7 +13,8 @@ public class JascaTest {
 		
 		String[] args = {
 			"D:/securecoding/workspace/sampleweb",
-			"D:/xdev/git/jasca/jasca-core/target/jasca.html"
+		//	"D:/xdev/git/jasca/jasca-core/target/jasca.html"
+			"D:/xdev/git/jasca/jasca-core/target/jasca.xlsx"
 		};
 		
 		Jasca.main(args);

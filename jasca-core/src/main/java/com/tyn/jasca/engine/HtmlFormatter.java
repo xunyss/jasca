@@ -1,16 +1,23 @@
 package com.tyn.jasca.engine;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
-import com.tyn.jasca.Formatter;
+import com.tyn.jasca.JascaException;
+import com.tyn.jasca.Severity;
+import com.tyn.jasca.SummaryFormatter;
 import com.tyn.jasca.Violation;
+import com.tyn.jasca.ViolationSummary;
+import com.tyn.jasca.ViolationSummary.TypeCounter;
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.common.Utils;
 
@@ -18,7 +25,12 @@ import com.tyn.jasca.common.Utils;
  * 
  * @author S.J.H.
  */
-public class HtmlFormatter implements Formatter {
+public class HtmlFormatter implements SummaryFormatter {
+	
+	/**
+	 * 
+	 */
+//	private static final Logger log = Jasca.getLogger();
 	
 	private static final String CRLF = "\r\n";
 	
@@ -57,11 +69,13 @@ public class HtmlFormatter implements Formatter {
 	@Override
 	public void setOutput(String output) {
 		this.output = output;
-	}
-	
-	@Override
-	public void setWriter(Writer writer) {
-		this.writer = writer;
+		
+		try {
+			writer = new BufferedWriter(new FileWriter(output));
+		}
+		catch (IOException ioe) {
+			throw new JascaException("파일을 생성할 수 없음 : " + output, ioe);
+		}
 	}
 	
 	@Override
@@ -83,7 +97,7 @@ public class HtmlFormatter implements Formatter {
 	}
 	
 	@Override
-	public void writeHead() throws IOException {
+	public void writeDocumentHead() throws IOException {
 		wr("<!DOCTYPE html>");
 		wr("<html>");
 		wr("	<head>");
@@ -96,7 +110,62 @@ public class HtmlFormatter implements Formatter {
 		wr("			<span class=prj>Project : " + Utils.getSlashedPath(input) + "</span>");
 		wr("			<span class=adt>Date : " + Utils.getCurrDatetime() + "</span>");
 		wr("		</p>");
-		wr("		<table>");
+	}
+	
+	@Override
+	public void writeSummary(ViolationSummary violationSummary) throws IOException {
+		
+		int severityCount = Severity.values().length;
+		
+		wr("		<table class=sm1>");
+		wr("			<thead>");
+		wr("				<tr>");
+		wr("					<td>합계</td>");
+		for (int ordinal = 0; ordinal < severityCount; ordinal++) {
+			wr("					<td>" + Severity.values()[ordinal].getText() + "</td>");
+		}
+		wr("				</tr>");
+		wr("			</thead>");
+		wr("			<tbody>");
+		wr("				<tr>");
+		wr("					<td>" + violationSummary.getViolationCount() + "</td>");
+		for (int ordinal = 0; ordinal < severityCount; ordinal++) {
+			wr("					<td>" + violationSummary.getSeveritySummary()[ordinal] + "</td>");
+		}
+		wr("				</tr>");
+		wr("			</tbody>");
+		wr("		</table>");
+		wr("		<br/>");
+		
+		List<TypeCounter> typeSummary = violationSummary.getTypeSummary();
+		int typeSummaryLenth = typeSummary.size();
+		
+		wr("		<table class=sm2>");
+		wr("			<thead>");
+		wr("				<tr>");
+		wr("					<td width=40%>유형</td>");
+		wr("					<td width=20%>심각도</td>");
+		wr("					<td width=20%>계</td>");
+		wr("					<td width=20%>기타</td>");
+		wr("				</tr>");
+		wr("			</thead>");
+		wr("			<tbody>");
+		for (int idx = 0; idx < typeSummaryLenth; idx++) {
+			wr("				<tr>");
+			wr("					<td>" + typeSummary.get(idx).getViolationSource().getType() + "</td>");
+			wr("					<td>" + "HIGH|MEDIUM|LOW" + "</td>");
+			wr("					<td>" + typeSummary.get(idx).getTypeCount() + "</td>");
+			wr("					<td>" + "" + "</td>");
+			wr("				</tr>");
+		}
+		wr("			</tbody>");
+		wr("		</table>");
+		wr("		<br/>");
+	}
+	
+	@Override
+	public void writeViolationHead() throws IOException {
+		wr("		<table class=lst>");
 		wr("			<thead>");
 		wr("				<tr>");
 		wr("					<td rowspan=2 width=40>#</td>");
@@ -112,7 +181,7 @@ public class HtmlFormatter implements Formatter {
 	}
 	
 	@Override
-	public void writeBody(Violation violation) throws IOException {
+	public void writeViolationBody(Violation violation) throws IOException {
 		String sv = String.valueOf(violation.getSeverity().getValue());
 		String eg = violation.getAnalyzer().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
 		
@@ -131,10 +200,14 @@ public class HtmlFormatter implements Formatter {
 	}
 	
 	@Override
-	public void writeTail() throws IOException {
+	public void writeViolationTail() throws IOException {
 		wr("			</tbody>");
 		wr("		</table>");
 		wr("		<br/>");
+	}
+	
+	@Override
+	public void writeDocumentTail() throws IOException {
 		wr("	</body>");
 		wr("</html>");
 	}

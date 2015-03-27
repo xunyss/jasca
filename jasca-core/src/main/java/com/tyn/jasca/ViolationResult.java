@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * TODO: make this thread safe
+ * TODO: summary ¼öÁý
  * 
  * @author S.J.H.
  */

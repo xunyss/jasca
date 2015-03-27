@@ -12,7 +12,7 @@ import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
 import com.tyn.jasca.analyzer.pmd.PmdAnalyzer;
 import com.tyn.jasca.analyzer.pmd.PmdConfiguration;
 import com.tyn.jasca.analyzer.pmd.PmdConstant.RenderFormat;
-import com.tyn.jasca.engine.HtmlFormatter;
+import com.tyn.jasca.engine.ExcelFormatter;
 import com.tyn.jasca.engine.JascaConverter;
 import com.tyn.jasca.engine.JascaProgress;
 import com.tyn.jasca.engine.findbugs.JascaBugReporter;
@@ -29,6 +29,14 @@ public class Jasca {
 	 * 
 	 */
 	private static final Logger log = LoggerFactory.getLogger(Jasca.class);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static final Logger getLogger() {
+		return log;
+	}
 	
 	/**
 	 * 
@@ -73,9 +81,10 @@ public class Jasca {
 			runPmd();
 			
 			ReportBuilder.build(
-					violationResult.getViolations(),
+					violationResult,
 					new JascaConverter(),
-					new HtmlFormatter(),
+				//	new HtmlFormatter(),
+					new ExcelFormatter(),
 					target, output);
 			
 			violationResult.clear();

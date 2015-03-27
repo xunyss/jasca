@@ -1,0 +1,12 @@
+
+class "ViolationResult"
+- thread safe
+- 요약 정보 수집
+
+객체구분
+- 위반의 일반적인 내용과 분석결과가 포함된 자세한 위반내용
+
+Exception 처리
+
+Logging 처리
+- private static final Logger log = Jasca.getLogger();

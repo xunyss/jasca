@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasca-rulepatterns>
+	
+	<!-- [FINDBUGS] -->
+	
+	<rulepattern engine="FINDBUGS" name="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE">
+		<typename>01.SQL삽입</typename>
+		<description/>
+		<detail/>
+		<link/>
+		<severity/>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="PATH_TRAVERSAL_IN">
+		<typename>02.경로조작및자원삽입</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER">
+		<typename>03.크로스사이트스크립트</typename>
+		<severity>HIGH</severity>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="COMMAND_INJECTION">
+		<typename>04.운영체제명령어삽입</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="UNVALIDATED_REDIRECT">
+		<typename>06.신뢰되지않는URL주소로자동접속연결</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="XQUERY_INJECTION">
+		<typename>07.XQuery삽입</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="XPATH_INJECTION">
+		<typename>08.XPath삽입</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="LDAP_INJECTION">
+		<typename>09.LDAP삽입</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="INFO_EXPOSURE_BY_COOKIES">
+		<typename>27.사용자하드디스크에저장되는쿠키를통한정보노출</typename>
+	</rulepattern>
+	
+	<!-- [PMD] -->
+	
+	<rulepattern engine="PMD" name="DynamicClassLoading">
+		<typename>30.무결성검사없는코드다운로드</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="ReverseDNSResolution">
+		<typename>46.DNSlookup에의존한보안결정</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="UseDangerousMethod">
+		<typename>47.취약한API사용</typename>
+	</rulepattern>
+	
+</jasca-rulepatterns>

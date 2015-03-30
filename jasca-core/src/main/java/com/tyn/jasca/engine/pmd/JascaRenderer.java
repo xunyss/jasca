@@ -11,6 +11,8 @@ import net.sourceforge.pmd.util.datasource.DataSource;
 
 import org.apache.commons.io.IOUtils;
 
+import com.tyn.jasca.RulePattern;
+import com.tyn.jasca.RulePatternCollection;
 import com.tyn.jasca.Severity;
 import com.tyn.jasca.Violation;
 import com.tyn.jasca.ViolationResult;
@@ -74,15 +76,28 @@ public class JascaRenderer extends AbstractRenderer {
 	 */
 	@Override
 	public void renderFileReport(Report report) throws IOException {
+		
 		for (RuleViolation ruleViolation : report) {
+			
+			// RulePattern
+			RulePatternCollection collection = RulePatternCollection.getInstance();
+			RulePattern rulePattern = collection.get(AnalyzerEngine.PMD, ruleViolation.getRule().getName());
+			
+			if (!rulePattern.isRegistered()) {
+				rulePattern = new RulePattern(AnalyzerEngine.PMD, ruleViolation.getRule().getName());
+				rulePattern.setCategory("");
+				rulePattern.setSeverity(toSeverity(ruleViolation.getRule().getPriority()));
+				
+				collection.register(rulePattern);
+			}
+			
+			// Violation
 			Violation violation = new Violation();
-			violation.setAnalyzer(AnalyzerEngine.PMD);
+			violation.setRulePattern(rulePattern);
 			violation.setFilename(ruleViolation.getFilename());
 			violation.setBeginline(ruleViolation.getBeginLine());
 			violation.setEndline(ruleViolation.getEndLine());
 			violation.setMessage(ruleViolation.getDescription());
-			violation.setSeverity(toSeverity(ruleViolation.getRule().getPriority()));
-			violation.setType(ruleViolation.getRule().getName());
 			
 			ViolationResult.getInstance()
 				.add(violation);

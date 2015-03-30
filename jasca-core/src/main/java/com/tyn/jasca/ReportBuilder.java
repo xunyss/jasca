@@ -78,7 +78,10 @@ public class ReportBuilder {
 		Collections.sort(violations, new Comparator<Violation>() {
 			@Override
 			public int compare(Violation violation1, Violation violation2) {
-				return violation1.getSeverity().getValue() - violation2.getSeverity().getValue();
+				return
+						violation1.getRulePattern().getSeverity().getValue()
+						-
+						violation2.getRulePattern().getSeverity().getValue();
 			}
 		});
 	}
@@ -94,30 +97,40 @@ public class ReportBuilder {
 		
 		int[] severitySummary = new int[3];
 		
-		Map<ViolationSource, Integer> typeSummary = new HashMap<ViolationSource, Integer>();
+		Map<RulePattern, Integer> typeSummary = new HashMap<RulePattern, Integer>();
 		
 		for (Violation violation : violations) {
 			
+			RulePattern rulePattern = violation.getRulePattern();
+			
+			/*
+			 * 전체
+			 */
 			total++;
 			
-			severitySummary[violation.getSeverity().getValue() - 1]++;
+			/*
+			 * 심각도별
+			 */
+			severitySummary[rulePattern.getSeverity().getValue() - 1]++;
 			
-			ViolationSource violationSource = new ViolationSource(violation.getAnalyzer(), violation.getType());
-			if (typeSummary.get(violationSource) != null) {
-				typeSummary.put(violationSource, typeSummary.get(violationSource).intValue() + 1);
+			/*
+			 * 룰패턴별
+			 */
+			if (typeSummary.get(rulePattern) != null) {
+				typeSummary.put(rulePattern, typeSummary.get(rulePattern).intValue() + 1);
 			}
 			else {
-				typeSummary.put(violationSource, 1);
+				typeSummary.put(rulePattern, 1);
 			}
 		}
 		
 		List<TypeCounter> typeCounterList = new ArrayList<TypeCounter>();
 		
-		Set<ViolationSource> set = typeSummary.keySet();
-		Iterator<ViolationSource> itr = set.iterator();
+		Set<RulePattern> set = typeSummary.keySet();
+		Iterator<RulePattern> itr = set.iterator();
 		while (itr.hasNext()) {
-			ViolationSource violationSource = itr.next();
-			typeCounterList.add(new TypeCounter(violationSource, typeSummary.get(violationSource)));
+			RulePattern rulePattern = itr.next();
+			typeCounterList.add(new TypeCounter(rulePattern, typeSummary.get(rulePattern)));
 		}
 		
 		Collections.sort(typeCounterList, new Comparator<TypeCounter>() {

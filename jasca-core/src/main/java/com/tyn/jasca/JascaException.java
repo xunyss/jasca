@@ -28,6 +28,14 @@ public class JascaException extends RuntimeException {
 	
 	/**
 	 * 
+	 * @param cause
+	 */
+	public JascaException(Throwable cause) {
+		super(cause);
+	}
+	
+	/**
+	 * 
 	 * @param message
 	 * @param cause
 	 */

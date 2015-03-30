@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 
 import com.tyn.jasca.JascaException;
+import com.tyn.jasca.RulePattern;
 import com.tyn.jasca.Severity;
 import com.tyn.jasca.SummaryFormatter;
 import com.tyn.jasca.Violation;
@@ -151,9 +152,12 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("			</thead>");
 		wr("			<tbody>");
 		for (int idx = 0; idx < typeSummaryLenth; idx++) {
+			RulePattern rulePattern = typeSummary.get(idx).getRulePattern();
+			String eg = rulePattern.getAnalyzerEngine().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
+			
 			wr("				<tr>");
-			wr("					<td>" + typeSummary.get(idx).getViolationSource().getType() + "</td>");
-			wr("					<td>" + "HIGH|MEDIUM|LOW" + "</td>");
+			wr("					<td eg=" + eg + ">" + rulePattern.getTypename() + "</td>");
+			wr("					<td>" + rulePattern.getSeverity().getText() + "</td>");
 			wr("					<td>" + typeSummary.get(idx).getTypeCount() + "</td>");
 			wr("					<td>" + "" + "</td>");
 			wr("				</tr>");
@@ -182,13 +186,15 @@ public class HtmlFormatter implements SummaryFormatter {
 	
 	@Override
 	public void writeViolationBody(Violation violation) throws IOException {
-		String sv = String.valueOf(violation.getSeverity().getValue());
-		String eg = violation.getAnalyzer().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
+		RulePattern rulePattern = violation.getRulePattern();
+		
+		String sv = String.valueOf(rulePattern.getSeverity().getValue());
+		String eg = rulePattern.getAnalyzerEngine().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
 		
 		wr("<tr sv=" + sv + ">");
 		wr("	<td rowspan=2>" + (++count) + "</td>");
-		wr("	<td rowspan=2>" + violation.getSeverity().getText() + "</td>");
-		wr("	<td eg=" + eg + ">" + violation.getType() + "</td>");
+		wr("	<td rowspan=2>" + rulePattern.getSeverity().getText() + "</td>");
+		wr("	<td eg=" + eg + ">" + rulePattern.getTypename() + "</td>");
 		wr("	<td>" + violation.getFilename() + " [" + violation.getBeginline() + "]</td>");
 		wr("</tr>");
 		wr("<tr sv=" + sv + ">");

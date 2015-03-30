@@ -1,7 +1,6 @@
 package com.tyn.jasca.engine;
 
 import java.io.IOException;
-import java.io.Writer;
 
 import com.tyn.jasca.Formatter;
 import com.tyn.jasca.Violation;

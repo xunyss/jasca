@@ -1,7 +1,5 @@
 package com.tyn.jasca;
 
-import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
-
 
 
 /**
@@ -10,20 +8,19 @@ import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
  */
 public class Violation {
 	
-	private AnalyzerEngine analyzer;
+	private RulePattern rulePattern;
+	
 	private String filename;
 	private int beginline;
 	private int endline;
 	private String message;
-	private Severity severity;
-	private String type;
 	
-	public AnalyzerEngine getAnalyzer() {
-		return analyzer;
+	public RulePattern getRulePattern() {
+		return rulePattern;
 	}
 	
-	public void setAnalyzer(AnalyzerEngine analyzer) {
-		this.analyzer = analyzer;
+	public void setRulePattern(RulePattern rulePattern) {
+		this.rulePattern = rulePattern;
 	}
 	
 	public String getFilename() {
@@ -56,21 +53,5 @@ public class Violation {
 	
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	
-	public Severity getSeverity() {
-		return severity;
-	}
-	
-	public void setSeverity(Severity severity) {
-		this.severity = severity;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
 	}
 }

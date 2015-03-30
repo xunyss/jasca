@@ -36,22 +36,23 @@ public class ViolationSummary {
 		this.typeSummary = typeSummary;
 	}
 	
+	
 	public static class TypeCounter {
 		
-		private ViolationSource violationSource = null;
+		private RulePattern rulePattern = null;
 		private int typeCount = 0;
 		
-		public TypeCounter(ViolationSource violationSource, int typeCount) {
-			this.violationSource = violationSource;
+		public TypeCounter(RulePattern rulePattern, int typeCount) {
+			this.rulePattern = rulePattern;
 			this.typeCount = typeCount;
 		}
 
-		public ViolationSource getViolationSource() {
-			return violationSource;
+		public RulePattern getRulePattern() {
+			return rulePattern;
 		}
 
-		public void setViolationSource(ViolationSource violationSource) {
-			this.violationSource = violationSource;
+		public void setViolationSource(RulePattern rulePattern) {
+			this.rulePattern = rulePattern;
 		}
 
 		public int getTypeCount() {

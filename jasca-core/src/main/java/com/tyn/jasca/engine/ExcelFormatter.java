@@ -83,7 +83,6 @@ public class ExcelFormatter implements Formatter {
 	@Override
 	public void writeDocumentTail() throws IOException {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("title", "이것은제목");
 		model.put("project", input);
 		model.put("date", Utils.getCurrDatetime());
 		model.put("violations", violations);

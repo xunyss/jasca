@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * TODO: make this thread safe
+ * TODO: JASCA context 적용
  * TODO: summary 수집
  * 
  * @author S.J.H.

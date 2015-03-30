@@ -16,6 +16,6 @@
 	
 	<!-- INFO_EXPOSURE_BY_COOKIES -->
 	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookiesDetector" reports="INFO_EXPOSURE_BY_COOKIES" />
-	<BugPattern type="INFO_EXPOSURE_BY_COOKIES" abbrev="SJH" category="JASCA" />	
+	<BugPattern type="INFO_EXPOSURE_BY_COOKIES" abbrev="SJH" category="JASCA" />
 	
 </FindbugsPlugin>

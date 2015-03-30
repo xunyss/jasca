@@ -36,6 +36,15 @@ table.sm1 tbody td {
 	text-align: center;
 }
 
+table.sm2 tbody td:nth-child(1)[eg="f"] {
+	background: url("eg-f.png") 4px 6px no-repeat;
+	padding-left: 22px;
+}
+table.sm2 tbody td:nth-child(1)[eg="p"] {
+	background: url("eg-p.png") 4px 6px no-repeat;
+	padding-left: 22px;
+}
+
 table.lst tbody tr:nth-child(odd) {
 	border-top: 2px solid #BBD6F9;
 }

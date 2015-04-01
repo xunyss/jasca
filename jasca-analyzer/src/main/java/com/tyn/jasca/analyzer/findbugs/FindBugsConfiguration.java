@@ -57,6 +57,8 @@ public class FindBugsConfiguration implements Configuration {
 	private String output = null;
 	private ReportFormat reportFormat = ReportFormat.PRINTING;
 	private BugReporter bugReporter = null;
+	private String exclude = null;
+	private String include = null;
 	//--------------------------------------------------------------------------
 	// default values
 	//--------------------------------------------------------------------------
@@ -332,6 +334,50 @@ public class FindBugsConfiguration implements Configuration {
 		this.bugReporter = bugReporter;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getExclude() {
+		return exclude;
+	}
+
+	/**
+	 * exclude bugs matching given filter
+	 * 
+	 * <pre>
+	 * -exclude {filter file}
+	 * (default = null)
+	 * </pre>
+	 * 
+	 * @param exclude
+	 */
+	public void setExclude(String exclude) {
+		this.exclude = exclude;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getInclude() {
+		return include;
+	}
+
+	/**
+	 * include only bugs matching given filter
+	 * 
+	 * <pre>
+	 * -include {filter file}
+	 * (default = null)
+	 * </pre>
+	 * 
+	 * @param include
+	 */
+	public void setInclude(String include) {
+		this.include = include;
+	}
+	
 	//--------------------------------------------------------------------------
 	
 	/**
@@ -352,6 +398,16 @@ public class FindBugsConfiguration implements Configuration {
 		 */
 		Project project = new Project();
 		project.addFile(input);
+		
+		/*
+		 * set the filter
+		 */
+		if (exclude != null) {
+			project.getConfiguration().getExcludeFilterFiles().put(exclude, true);
+		}
+		if (include != null) {
+			project.getConfiguration().getIncludeFilterFiles().put(include, true);
+		}
 		
 		/*
 		 * set the BugInstance

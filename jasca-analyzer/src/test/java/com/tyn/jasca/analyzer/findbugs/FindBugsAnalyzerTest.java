@@ -16,7 +16,6 @@ public class FindBugsAnalyzerTest {
 	@Test
 	public void findbugsTest() {
 		FindBugsConfiguration config = new FindBugsConfiguration();
-		config.setSystemOption();
 		config.setScanNestedArchives(false);
 		config.setPriority(Priority.LOW);
 		config.setReportFormat(ReportFormat.HTML);

@@ -36,7 +36,7 @@ public class FindBugsConstant {
 	 */
 	public enum Priority {
 		HIGH	(Priorities.HIGH_PRIORITY),
-		MEDIUM	(Priorities.NORMAL_PRIORITY),
+		NORMAL	(Priorities.NORMAL_PRIORITY),
 		LOW		(Priorities.LOW_PRIORITY),
 		EXP		(Priorities.EXP_PRIORITY),
 		IGNORE	(Priorities.IGNORE_PRIORITY);

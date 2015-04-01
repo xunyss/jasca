@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
@@ -23,6 +23,11 @@ import net.sourceforge.pmd.lang.LanguageVersionDiscoverer;
 import net.sourceforge.pmd.renderers.Renderer;
 import net.sourceforge.pmd.util.IOUtil;
 import net.sourceforge.pmd.util.datasource.DataSource;
+import net.sourceforge.pmd.util.log.ConsoleLogHandler;
+import net.sourceforge.pmd.util.log.ScopedLogHandlersManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.Configuration;
@@ -35,7 +40,11 @@ import com.tyn.jasca.analyzer.pmd.renderer.ProgressRenderer;
  */
 public class PmdAnalyzer extends Analyzer {
 	
-	private static final Logger LOG = Logger.getLogger(PmdAnalyzer.class.getName());
+	/**
+	 * 
+	 */
+	private static final Logger log = LoggerFactory.getLogger(PmdAnalyzer.class);
+//	private static final Logger LOG = Logger.getLogger(PmdAnalyzer.class.getName());
 	
 	private PMDConfiguration internalConfiguration;
 	
@@ -61,13 +70,34 @@ public class PmdAnalyzer extends Analyzer {
 	/**
 	 * 
 	 * @see com.tyn.jasca.analyzer.Analyzer#execute()
-	 * @see net.sourceforge.pmd.PMD#doPMD(PMDConfiguration configuration)
 	 */
 	@Override
 	public void execute() {
-		/*
-		PMD.doPMD(internalConfiguration);
-		*/
+		Handler logHandler = null;
+		ScopedLogHandlersManager logHandlerManager = null;
+		if (internalConfiguration.isDebug()) {
+			logHandler = new ConsoleLogHandler();
+			logHandlerManager = new ScopedLogHandlersManager(Level.FINER, logHandler);
+		}
+		
+		/**
+		 * 
+		 */
+		doPMD();
+		
+		if (internalConfiguration.isDebug()) {
+			logHandlerManager.close();
+			logHandlerManager = null;
+			logHandler = null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @see net.sourceforge.pmd.PMD#doPMD(PMDConfiguration configuration)
+	 */
+	private void doPMD() {
+		log.debug("PMD analyzer start");
 		
 		// Load the RuleSets
 		RuleSetFactory ruleSetFactory = RulesetsFactoryUtils.getRulesetFactory(internalConfiguration);
@@ -109,10 +139,11 @@ public class PmdAnalyzer extends Analyzer {
 			reportStart = System.nanoTime();
 			renderer.end();
 			renderer.flush();
+			
+			log.debug("PMD analyzer finished");
 		}
 		catch (Exception e) {
-			// TODO
-			e.printStackTrace();
+			log.error("PMD engine execute error", e);
 		}
 		finally {
 			Benchmarker.mark(Benchmark.Reporting, System.nanoTime() - reportStart, 0);
@@ -139,9 +170,12 @@ public class PmdAnalyzer extends Analyzer {
 			LanguageVersion version = discoverer.getDefaultLanguageVersion(language);
 			if (RuleSet.applies(rule, version)) {
 				languages.add(language);
-				if (LOG.isLoggable(Level.FINE)) {
-					LOG.fine("Using " + language.getShortName() + " version: " + version.getShortName());
+				if (log.isDebugEnabled()) {
+					log.debug("Using {} vertion: {}", language.getShortName(), version.getShortName());
 				}
+//				if (LOG.isLoggable(Level.FINE)) {
+//					LOG.fine("Using " + language.getShortName() + " version: " + version.getShortName());
+//				}
 			}
 		}
 		return languages;

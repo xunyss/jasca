@@ -1,8 +1,10 @@
 package com.tyn.jasca.analyzer.findbugs;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.Configuration;
@@ -19,6 +21,12 @@ import edu.umd.cs.findbugs.TextUICommandLine;
  * @author S.J.H.
  */
 public class FindBugsAnalyzer extends Analyzer {
+	
+	/**
+	 * 
+	 */
+	private static final Logger log = LoggerFactory.getLogger(FindBugsAnalyzer.class);
+	
 	
 	/**
 	 * 
@@ -50,23 +58,26 @@ public class FindBugsAnalyzer extends Analyzer {
 	@Override
 	public void execute() {
 		try {
+			log.debug("FINDBUGS analyzer start");
+			
+			/**
+			 * execute FINDBUGS
+			 */
 			internalEngine.execute();
 			
-			/*
+			log.debug("FINDBUGS analyzer finished");
+			
+			
 			int bugCount			= internalEngine.getBugCount();
 			int missingClassCount	= internalEngine.getMissingClassCount();
 			int errorCount			= internalEngine.getErrorCount();
 			
-			System.err.println(bugCount);
-			System.err.println(missingClassCount);
-			System.err.println(errorCount);
-			*/
+			log.debug("bugCount          : {}", bugCount);
+			log.debug("missingClassCount : {}", missingClassCount);
+			log.debug("errorCount        : {}", errorCount);
 		}
-		catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		catch (InterruptedException ie) {
-			ie.printStackTrace();
+		catch (Exception e) {
+			log.error("FINDBUGS engine execute error", e);
 		}
 	}
 	

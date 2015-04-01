@@ -64,7 +64,7 @@ public class PatchedHTMLBugReporter extends BugCollectionBugReporter {
 			 * S.J.H. modify..
 			 */
 			String implClassName = null;
-		//	if ("51.0".equals(System.getProperty("java.class.version"))) {		// TODO: JRE 버전별로 다를 수 있음
+		//	if ("51.0".equals(System.getProperty("java.class.version"))) {		// TODO JRE 버전별로 다를 수 있음
 				implClassName = "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl";
 		//	}
 			TransformerFactory factory = TransformerFactory.newInstance(implClassName, null);

@@ -44,31 +44,16 @@ import edu.umd.cs.findbugs.charsets.UTF8;
  */
 public class FindBugsConfiguration implements Configuration {
 	
-	/**
-	 * TODO complete!
-	 */
-	public void setSystemOption() {
-		
-		/*
-		 * PluginLoder debug mode
-		 */
-		System.setProperty("findbugs.debug.PluginLoader", "false");
-		
-		/*
-		 * -debug
-		 */
-		System.setProperty("findbugs.debug", "false");
-	}
-	
 	//--------------------------------------------------------------------------
 	// optional values
 	//--------------------------------------------------------------------------
+	private boolean debug = false;
 	private String input = null;
 	private EffortLevel effortLevel = EffortLevel.DEFAULT;
 	private boolean progress = false;
 	private FindBugsProgress progressCallback = null;
 	private boolean scanNestedArchives = true;
-	private Priority priority = Priority.MEDIUM;
+	private Priority priority = Priority.NORMAL;
 	private String output = null;
 	private ReportFormat reportFormat = ReportFormat.PRINTING;
 	private BugReporter bugReporter = null;
@@ -120,6 +105,29 @@ public class FindBugsConfiguration implements Configuration {
 	// -applySuppression >> true
 	final boolean applySuppression = false;
 	//--------------------------------------------------------------------------
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isDebug() {
+		return debug;
+	}
+	
+	/**
+	 * Prints a trace of detectors run and classes analyzed to standard output.
+	 * Useful for troubleshooting unexpected analysis failures. 
+	 * 
+	 * <pre>
+	 * -debug
+	 * (default = false)
+	 * </pre>
+	 * 
+	 * @param debug
+	 */
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 	
 	/**
 	 * 
@@ -333,6 +341,11 @@ public class FindBugsConfiguration implements Configuration {
 	 * @see edu.umd.cs.findbugs.TextUICommandLine#configureEngine(IFindBugsEngine findBugs)
 	 */
 	protected void configureEngine(IFindBugsEngine findBugs) {
+		
+		/*
+		 * debug
+		 */
+		System.setProperty("findbugs.debug", String.valueOf(debug));
 		
 		/*
 		 * set the Project

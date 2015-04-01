@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.tyn.jasca.ViolationSummary.TypeCounter;
+import com.tyn.jasca.Summary.TypeCounter;
 
 /**
  * 
@@ -32,23 +32,24 @@ public class ReportBuilder {
 	 * @param output
 	 * @throws IOException
 	 */
-	public static void build(ViolationResult violationResult,
+	public static void build(Results results,
 			ViolationConverter converter,
 			Formatter formatter,
 			String input,
 			String output
 			) throws IOException {
 		
-		List<Violation> violations = violationResult.getViolations();
-		
 		converter.setInput(input);
 		converter.setOutput(output);
 		
-		for (Violation violation : violations) {
-			converter.convert(violation);
+		for (Iterator<Violation> vitr = results.iterator(); vitr.hasNext(); ) {
+			Violation violation = vitr.next();
+			if (converter.convert(violation) == null) {
+				vitr.remove();
+			}
 		}
 		
-		sort(violations);
+		results.sort();
 		
 		formatter.setInput(input);
 		formatter.setOutput(output);
@@ -57,11 +58,11 @@ public class ReportBuilder {
 		formatter.writeDocumentHead();
 		
 		if (formatter instanceof SummaryFormatter) {
-			((SummaryFormatter) formatter).writeSummary(summary(violations));
+			((SummaryFormatter) formatter).writeSummary(summary(results));
 		}
 		
 		formatter.writeViolationHead();
-		for (Violation violation : violations) {
+		for (Violation violation : results) {
 			formatter.writeViolationBody(violation);
 		}
 		formatter.writeViolationTail();
@@ -73,25 +74,9 @@ public class ReportBuilder {
 	/**
 	 * 
 	 * @param violations
-	 */
-	private static void sort(List<Violation> violations) {
-		Collections.sort(violations, new Comparator<Violation>() {
-			@Override
-			public int compare(Violation violation1, Violation violation2) {
-				return
-						violation1.getRulePattern().getSeverity().getValue()
-						-
-						violation2.getRulePattern().getSeverity().getValue();
-			}
-		});
-	}
-	
-	/**
-	 * 
-	 * @param violations
 	 * @return
 	 */
-	private static ViolationSummary summary(List<Violation> violations) {
+	private static Summary summary(Results results) {
 		
 		int total = 0;
 		
@@ -99,7 +84,7 @@ public class ReportBuilder {
 		
 		Map<RulePattern, Integer> typeSummary = new HashMap<RulePattern, Integer>();
 		
-		for (Violation violation : violations) {
+		for (Violation violation : results) {
 			
 			RulePattern rulePattern = violation.getRulePattern();
 			
@@ -140,11 +125,11 @@ public class ReportBuilder {
 			}
 		});
 		
-		ViolationSummary violationSummary = new ViolationSummary();
-		violationSummary.setViolationCount(total);
-		violationSummary.setSeveritySummary(severitySummary);
-		violationSummary.setTypeSummary(typeCounterList);
+		Summary summary = new Summary();
+		summary.setViolationCount(total);
+		summary.setSeveritySummary(severitySummary);
+		summary.setTypeSummary(typeCounterList);
 		
-		return violationSummary;
+		return summary;
 	}
 }

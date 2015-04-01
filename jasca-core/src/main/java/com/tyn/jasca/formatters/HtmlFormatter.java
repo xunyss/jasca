@@ -1,24 +1,25 @@
-package com.tyn.jasca.engine;
+package com.tyn.jasca.formatters;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.JascaException;
 import com.tyn.jasca.RulePattern;
 import com.tyn.jasca.Severity;
 import com.tyn.jasca.SummaryFormatter;
 import com.tyn.jasca.Violation;
-import com.tyn.jasca.ViolationSummary;
-import com.tyn.jasca.ViolationSummary.TypeCounter;
+import com.tyn.jasca.Summary;
+import com.tyn.jasca.Summary.TypeCounter;
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.common.Utils;
 
@@ -31,7 +32,7 @@ public class HtmlFormatter implements SummaryFormatter {
 	/**
 	 * 
 	 */
-//	private static final Logger log = Jasca.getLogger();
+	private static final Logger log = LoggerFactory.getLogger(ExcelFormatter.class);
 	
 	private static final String CRLF = "\r\n";
 	
@@ -70,20 +71,18 @@ public class HtmlFormatter implements SummaryFormatter {
 	@Override
 	public void setOutput(String output) {
 		this.output = output;
-		
-		try {
-			writer = new BufferedWriter(new FileWriter(output));
-		}
-		catch (IOException ioe) {
-			throw new JascaException("파일을 생성할 수 없음 : " + output, ioe);
-		}
 	}
 	
 	@Override
 	public void start() {
+		if (Utils.isEmpty(output)) {
+			throw new JascaException("분석 결과를 저장할 파일명이 입력되지 않음");
+		}
+		
 		try {
-			String targetDir = Utils.getDirName(output) + "/" + Utils.getFileNameExcludeExt(output);
+			writer = new BufferedWriter(new FileWriter(output));
 			
+			String targetDir = Utils.getDirName(output) + "/" + Utils.getFileNameExcludeExt(output);
 			File saveDir = new File(targetDir);
 			if (!saveDir.isDirectory()) {
 				saveDir.mkdir();
@@ -93,7 +92,7 @@ public class HtmlFormatter implements SummaryFormatter {
 			Utils.resourcesToFiles(styleDir, STYLES.get(style), targetDir);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			log.error("", e);
 		}
 	}
 	
@@ -114,7 +113,7 @@ public class HtmlFormatter implements SummaryFormatter {
 	}
 	
 	@Override
-	public void writeSummary(ViolationSummary violationSummary) throws IOException {
+	public void writeSummary(Summary summary) throws IOException {
 		
 		int severityCount = Severity.values().length;
 		
@@ -129,16 +128,16 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("			</thead>");
 		wr("			<tbody>");
 		wr("				<tr>");
-		wr("					<td>" + violationSummary.getViolationCount() + "</td>");
+		wr("					<td>" + summary.getViolationCount() + "</td>");
 		for (int ordinal = 0; ordinal < severityCount; ordinal++) {
-			wr("					<td>" + violationSummary.getSeveritySummary()[ordinal] + "</td>");
+			wr("					<td>" + summary.getSeveritySummary()[ordinal] + "</td>");
 		}
 		wr("				</tr>");
 		wr("			</tbody>");
 		wr("		</table>");
 		wr("		<br/>");
 		
-		List<TypeCounter> typeSummary = violationSummary.getTypeSummary();
+		List<TypeCounter> typeSummary = summary.getTypeSummary();
 		int typeSummaryLenth = typeSummary.size();
 		
 		wr("		<table class=sm2>");
@@ -227,9 +226,7 @@ public class HtmlFormatter implements SummaryFormatter {
 			throw new IllegalStateException(e);
 		}
 		finally {
-			if (!writer.getClass().equals(OutputStreamWriter.class)) {
-				IOUtils.closeQuietly(writer);
-			}
+			IOUtils.closeQuietly(writer);
 		}
 	}
 }

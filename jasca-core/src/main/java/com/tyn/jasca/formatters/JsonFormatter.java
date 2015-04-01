@@ -1,4 +1,4 @@
-package com.tyn.jasca.engine;
+package com.tyn.jasca.formatters;
 
 import java.io.IOException;
 
@@ -8,8 +8,10 @@ import com.tyn.jasca.Violation;
 /**
  * 
  * @author S.J.H.
+ * 
+ * @ TODO JsonFormatter ±¸Çö
  */
-public class XMLFormatter implements Formatter {
+public class JsonFormatter implements Formatter {
 
 	@Override
 	public void setInput(String input) {

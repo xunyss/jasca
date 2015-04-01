@@ -2,16 +2,15 @@ package com.tyn.jasca.engine.findbugs;
 
 import com.tyn.jasca.RulePattern;
 import com.tyn.jasca.RulePatternCollection;
-import com.tyn.jasca.Severity;
 import com.tyn.jasca.Violation;
-import com.tyn.jasca.ViolationResult;
+import com.tyn.jasca.Results;
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
+import com.tyn.jasca.engine.SeverityLevel;
 
 import edu.umd.cs.findbugs.AbstractBugReporter;
 import edu.umd.cs.findbugs.AnalysisError;
 import edu.umd.cs.findbugs.BugCollection;
 import edu.umd.cs.findbugs.BugInstance;
-import edu.umd.cs.findbugs.Priorities;
 import edu.umd.cs.findbugs.SourceLineAnnotation;
 import edu.umd.cs.findbugs.classfile.ClassDescriptor;
 
@@ -19,7 +18,7 @@ import edu.umd.cs.findbugs.classfile.ClassDescriptor;
  * 
  * @author S.J.H.
  */
-public class JascaBugReporter extends AbstractBugReporter {
+public class FindBugsBugReporter extends AbstractBugReporter {
 	
 	/**
 	 * 
@@ -61,6 +60,8 @@ public class JascaBugReporter extends AbstractBugReporter {
 	@Override
 	protected void doReportBug(BugInstance bugInstance) {
 		
+		SourceLineAnnotation primarySourceLineAnnotation = bugInstance.getPrimarySourceLineAnnotation();
+		
 		// RulePattern
 		RulePatternCollection collection = RulePatternCollection.getInstance();
 		RulePattern rulePattern = collection.get(AnalyzerEngine.FINDBUGS, bugInstance.getType());
@@ -68,15 +69,13 @@ public class JascaBugReporter extends AbstractBugReporter {
 		if (!rulePattern.isRegistered()) {
 			rulePattern = new RulePattern(AnalyzerEngine.FINDBUGS, bugInstance.getType());
 			rulePattern.setCategory(bugInstance.getCategoryAbbrev());
-			rulePattern.setSeverity(toSeverity(bugInstance.getPriority()));
+			rulePattern.setSeverity(SeverityLevel.getSeverity(bugInstance.getPriority()));
 			
 			collection.register(rulePattern);
 		}
 		
 		
 		// Violation
-		SourceLineAnnotation primarySourceLineAnnotation = bugInstance.getPrimarySourceLineAnnotation();
-		
 		Violation violation = new Violation();
 		violation.setRulePattern(rulePattern);
 		violation.setFilename(primarySourceLineAnnotation.getSourcePath());
@@ -84,7 +83,7 @@ public class JascaBugReporter extends AbstractBugReporter {
 		violation.setEndline(primarySourceLineAnnotation.getEndLine());
 		violation.setMessage(bugInstance.getMessageWithoutPrefix());
 		
-		ViolationResult.getInstance()
+		Results.getInstance()
 			.add(violation);
 	}
 	
@@ -104,24 +103,5 @@ public class JascaBugReporter extends AbstractBugReporter {
 	@Override
 	public void reportMissingClass(String string) {
 		
-	}
-	
-	
-	private Severity toSeverity(int priority) {
-		switch (priority) {
-		case Priorities.HIGH_PRIORITY:
-			return Severity.HIGH;
-		
-		case Priorities.NORMAL_PRIORITY:
-			return Severity.MEDIUM;
-		
-		case Priorities.LOW_PRIORITY:
-		case Priorities.EXP_PRIORITY:
-		case Priorities.IGNORE_PRIORITY:
-			return Severity.LOW;
-		
-		default:
-			throw new IllegalArgumentException();
-		}
 	}
 }

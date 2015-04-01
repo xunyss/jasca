@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import net.sourceforge.pmd.Report;
-import net.sourceforge.pmd.RulePriority;
+import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleViolation;
 import net.sourceforge.pmd.renderers.AbstractRenderer;
 import net.sourceforge.pmd.util.datasource.DataSource;
@@ -13,16 +13,16 @@ import org.apache.commons.io.IOUtils;
 
 import com.tyn.jasca.RulePattern;
 import com.tyn.jasca.RulePatternCollection;
-import com.tyn.jasca.Severity;
 import com.tyn.jasca.Violation;
-import com.tyn.jasca.ViolationResult;
+import com.tyn.jasca.Results;
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
+import com.tyn.jasca.engine.SeverityLevel;
 
 /**
  * 
  * @author S.J.H.
  */
-public class JascaRenderer extends AbstractRenderer {
+public class PmdViolationRenderer extends AbstractRenderer {
 	
 	/**
 	 * 
@@ -32,14 +32,14 @@ public class JascaRenderer extends AbstractRenderer {
 	/**
 	 * 
 	 */
-	public JascaRenderer() {
+	public PmdViolationRenderer() {
 		super("", "");
 	}
 	
 	/**
 	 * 
 	 */
-	public JascaRenderer(String name, String description) {
+	public PmdViolationRenderer(String name, String description) {
 		super(name, description);
 	}
 	
@@ -79,14 +79,16 @@ public class JascaRenderer extends AbstractRenderer {
 		
 		for (RuleViolation ruleViolation : report) {
 			
+			Rule rule = ruleViolation.getRule();
+			
 			// RulePattern
 			RulePatternCollection collection = RulePatternCollection.getInstance();
-			RulePattern rulePattern = collection.get(AnalyzerEngine.PMD, ruleViolation.getRule().getName());
+			RulePattern rulePattern = collection.get(AnalyzerEngine.PMD, rule.getName());
 			
 			if (!rulePattern.isRegistered()) {
-				rulePattern = new RulePattern(AnalyzerEngine.PMD, ruleViolation.getRule().getName());
+				rulePattern = new RulePattern(AnalyzerEngine.PMD, rule.getName());
 				rulePattern.setCategory("");
-				rulePattern.setSeverity(toSeverity(ruleViolation.getRule().getPriority()));
+				rulePattern.setSeverity(SeverityLevel.getSeverity(rule.getPriority()));
 				
 				collection.register(rulePattern);
 			}
@@ -99,7 +101,7 @@ public class JascaRenderer extends AbstractRenderer {
 			violation.setEndline(ruleViolation.getEndLine());
 			violation.setMessage(ruleViolation.getDescription());
 			
-			ViolationResult.getInstance()
+			Results.getInstance()
 				.add(violation);
 		}
 	}
@@ -128,29 +130,6 @@ public class JascaRenderer extends AbstractRenderer {
 			if (!writer.getClass().equals(OutputStreamWriter.class)) {
 				IOUtils.closeQuietly(writer);
 			}
-		}
-	}
-	
-	/**
-	 * 
-	 * @param rulePriority
-	 * @return
-	 */
-	private Severity toSeverity(RulePriority rulePriority) {
-		switch (rulePriority) {
-		case HIGH:
-		case MEDIUM_HIGH:
-			return Severity.HIGH;
-		
-		case MEDIUM:
-			return Severity.MEDIUM;
-		
-		case MEDIUM_LOW:
-		case LOW:
-			return Severity.LOW;
-		
-		default:
-			throw new IllegalArgumentException();
 		}
 	}
 }

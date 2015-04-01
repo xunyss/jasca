@@ -1,7 +1,5 @@
 package com.tyn.jasca;
 
-
-
 /**
  * 
  * @author S.J.H.

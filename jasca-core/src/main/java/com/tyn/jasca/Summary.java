@@ -6,7 +6,7 @@ import java.util.List;
  * 
  * @author S.J.H.
  */
-public class ViolationSummary {
+public class Summary {
 	
 	private int violationCount = 0;
 	private int[] severitySummary = null;
@@ -37,6 +37,10 @@ public class ViolationSummary {
 	}
 	
 	
+	/**
+	 * 
+	 * @author S.J.H.
+	 */
 	public static class TypeCounter {
 		
 		private RulePattern rulePattern = null;

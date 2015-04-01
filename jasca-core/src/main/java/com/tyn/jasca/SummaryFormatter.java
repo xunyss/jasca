@@ -8,5 +8,5 @@ import java.io.IOException;
  */
 public interface SummaryFormatter extends Formatter {
 	
-	void writeSummary(ViolationSummary violationSummary) throws IOException;
+	void writeSummary(Summary summary) throws IOException;
 }

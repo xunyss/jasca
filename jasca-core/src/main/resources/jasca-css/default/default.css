@@ -55,7 +55,7 @@ table.lst tbody tr[sv="2"] {
 	background-color: #FFC66D;
 }
 table.lst tbody tr[sv="3"] {
-	background-color: #FCFF6D;
+	background-color: #F0F452;
 }
 table.lst tbody tr:nth-child(odd) td:nth-child(1), table.lst tbody tr:nth-child(odd) td:nth-child(2) {
 	text-align: center;

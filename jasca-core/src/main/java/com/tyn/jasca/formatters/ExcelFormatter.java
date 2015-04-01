@@ -1,4 +1,4 @@
-package com.tyn.jasca.engine;
+package com.tyn.jasca.formatters;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -16,9 +16,9 @@ import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.Formatter;
-import com.tyn.jasca.Jasca;
 import com.tyn.jasca.JascaException;
 import com.tyn.jasca.Violation;
 import com.tyn.jasca.common.Utils;
@@ -28,11 +28,12 @@ import com.tyn.jasca.common.Utils;
  * @author S.J.H.
  */
 public class ExcelFormatter implements Formatter {
-
+	
 	/**
 	 * 
 	 */
-	private static final Logger log = Jasca.getLogger();
+	private static final Logger log = LoggerFactory.getLogger(ExcelFormatter.class);
+	
 	
 	private static final String TEMPLATE_DIR = "jasca-excel";
 	private static final String DEFAULT_TEMPLATE = "default.xlsx";
@@ -55,6 +56,10 @@ public class ExcelFormatter implements Formatter {
 
 	@Override
 	public void start() {
+		if (Utils.isEmpty(output)) {
+			throw new JascaException("분석 결과를 저장할 파일명이 입력되지 않음");
+		}
+		
 		violations = new ArrayList<Violation>();
 		
 		log.debug("Excel 레포트 생성 시작");

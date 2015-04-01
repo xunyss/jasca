@@ -6,7 +6,7 @@ import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
  * 
  * @author S.J.H.
  */
-public class RulePattern implements Cloneable {
+public class RulePattern implements Cloneable, Comparable<RulePattern> {
 	
 	private AnalyzerEngine analyzerEngine;		/** key */
 	private String typename;					/** key */
@@ -141,5 +141,14 @@ public class RulePattern implements Cloneable {
 		catch (CloneNotSupportedException cnse) {
 			throw new JascaException(cnse);
 		}
+	}
+	
+	/**
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(RulePattern rulePattern) {
+		return this.severity.getValue() - rulePattern.severity.getValue();
 	}
 }

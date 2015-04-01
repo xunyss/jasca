@@ -1,22 +1,18 @@
-package com.tyn.jasca.engine;
+package com.tyn.jasca;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.tyn.jasca.analyzer.pmd.PmdProgress;
-
-import edu.umd.cs.findbugs.FindBugsProgress;
 
 /**
  * 
  * @author S.J.H.
  */
-public class JascaProgress implements FindBugsProgress, PmdProgress {
+public class DefaultProgress extends ProgressCallback {
 
 	/**
 	 * 
 	 */
-	private static final Logger log = LoggerFactory.getLogger(JascaProgress.class);
+	private static final Logger log = LoggerFactory.getLogger(DefaultProgress.class);
 	
 	
 	private static void show(String s) {

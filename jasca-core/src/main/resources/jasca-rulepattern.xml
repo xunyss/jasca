@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasca-rulepatterns>
 	
+	<!-- =================================================================== -->
+	
 	<!-- [FINDBUGS] -->
 	
 	<rulepattern engine="FINDBUGS" name="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE">
@@ -44,6 +46,8 @@
 		<typename>27.사용자하드디스크에저장되는쿠키를통한정보노출</typename>
 	</rulepattern>
 	
+	<!-- =================================================================== -->
+	
 	<!-- [PMD] -->
 	
 	<rulepattern engine="PMD" name="DynamicClassLoading">
@@ -57,5 +61,12 @@
 	<rulepattern engine="PMD" name="UseDangerousMethod">
 		<typename>47.취약한API사용</typename>
 	</rulepattern>
+	
+	<!-- =================================================================== -->
+	
+	<!-- [ignore list] -->
+	
+	<rulepattern engine="FINDBUGS" name="_BUG_PATTERN_TYPE" ignore="true" />
+	<rulepattern engine="PMD" name="_RULE_NAME" ignore="true" />
 	
 </jasca-rulepatterns>

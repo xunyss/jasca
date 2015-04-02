@@ -65,7 +65,7 @@ public class TextFormatter implements Formatter {
 	@Override
 	public void writeViolationBody(Violation violation) throws IOException {
 		writer.write(violation.getMessage());
-		writer.write("\r\n");	// TODO CRLF 상수 생성 / 사용
+		writer.write(Utils.CRLF);
 	}
 
 	@Override

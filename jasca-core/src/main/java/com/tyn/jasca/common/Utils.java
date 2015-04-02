@@ -26,6 +26,11 @@ public class Utils {
 	
 	/**
 	 * 
+	 */
+	public static final String CRLF = "\r\n";
+	
+	/**
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -130,7 +135,7 @@ public class Utils {
 	 * @throws IOException
 	 */
 	public static void resourceToFile(String resource, String filepath) throws IOException {
-		final int BUFFER_SIZE = 10240;
+		final int BUFFER_SIZE = 1024 * 10;
 		ClassLoader classLoader = Utils.class.getClassLoader();
 		
 		InputStream resourceInputStream = null;

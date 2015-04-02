@@ -5,6 +5,7 @@ import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.findbugs.FindBugsAnalyzer;
 import com.tyn.jasca.analyzer.findbugs.FindBugsConfiguration;
 import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
+import com.tyn.jasca.common.TempFileManager;
 import com.tyn.jasca.engine.AnalyzerFactory;
 import com.tyn.jasca.engine.SeverityLevel;
 
@@ -22,6 +23,9 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		return Holder.instance;
 	}
 	
+	
+	private static final String DEFAULT_FILTER = "jasca-filter-findbugs.xml";
+	
 	/**
 	 * 
 	 * @see com.tyn.jasca.AnalyzerFactory#getAnalyzer(com.tyn.jasca.JascaConfiguration)
@@ -30,6 +34,7 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		
 		FindBugsConfiguration findbugsConfiguration = new FindBugsConfiguration();
 		
+		findbugsConfiguration.setExclude(TempFileManager.createTempFilepathFromResource(DEFAULT_FILTER));
 		findbugsConfiguration.setScanNestedArchives(false);
 		findbugsConfiguration.setReportFormat(ReportFormat.CUSTOM);
 		findbugsConfiguration.setBugReporter(new FindBugsBugReporter());
@@ -43,7 +48,7 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
 		engine.loadPluginUsingClass("com.h3xstream.findsecbugs.endpoint.CookieDetector");	// find security bugs
-		engine.loadPluginUsingClass("com.tyn.jasca.findbugs.detector.FindMe");				// jasca-findbugs
+		engine.loadPluginUsingClass(com.tyn.jasca.findbugs.detector.FindMe.class);			// jasca-findbugs
 		engine.applyConfiguration(findbugsConfiguration);
 		
 		return engine;

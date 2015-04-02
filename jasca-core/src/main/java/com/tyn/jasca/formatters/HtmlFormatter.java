@@ -34,8 +34,6 @@ public class HtmlFormatter implements SummaryFormatter {
 	 */
 	private static final Logger log = LoggerFactory.getLogger(ExcelFormatter.class);
 	
-	private static final String CRLF = "\r\n";
-	
 	private static final String STYLE_DIR = "jasca-css";
 	private static final String DEFAULT_STYLE = "default";
 	private static final Map<String, String[]> STYLES = new HashMap<String, String[]>();
@@ -52,7 +50,7 @@ public class HtmlFormatter implements SummaryFormatter {
 	private int count = 0;
 	
 	public void wr(String string) throws IOException {
-		writer.write(string + CRLF);
+		writer.write(string + Utils.CRLF);
 	}
 	
 	public HtmlFormatter() {

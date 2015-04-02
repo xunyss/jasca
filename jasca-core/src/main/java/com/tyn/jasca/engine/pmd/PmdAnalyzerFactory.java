@@ -22,20 +22,18 @@ public class PmdAnalyzerFactory implements AnalyzerFactory {
 		return Holder.instance;
 	}
 	
+	
+	private static final String DEFAULT_FILTER = "jasca-filter-pmd.xml";
+	
 	/**
 	 * 
 	 * @see com.tyn.jasca.AnalyzerFactory#getAnalyzer(com.tyn.jasca.JascaConfiguration)
 	 */
 	public Analyzer getAnalyzer(JascaConfiguration jascaConfiguration) {
 		
-		String rulesets = "java-basic,java-design,jsp-basic" +
-				",java-codesize,java-empty,java-j2ee,java-javabeans,java-migrating,java-comments" +
-				",java-strings,java-sunsecure,java-typeresolution,java-braces,java-clone,java-strictexception" +
-				",jasca-jasca";
-		
 		PmdConfiguration pmdConfiguration = new PmdConfiguration();
 		
-		pmdConfiguration.setRulesets(rulesets);
+		pmdConfiguration.setRulesets(DEFAULT_FILTER);
 		pmdConfiguration.setFormat(RenderFormat.CUSTOM);
 		pmdConfiguration.setRenderer(PmdViolationRenderer.class);
 		

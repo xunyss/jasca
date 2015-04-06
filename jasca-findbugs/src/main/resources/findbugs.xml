@@ -6,16 +6,20 @@
 		website="http://www.tynetworks.co.kr/"
 		update-url="http://www.tynetworks.co.kr/update-check">
 	
-	<!-- XQUERY_INJECTION -->
-	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavaxDetector" reports="XQUERY_INJECTION" />
-	<BugPattern type="XQUERY_INJECTION" abbrev="SJH" category="JASCA" />
+	<!-- XQUERY_INJECTION_JAVAX -->
+	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavaxDetector" reports="XQUERY_INJECTION_JAVAX" />
+	<BugPattern type="XQUERY_INJECTION_JAVAX" abbrev="SECXQI" category="SECURITY" />
 	
 	<!-- UNCONTROL_FORMAT_STRING -->
 	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatStringDetector" reports="UNCONTROL_FORMAT_STRING" />
-	<BugPattern type="UNCONTROL_FORMAT_STRING" abbrev="SJH" category="JASCA" />	
+	<BugPattern type="UNCONTROL_FORMAT_STRING" abbrev="SECUFS" category="SECURITY" />
 	
 	<!-- INFO_EXPOSURE_BY_COOKIES -->
 	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookiesDetector" reports="INFO_EXPOSURE_BY_COOKIES" />
-	<BugPattern type="INFO_EXPOSURE_BY_COOKIES" abbrev="SJH" category="JASCA" />
+	<BugPattern type="INFO_EXPOSURE_BY_COOKIES" abbrev="SECIEC" category="SECURITY" />
+	
+	<!-- HASH_WITHOUT_SALT -->
+	<Detector class="com.tyn.jasca.findbugs.detector.UseHashWithoutSaltDetector" reports="HASH_WITHOUT_SALT" />
+	<BugPattern type="HASH_WITHOUT_SALT" abbrev="SECWMD" category="SECURITY" />
 	
 </FindbugsPlugin>

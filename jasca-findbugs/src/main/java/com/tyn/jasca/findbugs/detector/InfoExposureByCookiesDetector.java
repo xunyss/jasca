@@ -15,7 +15,9 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
  * @author S.J.H.
  */
 public class InfoExposureByCookiesDetector extends OpcodeStackDetector {
-
+	
+	private static final String BUGTYPE_INFO_EXPOSURE_BY_COOKIES = "INFO_EXPOSURE_BY_COOKIES";
+	
 	private BugReporter bugReporter;
 	
 	public InfoExposureByCookiesDetector(BugReporter bugReporter) {
@@ -28,11 +30,10 @@ public class InfoExposureByCookiesDetector extends OpcodeStackDetector {
 				&& getClassConstantOperand().equals("javax/servlet/http/HttpServletResponse")) {
 			
 			if (getNameConstantOperand().equals("addCookie")) {
-					bugReporter.reportBug(new BugInstance(this, "INFO_EXPOSURE_BY_COOKIES", Priorities.NORMAL_PRIORITY)
+					bugReporter.reportBug(new BugInstance(this, BUGTYPE_INFO_EXPOSURE_BY_COOKIES, Priorities.NORMAL_PRIORITY)
 						.addClass(this)
 						.addMethod(this)
-						.addSourceLine(this)
-						.addString("XQConnection.prepareExpression()"));
+						.addSourceLine(this));
 			}
 		}
 	}

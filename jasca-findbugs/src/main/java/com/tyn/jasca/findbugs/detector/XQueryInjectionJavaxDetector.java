@@ -15,7 +15,7 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
  */
 public class XQueryInjectionJavaxDetector extends OpcodeStackDetector {
 	
-	private static final String BUGTYPE_XQUERY_INJECTION = "XQUERY_INJECTION";
+	private static final String BUGTYPE_XQUERY_INJECTION_JAVAX = "XQUERY_INJECTION_JAVAX";
 	
 	private BugReporter bugReporter;
 	
@@ -33,7 +33,7 @@ public class XQueryInjectionJavaxDetector extends OpcodeStackDetector {
 					&& getSigConstantOperand().equals("(Ljava/lang/String;)Ljavax/xml/xquery/XQPreparedExpression;")) {
 				
 				if (StringTracer.isVariableString(stack.getStackItem(0))) {
-					bugReporter.reportBug(new BugInstance(this, BUGTYPE_XQUERY_INJECTION, Priorities.NORMAL_PRIORITY)
+					bugReporter.reportBug(new BugInstance(this, BUGTYPE_XQUERY_INJECTION_JAVAX, Priorities.NORMAL_PRIORITY)
 						.addClass(this)
 						.addMethod(this)
 						.addSourceLine(this)

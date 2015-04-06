@@ -7,12 +7,18 @@
 		<Details>This plugin contains all of Jasca FindBugs detectors.</Details>
 	</Plugin>
 	
+	
+	<!-- BugCodes -->
+	<BugCode abbrev="SECXQI" cweid="652">XQuery Injection</BugCode>
+	<BugCode abbrev="SECUFS" cweid="134">Uncontrolled Format String</BugCode>
+	<BugCode abbrev="SECIEC" cweid="539">Information Exposure Through Persistent Cookies</BugCode>
+	
 	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavaxDetector">
 		<Details>
 			Detect XQeury Injection.
 		</Details>
 	</Detector>
-	<BugPattern type="XQUERY_INJECTION">
+	<BugPattern type="XQUERY_INJECTION_JAVAX">
 		<ShortDescription>잠재적인 XQuery 인젝션 취약점</ShortDescription>
 		<LongDescription>The use of {3} is vulnerable to XQuery injection</LongDescription>
 		<Details>
@@ -28,7 +34,6 @@ XQuery 인젝션 취약점이 있어염
 			]]>
 		</Details>
 	</BugPattern>
-	<BugCode abbrev="SJH">SJH's BugCode</BugCode>
 	
 	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatStringDetector">
 		<Details>
@@ -51,7 +56,6 @@ XQuery 인젝션 취약점이 있어염
 			]]>
 		</Details>
 	</BugPattern>
-	<BugCode abbrev="SJH2">SJH2's BugCode</BugCode>
 	
 	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookiesDetector">
 		<Details>
@@ -70,6 +74,28 @@ XQuery 인젝션 취약점이 있어염
 <p>
 <b>References</b><br/>
 <a href="http://cwe.mitre.org/data/definitions/539.html">CWE-539: Information Exposure Through Persistent Cookies</a><br/>
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	
+	<Detector class="com.tyn.jasca.findbugs.detector.UseHashWithoutSaltDetector">
+		<Details>
+			Detect Use of a One-Way Hash without a Salt.
+		</Details>
+	</Detector>
+	<BugPattern type="HASH_WITHOUT_SALT">
+		<ShortDescription>솔트 없이 일방향 해쉬 함수 사용</ShortDescription>
+		<LongDescription>솔트 없이 일방향 해쉬 함수 사용</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+솔트 없이 일방향 해쉬 함수 사용
+</p>
+<br/>
+<p>
+<b>References</b><br/>
+<a href="http://cwe.mitre.org/data/definitions/759.html">CWE-759: Use of a One-Way Hash without a Salt</a><br/>
 </p>
 			]]>
 		</Details>

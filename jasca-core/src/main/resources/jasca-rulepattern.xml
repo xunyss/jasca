@@ -12,8 +12,20 @@
 		<link/>
 		<severity/>
 	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING">
+		<typename>01.SQL삽입</typename>
+	</rulepattern>
 	
+	<rulepattern engine="FINDBUGS" name="PT_ABSOLUTE_PATH_TRAVERSAL">
+		<typename>02.경로조작및자원삽입</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="PT_RELATIVE_PATH_TRAVERSAL">
+		<typename>02.경로조작및자원삽입</typename>
+	</rulepattern>
 	<rulepattern engine="FINDBUGS" name="PATH_TRAVERSAL_IN">
+		<typename>02.경로조작및자원삽입</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="PATH_TRAVERSAL_OUT">
 		<typename>02.경로조작및자원삽입</typename>
 	</rulepattern>
 	
@@ -30,7 +42,7 @@
 		<typename>06.신뢰되지않는URL주소로자동접속연결</typename>
 	</rulepattern>
 	
-	<rulepattern engine="FINDBUGS" name="XQUERY_INJECTION">
+	<rulepattern engine="FINDBUGS" name="XQUERY_INJECTION_JAVAX">
 		<typename>07.XQuery삽입</typename>
 	</rulepattern>
 	
@@ -42,8 +54,80 @@
 		<typename>09.LDAP삽입</typename>
 	</rulepattern>
 	
+	<rulepattern engine="FINDBUGS" name="HRS_REQUEST_PARAMETER_TO_COOKIE">
+		<typename>11.HTTP응답분할</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="SERVLET_CONTENT_TYPE">
+		<typename>13.보안기능결정에사용되는부적절한입력값</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="COOKIE_USAGE">
+		<typename>13.보안기능결정에사용되는부적절한입력값</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="UNCONTROL_FORMAT_STRING">
+		<typename>15.포맷스트링삽입</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="DES_USAGE">
+		<typename>19.취약한암호화알고리즘사용</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="ECB_MODE">
+		<typename>19.취약한암호화알고리즘사용</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="CIPHER_INTEGRITY">
+		<typename>19.취약한암호화알고리즘사용</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="WEAK_MESSAGE_DIGEST">
+		<typename>19.취약한암호화알고리즘사용</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="CUSTOM_MESSAGE_DIGEST">
+		<typename>19.취약한암호화알고리즘사용</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="DMI_CONSTANT_DB_PASSWORD">
+		<typename>22.하드코드된비밀번호</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="HARD_CODE_PASSWORD">
+		<typename>22.하드코드된비밀번호</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="RSA_KEY_SIZE">
+		<typename>23.충분하지않은키길이사용</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="PREDICTABLE_RANDOM">
+		<typename>24.적절하지않은난수값사용</typename>
+	</rulepattern>
+	
 	<rulepattern engine="FINDBUGS" name="INFO_EXPOSURE_BY_COOKIES">
 		<typename>27.사용자하드디스크에저장되는쿠키를통한정보노출</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="HASH_WITHOUT_SALT">
+		<typename>29.솔트없이일방향해쉬함수사용</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="IL_INFINITE_RECURSIVE_LOOP">
+		<typename>33.종료되지않는반복문또는재귀함수</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="DE_MIGHT_IGNORE">
+		<typename>36.부적절한예외처리</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="NP_GUARANTEED_DEREF_ON_EXCEPTION_PATH">
+		<typename>37.NullPointer역참조</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="OS_OPEN_STREAM">
+		<typename>38.부적절한자원해제</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="OS_OPEN_STREAM_EXCEPTION_PATH">
+		<typename>38.부적절한자원해제</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="ODR_OPEN_DATABASE_RESOURCE">
+		<typename>38.부적절한자원해제</typename>
 	</rulepattern>
 	
 	<!-- =================================================================== -->
@@ -52,6 +136,40 @@
 	
 	<rulepattern engine="PMD" name="DynamicClassLoading">
 		<typename>30.무결성검사없는코드다운로드</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="LogExceptionInformation">
+		<typename>34.오류메시지를통한정보노출</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="EmptyCatchBlock">
+		<typename>35.오류상황대응부재</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="AvoidCatchingGenericException">
+		<typename>36.부적절한예외처리</typename>
+		<severity>LOW</severity>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="CloseResource">
+		<typename>38.부적절한자원해제</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="MainMethodInJavaEEObject">
+		<typename>42.제거되지않고남은디버그코드</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="AvoidPrintStackTrace">
+		<typename>43.시스템데이터정보노출</typename>
+		<description>예외의 printStackTrace() 메소드의 사용은 시스템 데이터 정보가 노출의 위험이 있습니다</description>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="MethodReturnsInternalArray">
+		<typename>44.public메소드로부터반환된private배열</typename>
+	</rulepattern>
+	
+	<rulepattern engine="PMD" name="ArrayIsStoredDirectly">
+		<typename>45.private배열에public데이터할당</typename>
 	</rulepattern>
 	
 	<rulepattern engine="PMD" name="ReverseDNSResolution">
@@ -67,6 +185,8 @@
 	<!-- [ignore list] -->
 	
 	<rulepattern engine="FINDBUGS" name="_BUG_PATTERN_TYPE" ignore="true" />
-	<rulepattern engine="PMD" name="_RULE_NAME" ignore="true" />
+	
+	<rulepattern engine="PMD" name="JspEncoding" ignore="true" />
+	<rulepattern engine="PMD" name="NoScriptlets" ignore="true" />
 	
 </jasca-rulepatterns>

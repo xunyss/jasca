@@ -89,6 +89,7 @@ public class PmdViolationRenderer extends AbstractRenderer {
 				rulePattern = new RulePattern(AnalyzerEngine.PMD, rule.getName());
 				rulePattern.setCategory("");
 				rulePattern.setSeverity(SeverityLevel.getSeverity(rule.getPriority()));
+				rulePattern.setLink(rule.getExternalInfoUrl());
 				
 				collection.register(rulePattern);
 			}

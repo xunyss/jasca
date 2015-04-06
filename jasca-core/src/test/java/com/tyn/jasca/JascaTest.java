@@ -12,9 +12,16 @@ public class JascaTest {
 	public void jascaMainTest() {
 		
 		String[] args = {
-			"D:/securecoding/workspace/sampleweb",
-		//	"D:/xdev/git/jasca/jasca-core/target/jasca.html"
-			"D:/xdev/git/jasca/jasca-core/target/jasca.xlsx"
+			"-progress",
+			"-level", "low",
+			"-format", "html",
+			"-output",
+			"D:/xdev/git/jasca/jasca-core/target/jasca.html",
+		//	"D:/xdev/git/jasca/jasca-core/target/jasca.xlsx",
+			
+			"D:/securecoding/workspace/sampleweb"
+		//	"D:/securecoding/workspace/sampleweb/build/classes/com/tyn/wweb/W29.class"
+		//	"D:/securecoding/workspace/sampleweb/src/com/tyn/wweb/test"
 		};
 		
 		Jasca.main(args);

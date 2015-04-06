@@ -2,6 +2,9 @@
 
 <FindBugsFilter>
 	<Match>
-		<Bug category="SECURITY" />
+		<Bug pattern="
+			DM_DEFAULT_ENCODING,
+			DLS_DEAD_LOCAL_STORE,
+		" />
 	</Match>
 </FindBugsFilter>

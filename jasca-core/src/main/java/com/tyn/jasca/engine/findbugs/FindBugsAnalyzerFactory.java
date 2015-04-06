@@ -48,7 +48,8 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
 		engine.loadPluginUsingClass("com.h3xstream.findsecbugs.endpoint.CookieDetector");	// find security bugs
-		engine.loadPluginUsingClass(com.tyn.jasca.findbugs.detector.FindMe.class);			// jasca-findbugs
+	//	engine.loadPluginUsingClass(com.tyn.jasca.findbugs.detector.FindMe.class);			// jasca-findbugs
+		engine.loadPluginUsingJarFilePath("D:/xdev/git/jasca/jasca-findbugs/target/jasca-findbugs-0.0.1-SNAPSHOT.jar");
 		engine.applyConfiguration(findbugsConfiguration);
 		
 		return engine;

@@ -197,7 +197,7 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("<tr sv=" + sv + ">");
 		wr("	<td colspan=2>");
 		wr(violation.getMessage());
-		wr("<a><span class=dtl>&nbsp;</span></a>");
+		wr("<a href=" + rulePattern.getLink() + "><span class=dtl>&nbsp;</span></a>");
 		wr("	</td>");
 		wr("</tr>");
 	}

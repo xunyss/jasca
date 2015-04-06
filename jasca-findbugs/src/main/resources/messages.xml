@@ -12,8 +12,9 @@
 	<BugCode abbrev="SECXQI" cweid="652">XQuery Injection</BugCode>
 	<BugCode abbrev="SECUFS" cweid="134">Uncontrolled Format String</BugCode>
 	<BugCode abbrev="SECIEC" cweid="539">Information Exposure Through Persistent Cookies</BugCode>
+	<BugCode abbrev="SECJEI" cweid="488">Exposure of Data Element to Wrong Session</BugCode>
 	
-	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavaxDetector">
+	<Detector class="com.tyn.jasca.findbugs.detector.XQueryInjectionJavax">
 		<Details>
 			Detect XQeury Injection.
 		</Details>
@@ -35,7 +36,7 @@ XQuery 인젝션 취약점이 있어염
 		</Details>
 	</BugPattern>
 	
-	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatStringDetector">
+	<Detector class="com.tyn.jasca.findbugs.detector.UncontrolledFormatString">
 		<Details>
 			Detect Uncontrolled Format String.
 		</Details>
@@ -57,7 +58,7 @@ XQuery 인젝션 취약점이 있어염
 		</Details>
 	</BugPattern>
 	
-	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookiesDetector">
+	<Detector class="com.tyn.jasca.findbugs.detector.InfoExposureByCookies">
 		<Details>
 			Detect Information Exposure Through Persistent Cookies.
 		</Details>
@@ -79,7 +80,7 @@ XQuery 인젝션 취약점이 있어염
 		</Details>
 	</BugPattern>
 	
-	<Detector class="com.tyn.jasca.findbugs.detector.UseHashWithoutSaltDetector">
+	<Detector class="com.tyn.jasca.findbugs.detector.UseHashWithoutSalt">
 		<Details>
 			Detect Use of a One-Way Hash without a Salt.
 		</Details>
@@ -96,6 +97,34 @@ XQuery 인젝션 취약점이 있어염
 <p>
 <b>References</b><br/>
 <a href="http://cwe.mitre.org/data/definitions/759.html">CWE-759: Use of a One-Way Hash without a Salt</a><br/>
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	
+	<Detector class="com.tyn.jasca.findbugs.detector.JavaEEObjectInstanceAccess">
+		<Details>
+			Detect Exposure of Data Element to Wrong Session.
+		</Details>
+	</Detector>
+	<BugPattern type="SERVLET_INSTANCE_ACCESS">
+		<ShortDescription>Class extends Servlet class and uses instance variables</ShortDescription>
+		<LongDescription>Class {0} extends Servlet class and uses instance variables</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+Class extends Servlet class and uses instance variables
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	<BugPattern type="FILTER_INSTANCE_ACCESS">
+		<ShortDescription>Class implements Filter interface and uses instance variables</ShortDescription>
+		<LongDescription>Class {0} implements Filter interface and uses instance variables</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+Class implements Filter interface and uses instance variables
 </p>
 			]]>
 		</Details>

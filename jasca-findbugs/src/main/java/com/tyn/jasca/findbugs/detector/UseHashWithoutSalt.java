@@ -22,13 +22,13 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
  * 
  * @author S.J.H.
  */
-public class UseHashWithoutSaltDetector extends OpcodeStackDetector {
+public class UseHashWithoutSalt extends OpcodeStackDetector {
 	
 	private static final String BUGTYPE_HASH_WITHOUT_SALT = "HASH_WITHOUT_SALT";
 	
 	private BugReporter bugReporter;
 	
-	public UseHashWithoutSaltDetector(BugReporter bugReporter) {
+	public UseHashWithoutSalt(BugReporter bugReporter) {
 		this.bugReporter = bugReporter;
 	}
 	

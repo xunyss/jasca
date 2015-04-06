@@ -13,13 +13,13 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
  * 
  * @author S.J.H.
  */
-public class XQueryInjectionJavaxDetector extends OpcodeStackDetector {
+public class XQueryInjectionJavax extends OpcodeStackDetector {
 	
 	private static final String BUGTYPE_XQUERY_INJECTION_JAVAX = "XQUERY_INJECTION_JAVAX";
 	
 	private BugReporter bugReporter;
 	
-	public XQueryInjectionJavaxDetector(BugReporter bugReporter) {
+	public XQueryInjectionJavax(BugReporter bugReporter) {
 		this.bugReporter = bugReporter;
 	}
 	

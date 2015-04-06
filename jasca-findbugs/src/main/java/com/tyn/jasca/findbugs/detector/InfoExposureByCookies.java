@@ -14,13 +14,13 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
  * 
  * @author S.J.H.
  */
-public class InfoExposureByCookiesDetector extends OpcodeStackDetector {
+public class InfoExposureByCookies extends OpcodeStackDetector {
 	
 	private static final String BUGTYPE_INFO_EXPOSURE_BY_COOKIES = "INFO_EXPOSURE_BY_COOKIES";
 	
 	private BugReporter bugReporter;
 	
-	public InfoExposureByCookiesDetector(BugReporter bugReporter) {
+	public InfoExposureByCookies(BugReporter bugReporter) {
 		this.bugReporter = bugReporter;
 	}
 	

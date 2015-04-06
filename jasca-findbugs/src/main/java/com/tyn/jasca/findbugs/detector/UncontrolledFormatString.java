@@ -13,13 +13,13 @@ import edu.umd.cs.findbugs.bcel.OpcodeStackDetector;
  * 
  * @author S.J.H.
  */
-public class UncontrolledFormatStringDetector extends OpcodeStackDetector {
+public class UncontrolledFormatString extends OpcodeStackDetector {
 	
 	private static final String BUGTYPE_UNCONTROL_FORMAT_STRING = "UNCONTROL_FORMAT_STRING";
 	
 	private BugReporter bugReporter;
 	
-	public UncontrolledFormatStringDetector(BugReporter bugReporter) {
+	public UncontrolledFormatString(BugReporter bugReporter) {
 		this.bugReporter = bugReporter;
 	}
 	

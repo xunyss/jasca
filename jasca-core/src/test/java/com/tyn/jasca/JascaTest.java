@@ -20,7 +20,7 @@ public class JascaTest {
 		//	"D:/xdev/git/jasca/jasca-core/target/jasca.xlsx",
 			
 			"D:/securecoding/workspace/sampleweb"
-		//	"D:/securecoding/workspace/sampleweb/build/classes/com/tyn/wweb/W29.class"
+		//	"D:/securecoding/workspace/sampleweb/build/classes/com/tyn/wweb/W41_2.class"
 		//	"D:/securecoding/workspace/sampleweb/src/com/tyn/wweb/test"
 		};
 		

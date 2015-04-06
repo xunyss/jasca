@@ -130,6 +130,19 @@
 		<typename>38.부적절한자원해제</typename>
 	</rulepattern>
 	
+	<rulepattern engine="FINDBUGS" name="MTIA_SUSPECT_STRUTS_INSTANCE_FIELD">
+		<typename>41.잘못된세션에의한데이터정보노출</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD">
+		<typename>41.잘못된세션에의한데이터정보노출</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="SERVLET_INSTANCE_ACCESS">
+		<typename>41.잘못된세션에의한데이터정보노출</typename>
+	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="FILTER_INSTANCE_ACCESS">
+		<typename>41.잘못된세션에의한데이터정보노출</typename>
+	</rulepattern>
+	
 	<!-- =================================================================== -->
 	
 	<!-- [PMD] -->

@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ruleset name="Jasca"
+<ruleset name="Jasca-PMD"
 	xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 	
 	<description>
 	</description>
-	
-	<!--
-	<rule ref="rulesets/java/basic.xml"/>
-	<rule ref="rulesets/java/empty.xml"/>
-	<rule ref="rulesets/java/design.xml"/>
-	<rule ref="rulesets/java/unnecessary.xml"/>
-	<rule ref="rulesets/jsp/basic.xml"/>
-	-->
 	
 	<rule name="DynamicClassLoading"
 		language="java"
@@ -74,11 +66,69 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
 <![CDATA[
 //PrimaryExpression
 [
- 	PrimaryPrefix/Name[ends-with(@Image, 'getSessionContext')]
- 	
- 	or
- 	
-	PrimarySuffix[ends-with(@Image, 'getSessionContext')]
+  PrimaryPrefix/Name[ends-with(@Image, 'getSessionContext')]
+  or
+  PrimarySuffix[ends-with(@Image, 'getSessionContext')]
+]
+]]>
+				</value>
+			</property>
+		</properties>
+		<example>
+<![CDATA[
+]]>
+		</example>
+	</rule>
+	
+	
+	<rule name="LogExceptionInformation"
+		language="java"
+		since="jasca 1.0"
+		message="예외 {0} 의 오류메시지를 통하여 정보가 노출될 수 있습니다"
+		class="com.tyn.jasca.pmd.rule.LogExceptionInformationRule"
+		externalInfoUrl="http://cwe.mitre.org/data/definitions/209.html">
+		
+		<description>
+		</description>
+		<priority>3</priority>
+		<example>
+<![CDATA[
+
+]]>
+		</example>
+	</rule>
+	
+	<!-- =================================================================== -->
+	
+	<rule name="MainMethodInJavaEEObject"
+		language="java"
+		since="jasca 1.0"
+		message="디버깅을 위해 작성 되었던 {0} 메소드를 제거하십시오"
+		class="net.sourceforge.pmd.lang.rule.XPathRule"
+		externalInfoUrl="http://cwe.mitre.org/data/definitions/489.html">
+		
+		<description>
+		</description>
+		<priority>3</priority>
+		<properties>
+			<property name="xpath">
+				<value>
+<![CDATA[
+//ClassOrInterfaceDeclaration
+/ExtendsList
+/ClassOrInterfaceType[@Image="HttpServlet" or @Image = "Filter"]
+/../..
+/ClassOrInterfaceBody
+/ClassOrInterfaceBodyDeclaration
+/MethodDeclaration[@Public = "true" and @Static = "true" and @Void = "true"]
+/MethodDeclarator[
+  @Image = "main"
+  and
+  (.//FormalParameter
+    /Type[@Array = "true"]
+    /ReferenceType
+    /ClassOrInterfaceType[@Image = "String"]
+  )
 ]
 ]]>
 				</value>

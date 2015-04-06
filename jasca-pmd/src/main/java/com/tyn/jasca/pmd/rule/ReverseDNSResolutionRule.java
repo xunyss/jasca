@@ -16,17 +16,16 @@ public class ReverseDNSResolutionRule extends AbstractJavaRule {
 	public Object visit(ASTPrimaryExpression node, Object data) {
 		
 		ASTPrimaryPrefix prefix = (ASTPrimaryPrefix) node.jjtGetChild(0);
-		Node name = prefix.jjtGetChild(0);
 		
-		if (name instanceof ASTName) {
-			if (name.getImage().endsWith("getCanonicalHostName")) {
-				
-				// TODO
-				// type check
-				// arguments check
-				
-				// violation
-				addViolation(data, node);
+		if (prefix.jjtGetNumChildren() > 0) {
+			Node name = prefix.jjtGetChild(0);
+			
+			if (name instanceof ASTName) {
+				if (name.getImage().endsWith("getCanonicalHostName")) {
+					
+					// violation
+					addViolation(data, node);
+				}
 			}
 		}
 		

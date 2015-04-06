@@ -121,7 +121,10 @@ public class ReportBuilder {
 		Collections.sort(typeCounterList, new Comparator<TypeCounter>() {
 			@Override
 			public int compare(TypeCounter typeCounter1, TypeCounter typeCounter2) {
-				return typeCounter2.getTypeCount() - typeCounter1.getTypeCount();
+				int countOrder = typeCounter2.getTypeCount() - typeCounter1.getTypeCount();
+				return countOrder != 0
+						? countOrder
+						: typeCounter1.getRulePattern().compareTo(typeCounter2.getRulePattern());
 			}
 		});
 		

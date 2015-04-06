@@ -149,6 +149,9 @@ public class RulePattern implements Cloneable, Comparable<RulePattern> {
 	 */
 	@Override
 	public int compareTo(RulePattern rulePattern) {
-		return this.severity.getValue() - rulePattern.severity.getValue();
+		int severityOrder = severity.getValue() - rulePattern.severity.getValue();
+		return severityOrder != 0
+				? severityOrder
+				: typename.compareTo(rulePattern.typename);
 	}
 }

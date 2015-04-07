@@ -58,6 +58,10 @@
 		<typename>11.HTTP응답분할</typename>
 	</rulepattern>
 	
+	<rulepattern engine="FINDBUGS" name="ICAST_INTEGER_MULTIPLY_CAST_TO_LONG">
+		<typename>12.정수형오버플로우</typename>
+	</rulepattern>
+	
 	<rulepattern engine="FINDBUGS" name="SERVLET_CONTENT_TYPE">
 		<typename>13.보안기능결정에사용되는부적절한입력값</typename>
 	</rulepattern>
@@ -143,6 +147,14 @@
 		<typename>41.잘못된세션에의한데이터정보노출</typename>
 	</rulepattern>
 	
+	<rulepattern engine="FINDBUGS" name="EI_EXPOSE_REP">
+		<typename>44.public메소드로부터반환된private배열</typename>
+	</rulepattern>
+	
+	<rulepattern engine="FINDBUGS" name="EI_EXPOSE_REP2">
+		<typename>45.private배열에public데이터할당</typename>
+	</rulepattern>
+	
 	<!-- =================================================================== -->
 	
 	<!-- [PMD] -->
@@ -160,6 +172,10 @@
 	</rulepattern>
 	
 	<rulepattern engine="PMD" name="AvoidCatchingGenericException">
+		<typename>36.부적절한예외처리</typename>
+		<severity>LOW</severity>
+	</rulepattern>
+	<rulepattern engine="PMD" name="SignatureDeclareThrowsException">
 		<typename>36.부적절한예외처리</typename>
 		<severity>LOW</severity>
 	</rulepattern>

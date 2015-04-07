@@ -3,8 +3,9 @@
 <FindBugsFilter>
 	<Match>
 		<Bug pattern="
-			DM_DEFAULT_ENCODING,
 			DLS_DEAD_LOCAL_STORE,
+			DM_DEFAULT_ENCODING,
+			DMI_HARDCODED_ABSOLUTE_FILENAME,
 		" />
 	</Match>
 </FindBugsFilter>

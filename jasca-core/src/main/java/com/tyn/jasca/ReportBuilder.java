@@ -2,8 +2,6 @@ package com.tyn.jasca;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -118,15 +116,18 @@ public class ReportBuilder {
 			rulePatternCounterList.add(new RulePatternCounter(rulePattern, typeSummary.get(rulePattern)));
 		}
 		
-		Collections.sort(rulePatternCounterList, new Comparator<RulePatternCounter>() {
-			@Override
-			public int compare(RulePatternCounter typeCounter1, RulePatternCounter typeCounter2) {
-				int countOrder = typeCounter2.getCount() - typeCounter1.getCount();
-				return countOrder != 0
-						? countOrder
-						: typeCounter1.getRulePattern().compareTo(typeCounter2.getRulePattern());
-			}
-		});
+		/*
+		 * type summary 만 사용할 것이므로 빼버림
+		 */
+//		Collections.sort(rulePatternCounterList, new Comparator<RulePatternCounter>() {
+//			@Override
+//			public int compare(RulePatternCounter rulePatternCounter1, RulePatternCounter rulePatternCounter2) {
+//				int countOrder = rulePatternCounter2.getCount() - rulePatternCounter1.getCount();
+//				return countOrder != 0
+//						? countOrder
+//						: rulePatternCounter1.getRulePattern().compareTo(rulePatternCounter2.getRulePattern());
+//			}
+//		});
 		
 		Summary summary = new Summary();
 		summary.setViolationCount(total);

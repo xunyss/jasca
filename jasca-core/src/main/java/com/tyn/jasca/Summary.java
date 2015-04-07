@@ -1,6 +1,8 @@
 package com.tyn.jasca;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
@@ -81,6 +83,8 @@ public class Summary {
 				typeSummary.add(typeCounter);
 			}
 		}
+		
+		sortTypeSummary();
 	}
 	private int indexOfTypeCounter(List<TypeCounter> typeSummary, String typename) {
 		if (typeSummary != null) {
@@ -92,6 +96,17 @@ public class Summary {
 			}
 		}
 		return -1;
+	}
+	private void sortTypeSummary() {
+		Collections.sort(typeSummary, new Comparator<TypeCounter>() {
+			@Override
+			public int compare(TypeCounter typeCounter1, TypeCounter typeCounter2) {
+				int countOrder = typeCounter2.getCount() - typeCounter1.getCount();
+				return countOrder != 0
+						? countOrder
+						: typeCounter1.getTypename().compareTo(typeCounter2.getTypename());
+			}
+		});
 	}
 
 

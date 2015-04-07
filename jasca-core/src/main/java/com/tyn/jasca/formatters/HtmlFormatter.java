@@ -197,7 +197,7 @@ public class HtmlFormatter implements SummaryFormatter {
 			}
 			
 			wr("				<tr>");
-			wr("					<td>" + eg + typeCounter.getTypename() + "</td>");
+			wr("					<td>" + eg + "&nbsp;" + typeCounter.getTypename() + "</td>");
 			wr("					<td>" + typeCounter.getSeveiry() + "</td>");
 			wr("					<td>" + typeCounter.getCount() + "</td>");
 			wr("					<td>" + "" + "</td>");

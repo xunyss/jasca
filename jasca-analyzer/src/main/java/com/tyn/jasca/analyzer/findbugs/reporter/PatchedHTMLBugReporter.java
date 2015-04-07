@@ -29,6 +29,8 @@ import edu.umd.cs.findbugs.Project;
  * TransformerFactory.newInstance() °¡
  * net.sf.saxon.TransformerFactoryImpl Å¬·¡½º °´Ã¼°¡ ¹ÝÈ¯ µÊ
  * 
+ * @see edu.umd.cs.findbugs.HTMLBugReporter
+ * 
  * @author S.J.H.
  */
 public class PatchedHTMLBugReporter extends BugCollectionBugReporter {

@@ -46,7 +46,6 @@ public class PmdAnalyzerFactory implements AnalyzerFactory {
 		
 		PmdAnalyzer engine = new PmdAnalyzer();
 		engine.applyConfiguration(pmdConfiguration);
-		
 		return engine;
 	}
 }

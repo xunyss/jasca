@@ -31,6 +31,11 @@ public class Jasca {
 	private static final Logger log = LoggerFactory.getLogger(Jasca.class);
 	
 	/**
+	 * sync with MAVEN version
+	 */
+	public static final String VERSION = "0.0.1-SNAPSHOT";
+	
+	/**
 	 * 
 	 * @param args
 	 */

@@ -1,5 +1,6 @@
 package com.tyn.jasca.engine.findbugs;
 
+import com.tyn.jasca.Jasca;
 import com.tyn.jasca.JascaConfiguration;
 import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.findbugs.FindBugsAnalyzer;
@@ -8,6 +9,9 @@ import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
 import com.tyn.jasca.common.TempFileManager;
 import com.tyn.jasca.engine.AnalyzerFactory;
 import com.tyn.jasca.engine.SeverityLevel;
+import com.tyn.jasca.findbugs.detector.JascaFindBugsPlugin;
+
+import edu.umd.cs.findbugs.FindBugs;
 
 /**
  * 
@@ -46,16 +50,38 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		}
 		findbugsConfiguration.setInput(jascaConfiguration.getTarget());
 		
+		// load plug-in
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
 		engine.loadPluginUsingClass("com.h3xstream.findsecbugs.endpoint.CookieDetector");	// find security bugs
-	//	engine.loadPluginUsingClass(com.tyn.jasca.findbugs.detector.FindMe.class);			// jasca-findbugs
-		engine.loadPluginUsingJarFilePath("D:/xdev/git/jasca/jasca-findbugs/target/jasca-findbugs-0.0.1-SNAPSHOT.jar");
+		loadJascaFindBugsPlugin(engine);
+		
+		// find security bugs > CustomInjection
+		String customFrameplus = getClass().getClassLoader()
+				.getResource("findsecbugs/custom-injection/frameplus.properties").getPath();
+		System.setProperty("findsecbugs.injection.sources", customFrameplus);
+		
+		// apply configuration
 		engine.applyConfiguration(findbugsConfiguration);
-		
-		// find security bugs
-		String path = getClass().getResource("/findsecbugs/custom-injection/frameplus.properties").getPath();
-		System.setProperty("findsecbugs.injection.sources", path);
-		
 		return engine;
+	}
+	
+	/**
+	 * 
+	 * @param engine
+	 */
+	private void loadJascaFindBugsPlugin(FindBugsAnalyzer engine) {
+		String url = FindBugs.class.getClassLoader()
+				.getResource(JascaFindBugsPlugin.class.getName().replace('.', '/') + ".class").toString();
+		
+		// for release
+		if (url.startsWith("jar:file:")) {
+			engine.loadPluginUsingClass(JascaFindBugsPlugin.class);
+		}
+		// for debugging
+		else {
+			String path = "D:/xdev/git/jasca/jasca-findbugs/target/";
+			String jar = "jasca-findbugs-" + Jasca.VERSION + ".jar";
+			engine.loadPluginUsingJarFilePath(path + jar);
+		}
 	}
 }

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.tyn.jasca.Summary.TypeCounter;
+import com.tyn.jasca.Summary.RulePatternCounter;
 
 /**
  * 
@@ -109,19 +109,19 @@ public class ReportBuilder {
 			}
 		}
 		
-		List<TypeCounter> typeCounterList = new ArrayList<TypeCounter>();
+		List<RulePatternCounter> rulePatternCounterList = new ArrayList<RulePatternCounter>();
 		
 		Set<RulePattern> set = typeSummary.keySet();
 		Iterator<RulePattern> itr = set.iterator();
 		while (itr.hasNext()) {
 			RulePattern rulePattern = itr.next();
-			typeCounterList.add(new TypeCounter(rulePattern, typeSummary.get(rulePattern)));
+			rulePatternCounterList.add(new RulePatternCounter(rulePattern, typeSummary.get(rulePattern)));
 		}
 		
-		Collections.sort(typeCounterList, new Comparator<TypeCounter>() {
+		Collections.sort(rulePatternCounterList, new Comparator<RulePatternCounter>() {
 			@Override
-			public int compare(TypeCounter typeCounter1, TypeCounter typeCounter2) {
-				int countOrder = typeCounter2.getTypeCount() - typeCounter1.getTypeCount();
+			public int compare(RulePatternCounter typeCounter1, RulePatternCounter typeCounter2) {
+				int countOrder = typeCounter2.getCount() - typeCounter1.getCount();
 				return countOrder != 0
 						? countOrder
 						: typeCounter1.getRulePattern().compareTo(typeCounter2.getRulePattern());
@@ -131,7 +131,7 @@ public class ReportBuilder {
 		Summary summary = new Summary();
 		summary.setViolationCount(total);
 		summary.setSeveritySummary(severitySummary);
-		summary.setTypeSummary(typeCounterList);
+		summary.setRulePatternSummary(rulePatternCounterList);
 		
 		return summary;
 	}

@@ -16,11 +16,12 @@ import org.slf4j.LoggerFactory;
 import com.tyn.jasca.JascaException;
 import com.tyn.jasca.RulePattern;
 import com.tyn.jasca.Severity;
-import com.tyn.jasca.SummaryFormatter;
-import com.tyn.jasca.Violation;
 import com.tyn.jasca.Summary;
 import com.tyn.jasca.Summary.TypeCounter;
+import com.tyn.jasca.SummaryFormatter;
+import com.tyn.jasca.Violation;
 import com.tyn.jasca.analyzer.Analyzer;
+import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 import com.tyn.jasca.common.Utils;
 
 /**
@@ -135,8 +136,38 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("		</table>");
 		wr("		<br/>");
 		
+//		List<RulePatternCounter> rulePatternSummary = summary.getRulePatternSummary();
+//		int rulePatternSummaryLength = rulePatternSummary.size();
+//		
+//		wr("		<table class=sm2>");
+//		wr("			<thead>");
+//		wr("				<tr>");
+//		wr("					<td width=40%>유형</td>");
+//		wr("					<td width=20%>심각도</td>");
+//		wr("					<td width=20%>계</td>");
+//		wr("					<td width=20%>기타</td>");
+//		wr("				</tr>");
+//		wr("			</thead>");
+//		wr("			<tbody>");
+//		for (int idx = 0; idx < rulePatternSummaryLength; idx++) {
+//			RulePattern rulePattern = rulePatternSummary.get(idx).getRulePattern();
+//			String eg = rulePattern.getAnalyzerEngine().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
+//			
+//			wr("				<tr>");
+//			wr("					<td eg=" + eg + ">" + rulePattern.getTypename() + "</td>");
+//			wr("					<td>" + rulePattern.getSeverity().getText() + "</td>");
+//			wr("					<td>" + rulePatternSummary.get(idx).getCount() + "</td>");
+//			wr("					<td>" + "" + "</td>");
+//			wr("				</tr>");
+//		}
+//		wr("			</tbody>");
+//		wr("		</table>");
+//		wr("		<br/>");
+		
+		
+		summary.buildTypeSummary();
 		List<TypeCounter> typeSummary = summary.getTypeSummary();
-		int typeSummaryLenth = typeSummary.size();
+		int typeSummaryLength = typeSummary.size();
 		
 		wr("		<table class=sm2>");
 		wr("			<thead>");
@@ -148,14 +179,27 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("				</tr>");
 		wr("			</thead>");
 		wr("			<tbody>");
-		for (int idx = 0; idx < typeSummaryLenth; idx++) {
-			RulePattern rulePattern = typeSummary.get(idx).getRulePattern();
-			String eg = rulePattern.getAnalyzerEngine().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
+		for (int idx = 0; idx < typeSummaryLength; idx++) {
+			TypeCounter typeCounter = typeSummary.get(idx);
+			String eg = "";
+			for (int egidx = 0; egidx < typeCounter.getEngines().length; egidx++) {
+				if (typeCounter.getEngines()[egidx]) {
+					if (AnalyzerEngine.values()[egidx].equals(AnalyzerEngine.FINDBUGS)) {
+						eg += "<span class=fon>&nbsp;</span>";
+					}
+					else if (AnalyzerEngine.values()[egidx].equals(AnalyzerEngine.PMD)) {
+						eg += "<span class=pon>&nbsp;</span>";
+					}
+				}
+				else {
+					eg += "<span class=off>&nbsp;</span>";
+				}
+			}
 			
 			wr("				<tr>");
-			wr("					<td eg=" + eg + ">" + rulePattern.getTypename() + "</td>");
-			wr("					<td>" + rulePattern.getSeverity().getText() + "</td>");
-			wr("					<td>" + typeSummary.get(idx).getTypeCount() + "</td>");
+			wr("					<td>" + eg + typeCounter.getTypename() + "</td>");
+			wr("					<td>" + typeCounter.getSeveiry() + "</td>");
+			wr("					<td>" + typeCounter.getCount() + "</td>");
 			wr("					<td>" + "" + "</td>");
 			wr("				</tr>");
 		}

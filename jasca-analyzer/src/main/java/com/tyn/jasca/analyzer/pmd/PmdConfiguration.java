@@ -71,7 +71,7 @@ public class PmdConfiguration implements Configuration {
 	 * (default = false)
 	 * </pre>
 	 * 
-	 * @param debug debug mode
+	 * @param debug Debug mode.
 	 */
 	public void setDebug(boolean debug) {
 		this.debug = debug;
@@ -91,7 +91,7 @@ public class PmdConfiguration implements Configuration {
 	 * (default = UTF-8)
 	 * </pre>
 	 * 
-	 * @param encoding specifies the character set encoding of the source code files PMD is reading
+	 * @param encoding Specifies the character set encoding of the source code files PMD is reading (i.e., UTF-8).
 	 */
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
@@ -110,7 +110,7 @@ public class PmdConfiguration implements Configuration {
 	 * -dir, -d
 	 * </pre>
 	 * 
-	 * @param dir root directory for sources
+	 * @param dir Root directory for sources.
 	 */
 	public void setDir(String dir) {
 		this.dir = dir;
@@ -129,7 +129,7 @@ public class PmdConfiguration implements Configuration {
 	 * -uri, -u
 	 * </pre>
 	 * 
-	 * @param uri Database URI for sources
+	 * @param uri Database URI for sources.
 	 */
 	public void setUri(String uri) {
 		this.uri = uri;
@@ -147,7 +147,7 @@ public class PmdConfiguration implements Configuration {
 	 * <pre>
 	 * </pre>
 	 * 
-	 * @param auxclasspath specifies the classpath for libraries used by the source code.
+	 * @param auxclasspath Specifies the classpath for libraries used by the source code.
 	 * This is used by the type resolution.
 	 * Alternatively, a 'file://' URL to a text file containing path elements on consecutive lines can be specified.
 	 */
@@ -168,7 +168,7 @@ public class PmdConfiguration implements Configuration {
 	 * -language, -l
 	 * </pre>
 	 * 
-	 * @param language specify a language PMD should use
+	 * @param language Specify a language PMD should use.
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
@@ -187,7 +187,7 @@ public class PmdConfiguration implements Configuration {
 	 * -version, -v
 	 * </pre>
 	 * 
-	 * @param version specify version of a language PMD should use
+	 * @param version Specify version of a language PMD should use.
 	 */
 	public void setVersion(String version) {
 		this.version = version;
@@ -207,7 +207,8 @@ public class PmdConfiguration implements Configuration {
 	 * (default = Low)
 	 * </pre>
 	 * 
-	 * @param minimumpriority rule priority threshold; rules with lower priority than they will not be used
+	 * @param minimumpriority Rule priority threshold; rules with lower priority than configured here won't be used.
+	 * Default is '5' which is the lowest priority.
 	 */
 	public void setMinimumpriority(RulePriority minimumpriority) {
 		this.minimumpriority = minimumpriority;
@@ -291,7 +292,7 @@ public class PmdConfiguration implements Configuration {
 	 * (default = text)
 	 * </pre>
 	 * 
-	 * @param format report format type
+	 * @param format Report format type.
 	 */
 	public void setFormat(RenderFormat format) {
 		this.format = format;
@@ -328,7 +329,7 @@ public class PmdConfiguration implements Configuration {
 	 * (default = {})
 	 * </pre>
 	 * 
-	 * @param properties define a property for the report
+	 * @param properties Define a property for the report format.
 	 */
 	public void setProperties(Properties properties) {
 		this.properties = properties;
@@ -348,7 +349,7 @@ public class PmdConfiguration implements Configuration {
 	 * (default = System.out)
 	 * </pre>
 	 * 
-	 * @param reportfile send report output to a file; default to System.out
+	 * @param reportfile Sends report output to a file; default to System.out.
 	 */
 	public void setReportfile(String reportfile) {
 		this.reportfile = reportfile;
@@ -368,7 +369,7 @@ public class PmdConfiguration implements Configuration {
 	 * (*)
 	 * </pre>
 	 * 
-	 * @param rulesets comma separated list of rulesets name to use
+	 * @param rulesets Comma separated list of ruleset names to use.
 	 */
 	public void setRulesets(String rulesets) {
 		this.rulesets = rulesets;
@@ -388,7 +389,7 @@ public class PmdConfiguration implements Configuration {
 	 * (default = 1)
 	 * </pre>
 	 * 
-	 * @param threads set the number of threads used by PMD
+	 * @param threads Sets the number of threads used by PMD.
 	 */
 	public void setThreads(int threads) {
 		this.threads = threads;

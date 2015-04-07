@@ -22,6 +22,7 @@ public class JascaTest {
 			"D:/securecoding/workspace/sampleweb"
 		//	"D:/securecoding/workspace/sampleweb/build/classes/com/tyn/wweb/W41_2.class"
 		//	"D:/securecoding/workspace/sampleweb/src/com/tyn/wweb/test"
+		//	"D:/securecoding/workspace/xfp"
 		};
 		
 		Jasca.main(args);

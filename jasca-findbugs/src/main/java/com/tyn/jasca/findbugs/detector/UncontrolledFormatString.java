@@ -2,7 +2,7 @@ package com.tyn.jasca.findbugs.detector;
 
 import org.apache.bcel.Constants;
 
-import com.h3xstream.findsecbugs.common.StringTracer;
+import com.h3xstream.findsecbugs.common.StackUtils;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugReporter;
@@ -37,7 +37,7 @@ public class UncontrolledFormatString extends OpcodeStackDetector {
 					if (stack.getStackItem(0).getSignature().equals("[Ljava/lang/Object;")
 							&& stack.getStackItem(1).getSignature().equals("Ljava/lang/String;")) {
 						
-						if (StringTracer.isVariableString(stack.getStackItem(1))) {
+						if (StackUtils.isVariableString(stack.getStackItem(1))) {
 							bugReporter.reportBug(new BugInstance(this, BUGTYPE_UNCONTROL_FORMAT_STRING, Priorities.NORMAL_PRIORITY)
 								.addClass(this)
 								.addMethod(this)

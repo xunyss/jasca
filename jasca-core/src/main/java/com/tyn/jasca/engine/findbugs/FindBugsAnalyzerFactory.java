@@ -52,6 +52,10 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		engine.loadPluginUsingJarFilePath("D:/xdev/git/jasca/jasca-findbugs/target/jasca-findbugs-0.0.1-SNAPSHOT.jar");
 		engine.applyConfiguration(findbugsConfiguration);
 		
+		// find security bugs
+		String path = getClass().getResource("/findsecbugs/custom-injection/frameplus.properties").getPath();
+		System.setProperty("findsecbugs.injection.sources", path);
+		
 		return engine;
 	}
 }

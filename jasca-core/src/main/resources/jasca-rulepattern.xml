@@ -15,6 +15,9 @@
 	<rulepattern engine="FINDBUGS" name="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING">
 		<typename>01.SQL삽입</typename>
 	</rulepattern>
+	<rulepattern engine="FINDBUGS" name="SQL_INJECTION_FRAMEPLUS_SQLMANAGER">
+		<typename>01.SQL삽입</typename>
+	</rulepattern>
 	
 	<rulepattern engine="FINDBUGS" name="PT_ABSOLUTE_PATH_TRAVERSAL">
 		<typename>02.경로조작및자원삽입</typename>

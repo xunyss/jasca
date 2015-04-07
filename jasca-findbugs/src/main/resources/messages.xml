@@ -130,4 +130,16 @@ Class implements Filter interface and uses instance variables
 		</Details>
 	</BugPattern>
 	
+	
+	<BugPattern type="SQL_INJECTION_FRAMEPLUS_SQLMANAGER">
+		<ShortDescription>Potential SQL Injection</ShortDescription>
+		<LongDescription>The use of the method {3} is potentially SQL injection.</LongDescription>
+		<Details>
+			<![CDATA[
+<p>
+</p>
+			]]>
+		</Details>
+	</BugPattern>
+	
 </MessageCollection>

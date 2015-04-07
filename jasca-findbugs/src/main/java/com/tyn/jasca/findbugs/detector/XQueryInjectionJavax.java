@@ -2,7 +2,7 @@ package com.tyn.jasca.findbugs.detector;
 
 import org.apache.bcel.Constants;
 
-import com.h3xstream.findsecbugs.common.StringTracer;
+import com.h3xstream.findsecbugs.common.StackUtils;
 
 import edu.umd.cs.findbugs.BugInstance;
 import edu.umd.cs.findbugs.BugReporter;
@@ -32,7 +32,7 @@ public class XQueryInjectionJavax extends OpcodeStackDetector {
 			if (getNameConstantOperand().equals("prepareExpression")
 					&& getSigConstantOperand().equals("(Ljava/lang/String;)Ljavax/xml/xquery/XQPreparedExpression;")) {
 				
-				if (StringTracer.isVariableString(stack.getStackItem(0))) {
+				if (StackUtils.isVariableString(stack.getStackItem(0))) {
 					bugReporter.reportBug(new BugInstance(this, BUGTYPE_XQUERY_INJECTION_JAVAX, Priorities.NORMAL_PRIORITY)
 						.addClass(this)
 						.addMethod(this)

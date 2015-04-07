@@ -28,4 +28,7 @@
 	<BugPattern type="SERVLET_INSTANCE_ACCESS" abbrev="SECJEI" category="SECURITY" />
 	<BugPattern type="FILTER_INSTANCE_ACCESS" abbrev="SECJEI" category="SECURITY" />
 	
+	
+	<BugPattern type="SQL_INJECTION_FRAMEPLUS_SQLMANAGER" abbrev="SQL" category="SECURITY" />
+	
 </FindbugsPlugin>

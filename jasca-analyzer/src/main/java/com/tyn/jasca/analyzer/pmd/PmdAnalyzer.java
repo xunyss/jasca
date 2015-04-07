@@ -4,16 +4,19 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
 import net.sourceforge.pmd.PMD;
 import net.sourceforge.pmd.PMDConfiguration;
+import net.sourceforge.pmd.ReportListener;
 import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleContext;
 import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
 import net.sourceforge.pmd.RuleSets;
+import net.sourceforge.pmd.RuleViolation;
 import net.sourceforge.pmd.RulesetsFactoryUtils;
 import net.sourceforge.pmd.benchmark.Benchmark;
 import net.sourceforge.pmd.benchmark.Benchmarker;
@@ -21,6 +24,7 @@ import net.sourceforge.pmd.lang.Language;
 import net.sourceforge.pmd.lang.LanguageVersion;
 import net.sourceforge.pmd.lang.LanguageVersionDiscoverer;
 import net.sourceforge.pmd.renderers.Renderer;
+import net.sourceforge.pmd.stat.Metric;
 import net.sourceforge.pmd.util.IOUtil;
 import net.sourceforge.pmd.util.datasource.DataSource;
 import net.sourceforge.pmd.util.log.ConsoleLogHandler;
@@ -80,30 +84,36 @@ public class PmdAnalyzer extends Analyzer {
 			logHandlerManager = new ScopedLogHandlersManager(Level.FINER, logHandler);
 		}
 		
+		log.debug("PMD analyzer start");
+		
 		/**
-		 * 
+		 * execute PMD
 		 */
-		doPMD();
+		int violationsCount = doPMD();
+		
+		log.debug("PMD analyzer finished");
 		
 		if (internalConfiguration.isDebug()) {
 			logHandlerManager.close();
 			logHandlerManager = null;
 			logHandler = null;
 		}
+		
+		
+		log.debug("violationsCount : {}", violationsCount);
 	}
 	
 	/**
 	 * 
+	 * @return number of violations found.
 	 * @see net.sourceforge.pmd.PMD#doPMD(PMDConfiguration configuration)
 	 */
-	private void doPMD() {
-		log.debug("PMD analyzer start");
-		
+	private int doPMD() {
 		// Load the RuleSets
 		RuleSetFactory ruleSetFactory = RulesetsFactoryUtils.getRulesetFactory(internalConfiguration);
 		RuleSets ruleSets = RulesetsFactoryUtils.getRuleSetsWithBenchmark(internalConfiguration.getRuleSets(), ruleSetFactory);
 		if (ruleSets == null) {
-			return;
+			return 0;
 		}
 		
 		Set<Language> languages = getApplicableLanguages(internalConfiguration, ruleSets);
@@ -133,6 +143,16 @@ public class PmdAnalyzer extends Analyzer {
 			Benchmarker.mark(Benchmark.Reporting, System.nanoTime() - reportStart, 0);
 			
 			RuleContext ctx = new RuleContext();
+			final AtomicInteger violations = new AtomicInteger(0);
+			ctx.getReport().addListener(new ReportListener() {
+				@Override
+				public void ruleViolationAdded(RuleViolation ruleViolation) {
+					violations.incrementAndGet();
+				}
+				@Override
+				public void metricAdded(Metric metric) {
+				}
+			});
 			
 			PMD.processFiles(internalConfiguration, ruleSetFactory, files, ctx, renderers);
 			
@@ -140,10 +160,12 @@ public class PmdAnalyzer extends Analyzer {
 			renderer.end();
 			renderer.flush();
 			
-			log.debug("PMD analyzer finished");
+			return violations.get();
 		}
 		catch (Exception e) {
 			log.error("PMD engine execute error", e);
+			
+			return 0;
 		}
 		finally {
 			Benchmarker.mark(Benchmark.Reporting, System.nanoTime() - reportStart, 0);

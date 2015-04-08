@@ -218,7 +218,6 @@
 	
 	<rulepattern engine="FINDBUGS" name="_BUG_PATTERN_TYPE" ignore="true" />
 	
-	<rulepattern engine="PMD" name="JspEncoding" ignore="true" />
-	<rulepattern engine="PMD" name="NoScriptlets" ignore="true" />
+	<rulepattern engine="PMD" name="_RuleType" ignore="true" />
 	
 </jasca-rulepatterns>

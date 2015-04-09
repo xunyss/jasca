@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasca-rules>
+	
+	<rule typename="S01.SQL삽입">
+		<description/>
+		<detail/>
+		<link>http://cwe.mitre.org/data/definitions/89.html</link>
+		<severity>HIGH</severity>
+		<reference>
+			<engine name="FINDBUGS" type="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
+			<engine name="FINDBUGS" type="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"/>
+			<engine name="FINDBUGS" type="SQL_INJECTION_FRAMEPLUS_SQLMANAGER"/>
+		</reference>
+	</rule>
+	
+</jasca-rules>

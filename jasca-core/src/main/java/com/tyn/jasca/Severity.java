@@ -8,7 +8,8 @@ public enum Severity {
 	
 	HIGH	(1, "High"),
 	MEDIUM	(2, "Medium"),
-	LOW		(3, "Low");
+	LOW		(3, "Low"),
+	INFO	(4, "Info");
 	
 	private int value;
 	private String text;

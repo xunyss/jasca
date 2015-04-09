@@ -78,7 +78,7 @@ public class ReportBuilder {
 		
 		int total = 0;
 		
-		int[] severitySummary = new int[3];
+		int[] severitySummary = new int[Severity.values().length];
 		
 		Map<RulePattern, Integer> typeSummary = new HashMap<RulePattern, Integer>();
 		

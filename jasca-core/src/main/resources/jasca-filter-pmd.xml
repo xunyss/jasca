@@ -22,6 +22,7 @@
 	</rule>
 <!--<rule ref="rulesets/java/coupling.xml" />-->
 	<rule ref="rulesets/java/design.xml">
+		<exclude name="UncommentedEmptyMethodBody" />
 		<exclude name="UseVarargs" />
 	</rule>
 	<rule ref="rulesets/java/empty.xml" />

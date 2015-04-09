@@ -53,6 +53,7 @@ public class FindBugsAnalyzerFactory implements AnalyzerFactory {
 		// load plug-in
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
 		engine.loadPluginUsingClass("com.h3xstream.findsecbugs.endpoint.CookieDetector");	// find security bugs
+	//	engine.loadPluginUsingClass(FBContrib.class);										// fb-contrib
 		loadJascaFindBugsPlugin(engine);
 		
 		// find security bugs > CustomInjection

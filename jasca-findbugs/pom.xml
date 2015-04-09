@@ -28,6 +28,11 @@
 			<artifactId>findsecbugs-plugin</artifactId>
 			<version>${findbugs.security.version}</version>
 		</dependency>
+		<!--<dependency>
+			<groupId>com.mebigfatguy.fb-contrib</groupId>
+			<artifactId>fb-contrib</artifactId>
+			<version>${findbugs.fb-contrib.version}</version>
+		</dependency>-->
 	</dependencies>
 	
 </project>

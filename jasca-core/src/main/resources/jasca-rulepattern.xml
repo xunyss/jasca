@@ -227,13 +227,16 @@
 		<typename>T01.사용되지않는지역변수</typename>
 		<severity>INFO</severity>
 	</rulepattern>
+	<rulepattern engine="PMD" name="SystemPrintln">
+		<typename>T02.표준출력을통한로깅</typename>
+		<severity>INFO</severity>
+	</rulepattern>
 	
 	<!-- =================================================================== -->
 	
 	<!-- [ignore list] -->
 	
-	<rulepattern engine="FINDBUGS" name="_BUG_PATTERN_TYPE" ignore="true" />
-	
-	<rulepattern engine="PMD" name="_RuleType" ignore="true" />
+	<rulepattern engine="FINDBUGS" name="_FINDBUGS_BUG_PATTERN" ignore="true" />
+	<rulepattern engine="PMD" name="_PMDRule" ignore="true" />
 	
 </jasca-rulepatterns>

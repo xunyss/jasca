@@ -1,33 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ruleset name="Jasca-PMD"
+<ruleset name="jasca-java"
 	xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 	
 	<description>
+		rulesets/jasca/java
 	</description>
-	
-	<rule name="DynamicClassLoading"
-		language="java"
-		since="jasca 1.0"
-		message="동적으로 로딩한 클래스는 코드 무결성 검사를 수행하십시오"
-		class="com.tyn.jasca.pmd.rule.DynamicClassLoadingRule"
-		externalInfoUrl="http://cwe.mitre.org/data/definitions/494.html">
-		
-		<description>
-		</description>
-		<priority>3</priority>
-		<example>
-<![CDATA[
-URL[] classURLs= new URL[]{
-    new URL("file:subdir/")
-};
-URLClassLoader loader = new URLClassLoader(classURLs);
-Class loadedClass = Class.forName("loadMe", true, loader);
-]]>
-		</example>
-	</rule>
 	
 	<rule name="ReverseDNSResolution"
 		language="java"
@@ -50,41 +30,10 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
 		</example>
 	</rule>
 	
-	<rule name="UseDangerousMethod"
-		language="java"
-		since="jasca 1.0"
-		message="보안문제를 유발할 수 있는 메소드를 사용하지 마십시오"
-		class="net.sourceforge.pmd.lang.rule.XPathRule"
-		externalInfoUrl="http://cwe.mitre.org/data/definitions/676.html">
-		
-		<description>
-		</description>
-		<priority>3</priority>
-		<properties>
-			<property name="xpath">
-				<value>
-<![CDATA[
-//PrimaryExpression
-[
-  PrimaryPrefix/Name[ends-with(@Image, 'getSessionContext')]
-  or
-  PrimarySuffix[ends-with(@Image, 'getSessionContext')]
-]
-]]>
-				</value>
-			</property>
-		</properties>
-		<example>
-<![CDATA[
-]]>
-		</example>
-	</rule>
-	
-	
 	<rule name="LogExceptionInformation"
 		language="java"
 		since="jasca 1.0"
-		message="예외 {0} 의 오류메시지를 통하여 정보가 노출될 수 있습니다"
+		message="익셉션 {0} 의 메시지를 통하여 정보가 노출될 수 있습니다"
 		class="com.tyn.jasca.pmd.rule.LogExceptionInformationRule"
 		externalInfoUrl="http://cwe.mitre.org/data/definitions/209.html">
 		
@@ -93,14 +42,13 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
 		<priority>3</priority>
 		<example>
 <![CDATA[
-
 ]]>
 		</example>
 	</rule>
 	
 	<!-- =================================================================== -->
 	
-	<rule name="MainMethodInJavaEEObject"
+	<rule name="MainMethodInJeeObject"
 		language="java"
 		since="jasca 1.0"
 		message="디버깅을 위해 작성 되었던 {0} 메소드를 제거하십시오"
@@ -116,7 +64,7 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
 <![CDATA[
 //ClassOrInterfaceDeclaration
 /ExtendsList
-/ClassOrInterfaceType[@Image="HttpServlet" or @Image = "Filter"]
+/ClassOrInterfaceType[@Image="HttpServlet" or @Image="Servlet" or @Image = "Filter"]
 /../..
 /ClassOrInterfaceBody
 /ClassOrInterfaceBodyDeclaration
@@ -129,6 +77,36 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
     /ReferenceType
     /ClassOrInterfaceType[@Image = "String"]
   )
+]
+]]>
+				</value>
+			</property>
+		</properties>
+		<example>
+<![CDATA[
+]]>
+		</example>
+	</rule>
+	
+	<rule name="JeeSessionContext"
+		language="java"
+		since="jasca 1.0"
+		message="SessionContext 객체의 사용은 보안문제를 유발할 수 있습니다"
+		class="net.sourceforge.pmd.lang.rule.XPathRule"
+		externalInfoUrl="http://cwe.mitre.org/data/definitions/676.html">
+		
+		<description>
+		</description>
+		<priority>3</priority>
+		<properties>
+			<property name="xpath">
+				<value>
+<![CDATA[
+//PrimaryExpression
+[
+  PrimaryPrefix/Name[ends-with(@Image, 'getSessionContext')]
+  or
+  PrimarySuffix[ends-with(@Image, 'getSessionContext')]
 ]
 ]]>
 				</value>

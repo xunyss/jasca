@@ -2,8 +2,6 @@ package com.tyn.jasca.analyzer.sonar;
 
 import java.util.Properties;
 
-import org.sonar.runner.api.EmbeddedRunner;
-
 /**
  * 
  * @author S.J.H.
@@ -48,9 +46,11 @@ public class SonarRunnerTest {
 		props.put("sonar.language", "java");
 		
 		
+		/*
 		EmbeddedRunner sonarEmbeddedRunner = EmbeddedRunner.create();
 		
 		sonarEmbeddedRunner.addProperties(props);
 		sonarEmbeddedRunner.execute();
+		*/
 	}
 }

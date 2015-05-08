@@ -52,11 +52,13 @@
 			<artifactId>jasca-pmd</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<!-- sonar엔진 사용 안함
 		<dependency>
 			<groupId>org.codehaus.sonar.runner</groupId>
 			<artifactId>sonar-runner-api</artifactId>
 			<version>${sonar.runner.version}</version>
-		</dependency>
+		</dependency>-->
 		
 	</dependencies>
 	

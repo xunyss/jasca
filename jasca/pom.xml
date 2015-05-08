@@ -24,7 +24,7 @@
 		<findbugs.security.version>1.4.0</findbugs.security.version>
 		<findbugs.fb-contrib.version>6.0.0</findbugs.fb-contrib.version>
 		<pmd.version>5.3.1</pmd.version>
-		<sonar.runner.version>2.4</sonar.runner.version>
+		<!--<sonar.runner.version>2.4</sonar.runner.version>-->
 	</properties>
 	
 	<dependencies>

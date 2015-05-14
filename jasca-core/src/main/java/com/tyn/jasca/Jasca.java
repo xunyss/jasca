@@ -58,6 +58,7 @@ public class Jasca {
 	private static JascaConfiguration processCommandine(String[] args) {
 		JascaConfiguration jascaConfiguration = new JascaConfiguration();
 		
+		final String USAGE = "jasca [options] [분석대상 파일 또는 디렉토리]";
 		Options options = new Options();
 		options.addOption("verbose",	false,	"분석엔진 디버그 모드");
 		options.addOption("progress",	false,	"분석 진행률 표시");
@@ -66,6 +67,13 @@ public class Jasca {
 		options.addOption("output",		true,	"레포트 결과 저장 파일 명");
 		
 		try {
+			if (args != null && args.length == 0) {
+				HelpFormatter help = new HelpFormatter();
+				help.printHelp(USAGE, options);
+				
+				return null;
+			}
+			
 			CommandLineParser parser = new BasicParser();
 			CommandLine command = parser.parse(options, args);
 			
@@ -84,7 +92,7 @@ public class Jasca {
 			pw.flush();
 			
 			HelpFormatter help = new HelpFormatter();
-			help.printHelp("jasca [options] [분석대상 파일 또는 디렉토리]", options);
+			help.printHelp(USAGE, options);
 			
 			return null;		// exit
 		}

@@ -89,7 +89,7 @@ public class JascaConfiguration {
 		/*
 		 * validation check
 		 */
-		if (!("high".equals(level) || "medium".equals(level) || "low".equals(level))) {
+		if (!("high".equals(level) || "medium".equals(level) || "low".equals(level) || "info".equals(level))) {
 			throw new ParseException("분석 심각도 레벨 입력 오류");
 		}
 		if (!("html".equals(format) || "xls".equals(format) || "xlsx".equals(format) || "xml".equals(format))) {

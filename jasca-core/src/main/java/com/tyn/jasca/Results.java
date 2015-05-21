@@ -77,7 +77,7 @@ public class Results implements Iterable<Violation> {
 		Collections.sort(violations, new Comparator<Violation>() {
 			@Override
 			public int compare(Violation violation1, Violation violation2) {
-				return violation1.getRulePattern().compareTo(violation2.getRulePattern());
+				return violation1.getRule().compareTo(violation2.getRule());
 			}
 		});
 	}

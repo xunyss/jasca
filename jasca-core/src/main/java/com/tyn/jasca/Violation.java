@@ -1,26 +1,38 @@
 package com.tyn.jasca;
 
+import com.tyn.jasca.rules.Pattern;
+import com.tyn.jasca.rules.Rule;
+
 /**
  * 
  * @author S.J.H.
  */
 public class Violation {
 	
-	private RulePattern rulePattern;
+	private Rule rule;
+	private Pattern pattern;
 	
 	private String filename;
 	private int beginline;
 	private int endline;
 	private String message;
 	
-	public RulePattern getRulePattern() {
-		return rulePattern;
+	public Rule getRule() {
+		return rule;
 	}
 	
-	public void setRulePattern(RulePattern rulePattern) {
-		this.rulePattern = rulePattern;
+	public void setRule(Rule rule) {
+		this.rule = rule;
 	}
 	
+	public Pattern getPattern() {
+		return pattern;
+	}
+
+	public void setPattern(Pattern pattern) {
+		this.pattern = pattern;
+	}
+
 	public String getFilename() {
 		return filename;
 	}

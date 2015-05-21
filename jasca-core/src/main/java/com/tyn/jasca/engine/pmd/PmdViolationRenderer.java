@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import net.sourceforge.pmd.Report;
-import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleViolation;
 import net.sourceforge.pmd.renderers.AbstractRenderer;
 import net.sourceforge.pmd.util.datasource.DataSource;
 
 import org.apache.commons.io.IOUtils;
 
-import com.tyn.jasca.RulePattern;
-import com.tyn.jasca.RulePatternCollection;
-import com.tyn.jasca.Violation;
 import com.tyn.jasca.Results;
+import com.tyn.jasca.Violation;
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 import com.tyn.jasca.engine.SeverityLevel;
+import com.tyn.jasca.rules.Pattern;
+import com.tyn.jasca.rules.Rule;
+import com.tyn.jasca.rules.RuleRepository;
 
 /**
  * 
@@ -76,27 +76,22 @@ public class PmdViolationRenderer extends AbstractRenderer {
 	 */
 	@Override
 	public void renderFileReport(Report report) throws IOException {
-		
 		for (RuleViolation ruleViolation : report) {
+			// Pattern
+			Pattern pattern = Pattern.get(
+					AnalyzerEngine.PMD,
+					ruleViolation.getRule().getName(),
+					SeverityLevel.getSeverity(ruleViolation.getRule().getPriority()));
 			
-			Rule rule = ruleViolation.getRule();
-			
-			// RulePattern
-			RulePatternCollection collection = RulePatternCollection.getInstance();
-			RulePattern rulePattern = collection.get(AnalyzerEngine.PMD, rule.getName());
-			
-			if (!rulePattern.isRegistered()) {
-				rulePattern = new RulePattern(AnalyzerEngine.PMD, rule.getName());
-				rulePattern.setCategory("");
-				rulePattern.setSeverity(SeverityLevel.getSeverity(rule.getPriority()));
-				rulePattern.setLink(rule.getExternalInfoUrl());
-				
-				collection.register(rulePattern);
-			}
+			// Rule
+			RuleRepository ruleCollection = RuleRepository.getInstance();
+			Rule rule = ruleCollection.getRule(pattern);
 			
 			// Violation
 			Violation violation = new Violation();
-			violation.setRulePattern(rulePattern);
+			violation.setPattern(pattern);
+			violation.setRule(rule);
+			
 			violation.setFilename(ruleViolation.getFilename());
 			violation.setBeginline(ruleViolation.getBeginLine());
 			violation.setEndline(ruleViolation.getEndLine());

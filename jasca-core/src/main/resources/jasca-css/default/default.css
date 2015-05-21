@@ -36,28 +36,11 @@ table.sm1 tbody td {
 	text-align: center;
 }
 
-table.sm2 tbody td:nth-child(1)[eg="f"] {
-	background: url("eg-f.png") 4px 6px no-repeat;
-	padding-left: 22px;
+table.sm2 {
+	table-layout: fixed;
 }
-table.sm2 tbody td:nth-child(1)[eg="p"] {
-	background: url("eg-p.png") 4px 6px no-repeat;
-	padding-left: 22px;
-}
-table.sm2 tbody td:nth-child(1) span.fon {
-	background: url("eg-f.png") 0 2px no-repeat;
-	float: left;
-	width: 18px;
-}
-table.sm2 tbody td:nth-child(1) span.pon {
-	background: url("eg-p.png") 0 2px no-repeat;
-	float: left;
-	width: 18px;
-}
-table.sm2 tbody td:nth-child(1) span.off {
-	background: 0 2px no-repeat;
-	float: left;
-	width: 18px;
+table.sm2 tbody td {
+	text-align: center;
 }
 
 table.lst tbody tr:nth-child(odd) {

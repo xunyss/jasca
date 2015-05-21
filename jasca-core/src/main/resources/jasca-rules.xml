@@ -1,16 +1,596 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasca-rules>
 	
-	<rule typename="S01.SQL삽입">
-		<description/>
-		<detail/>
-		<link>http://cwe.mitre.org/data/definitions/89.html</link>
-		<severity>HIGH</severity>
-		<reference>
-			<engine name="FINDBUGS" type="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
-			<engine name="FINDBUGS" type="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"/>
-			<engine name="FINDBUGS" type="SQL_INJECTION_FRAMEPLUS_SQLMANAGER"/>
-		</reference>
-	</rule>
+	<!-- Category -->
+	<categories>
+		<category id="IV">
+			<name>입력데이터 검증 및 표현</name>
+			<cwe>20</cwe>
+			<description>프로그램 입력값에 대한 검증 누락 또는 부적절한 검증, 데이터의 잘못된 형식지정으로 인해 발생할 수 있는 보안약점</description>
+		</category>
+		<category id="SF">
+			<name>보안기능</name>
+			<cwe>254</cwe>
+			<description>보안기능(인증, 접근제어, 기밀성, 암호화, 권한 관리 등)을 적절하지 않게 구현시 발생할 수 있는 보안약점</description>
+		</category>
+		<category id="TS">
+			<name>시간 및 상태</name>
+			<cwe>361</cwe>
+			<description>동시 또는 거의 동시 수행을 지원하는 병렬 시스템, 하나 이상의 프로세스가 동작되는 환경에서 시간 및 상태를 부적절하게 관리하여 발생할 수 있는 보안약점</description>
+		</category>
+		<category id="EH">
+			<name>에러처리</name>
+			<cwe>388</cwe>
+			<description>에러를 처리하지 않거나, 불충분하게 처리하여 에러정보에 중요정보(시스템 등)가 포함될 때 발생할 수 있는 보안약점</description>
+		</category>
+		<category id="CQ">
+			<name>코드오류</name>
+			<cwe>398</cwe>
+			<description>타입변환 오류, 자원(메모리 등)의 부적절한 반환 등과 같이 개발자가 범할 수 있는 코딩오류로 인해 유발되는 보안약점</description>
+		</category>
+		<category id="EC">
+			<name>캡슐화</name>
+			<cwe>485</cwe>
+			<description>중요한 데이터 또는 기능성을 불충분하게 캡슐화 하였을 때 인가되지 않은 사용자에게 데이터 누출이 가능해지는 보안약점</description>
+		</category>
+		<category id="AA">
+			<name>API 오용</name>
+			<cwe>227</cwe>
+			<description>의도된 사용에 반하는 방법으로 API를 사용하거나 보안에 취약한 API를 사용하여 발생할 수 있는 보안약점</description>
+		</category>
+		<category id="EN">
+			<name>환경</name>
+			<cwe>2</cwe>
+			<description>소스코드 이외 환경에서 발생할 수 있는 보안약점</description>
+		</category>
+	</categories>
+	
+	<!-- Rule -->
+	<rules>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="SQL Injection">
+			<category>IV</category>
+			<name>SQL 삽입</name>
+			<cwe>89</cwe>
+			<description>검증되지 않은 외부 입력값이 SQL 쿼리문 생성에 사용되어 악의적인 쿼리가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[신뢰할 수 없는 소스에서 나온 입력을 받아 동적으로 SQL 문을 생성하면 공격자가 해당 문의 의미를 수정하거나 임의의 SQL 명령을 실행할 수 있습니다.]]></detail>
+			<severity>HIGH</severity>
+			<link>http://cwe.mitre.org/top25/index.html#CWE-89</link>
+			<link>https://www.owasp.org/index.php/Top_10_2013-A1-Injection</link>
+			<pattern engine="FINDBUGS" type="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"/>
+			<pattern engine="FINDBUGS" type="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING"/>
+			<pattern engine="FINDBUGS" type="SQL_INJECTION_FRAMEPLUS_SQLMANAGER"/>
+		</rule>
+		
+		<rule id="Path Traversal">
+			<category>IV</category>
+			<name>경로 조작 및 자원 삽입</name>
+			<cwe>22</cwe>
+			<description>검증되지 않은 외부 입력값이 시스템 자원 접근경로 또는 자원제어에 사용되어 공격자가 입력값을 조작해 공격할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="PT_ABSOLUTE_PATH_TRAVERSAL"/>
+			<pattern engine="FINDBUGS" type="PT_RELATIVE_PATH_TRAVERSAL"/>
+			<pattern engine="FINDBUGS" type="PATH_TRAVERSAL_IN"/>
+			<pattern engine="FINDBUGS" type="PATH_TRAVERSAL_OUT"/>
+		</rule>
+		
+		<rule id="Resource Injection">
+			<category>IV</category>
+			<name>경로 조작 및 자원 삽입</name>
+			<cwe>99</cwe>
+			<description>검증되지 않은 외부 입력값이 시스템 자원 접근경로 또는 자원제어에 사용되어 공격자가 입력값을 조작해 공격할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Cross-Site Scripting">
+			<category>IV</category>
+			<name>크로스사이트 스크립트</name>
+			<cwe>79</cwe>
+			<description>검증되지 않은 외부 입력값에 의해 사용자 브라우저에서 악의적인 스크립트가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER"/>
+		</rule>
+		
+		<rule id="Command Injection">
+			<category>IV</category>
+			<name>운영체제 명령어 삽입</name>
+			<cwe>78</cwe>
+			<description>검증되지 않은 외부 입력값이 운영체제 명령문 생성에 사용되어 악의적인 명령어가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="COMMAND_INJECTION"/>
+		</rule>
+		
+		<rule id="Unrestricted Upload of File with Dangerous Type">
+			<category>IV</category>
+			<name>위험한 형식 파일 업로드</name>
+			<cwe>434</cwe>
+			<description>파일의 확장자 등 파일형식에 대한 검증 없이 업로드를 허용하여 발생할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Open Redirect">
+			<category>IV</category>
+			<name>신뢰되지 않는 URL 주소로 자동접속 연결</name>
+			<cwe>601</cwe>
+			<description>검증되지 않은 외부 입력값이 URL 링크 생성에 사용되어 악의적인 사이트로 자동 접속될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="UNVALIDATED_REDIRECT"/>
+		</rule>
+		
+		<rule id="XQuery Injection">
+			<category>IV</category>
+			<name>XQuery 삽입</name>
+			<cwe>652</cwe>
+			<description>검증되지 않은 외부 입력값이 XQuery 쿼리문 생성에 사용되어 악의적인 쿼리가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="XQUERY_INJECTION_JAVAX"/>
+		</rule>
+		
+		<rule id="XPath Injection">
+			<category>IV</category>
+			<name>XPath 삽입</name>
+			<cwe>643</cwe>
+			<description>검증되지 않은 외부 입력값이 XPath 쿼리문 생성에 사용되어 악의적인 쿼리가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="XPATH_INJECTION"/>
+		</rule>
+		
+		<rule id="LDAP Injection">
+			<category>IV</category>
+			<name>LDAP 삽입</name>
+			<cwe>90</cwe>
+			<description>검증되지 않은 외부 입력값이 LDAP 명령문 생성에 사용되어 악의적인 명령어가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="LDAP_INJECTION"/>
+		</rule>
+		
+		<rule id="Cross-Site Request Forgery">
+			<category>IV</category>
+			<name>크로스사이트 요청 위조</name>
+			<cwe>352</cwe>
+			<description>검증되지 않은 외부 입력값에 의해 브라우저에서 악의적인 스크립트가 실행되어 공격자가 원하는 요청(Request)이 다른 사용자(관리자 등)의 권한으로 서버로 전송되는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="HTTP Response Splitting">
+			<category>IV</category>
+			<name>HTTP 응답분할</name>
+			<cwe>113</cwe>
+			<description>검증되지 않은 외부 입력값이 HTTP 응답헤더에 삽입되어 악의적인 코드가 실행될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>HIGH</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="HRS_REQUEST_PARAMETER_TO_COOKIE"/>
+		</rule>
+		
+		<rule id="Integer Overflow">
+			<category>IV</category>
+			<name>정수형 오버플로우</name>
+			<cwe>113</cwe>
+			<description>정수를 사용한 연산의 결과가 정수값의 범위를 넘어서는 경우, 프로그램이 예기치 않게 동작될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="ICAST_INTEGER_MULTIPLY_CAST_TO_LONG"/>
+		</rule>
+		
+		<rule id="Reliance on Untrusted Inputs in a Security Decision">
+			<category>IV</category>
+			<name>보안 기능 결정에 사용되는 부적절한 입력값</name>
+			<cwe>807</cwe>
+			<description>검증되지 않은 입력값이 보안결정(인증, 인가, 권한부여 등)에 사용되어 보안 메커니즘 우회 등을 야기할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="SERVLET_CONTENT_TYPE"/>
+			<pattern engine="FINDBUGS" type="COOKIE_USAGE"/>
+		</rule>
+		
+		<rule id="Uncontrolled Format String">
+			<category>IV</category>
+			<name>포맷 스트링 삽입</name>
+			<cwe>134</cwe>
+			<description>printf 등 외부 입력값으로 포맷스트링을 제어할 수 있는 함수를 사용하여 발생할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="UNCONTROL_FORMAT_STRING"/>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="Missing Authentication for Critical Function">
+			<category>SF</category>
+			<name>적절한 인증 없는 중요기능 허용</name>
+			<cwe>306</cwe>
+			<description>적절한 인증 없이 중요정보(금융정보, 개인정보, 인증정보 등)을 열람(또는 변경)할 수 있게 하는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Improper Authorization">
+			<category>SF</category>
+			<name>부적절한 인가</name>
+			<cwe>285</cwe>
+			<description>적절한 접근제어 없이 외부 입력값을 포함한 문자열로 중요자원에 접근할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Incorrect Permission Assignment for Critical Resource">
+			<category>SF</category>
+			<name>중요한 자원에 대한 잘못된 권한 설정</name>
+			<cwe>732</cwe>
+			<description>중요자원(프로그램 설정, 민감한 사용자 데이터 등)에 대한 적절한 접근권한을 부여하지 않아, 인가되지 않은 사용자 등에 의해 중요정보가 노출, 수정되는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Use of a Broken or Risky Cryptographic Algorithm">
+			<category>SF</category>
+			<name>취약한 암호화 알고리즘 사용</name>
+			<cwe>327</cwe>
+			<description>중요정보(금융정보, 개인정보, 인증정보 등)의 기밀성을 보장할 수 없는 취약한 암호화 알고리즘을 사용하여 정보가 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="DES_USAGE"/>
+			<pattern engine="FINDBUGS" type="ECB_MODE"/>
+			<pattern engine="FINDBUGS" type="CIPHER_INTEGRITY"/>
+			<pattern engine="FINDBUGS" type="WEAK_MESSAGE_DIGEST"/>
+			<pattern engine="FINDBUGS" type="CUSTOM_MESSAGE_DIGEST"/>
+		</rule>
+		
+		<rule id="Cleartext Storage of Sensitive Information">
+			<category>SF</category>
+			<name>중요정보 평문저장</name>
+			<cwe>312</cwe>
+			<description>중요정보(비밀번호, 개인정보 등)을 암호화하여 저장하지 않아 정보가 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Cleartext Transmission of Sensitive Information">
+			<category>SF</category>
+			<name>중요정보 평문전송</name>
+			<cwe>319</cwe>
+			<description>중요정보(비밀번호, 개인정보 등) 전송 시 암호화하지 않거나 안전한 통신채널을 이용하지 않아 정보가 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Use of Hard-coded Password">
+			<category>SF</category>
+			<name>하드코드된 비밀번호</name>
+			<cwe>259</cwe>
+			<description>소스코드 내에 비밀번호가 하드코딩 되어 소스코드 유출시 노출 우려 및 주기적 변경 등 수정(관리자 변경 등)이 용이하지 않는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="DMI_CONSTANT_DB_PASSWORD"/>
+			<pattern engine="FINDBUGS" type="HARD_CODE_PASSWORD"/>
+		</rule>
+		
+		<rule id="Inadequate Encryption Strength">
+			<category>SF</category>
+			<name>충분하지 않은 키 길이 사용</name>
+			<cwe>326</cwe>
+			<description>데이터의 기밀성, 무결성 보장을 위해 사용되는 키의 길이가 충분하지 않아 기밀정보 누출, 무결성이 깨지는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="RSA_KEY_SIZE"/>
+		</rule>
+		
+		<rule id="Use of Insufficiently Random Values">
+			<category>SF</category>
+			<name>적절하지 않은 난수값 사용</name>
+			<cwe>330</cwe>
+			<description>예측 가능한 난수사용으로 공격자로 하여금 다음 숫자 등을 예상하여 시스템 공격이 가능한 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="PREDICTABLE_RANDOM"/>
+		</rule>
+
+		<rule id="Use of Hard-coded Cryptographic Key">
+			<category>SF</category>
+			<name>하드코드된 암호화 키</name>
+			<cwe>321</cwe>
+			<description>소스코드 내에 암호화키가 하드코딩 되어 소스코드 유출시 노출 우려 및 키 변경이 용이하지 않는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Weak Password Requirements">
+			<category>SF</category>
+			<name>취약한 비밀번호 허용</name>
+			<cwe>521</cwe>
+			<description>비밀번호 조합규칙(영문, 숫자, 특수문자 등) 미흡 및 길이가 충분하지 않아 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Information Exposure Through Persistent Cookies">
+			<category>SF</category>
+			<name>사용자 하드디스크에 저장되는 쿠키를 통한 정보노출</name>
+			<cwe>539</cwe>
+			<description>쿠키(세션 ID, 사용자 권한정보 등 중요정보)를 사용자 하드디스크에 저장함으로써 개인정보 등 기밀정보가 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="INFO_EXPOSURE_BY_COOKIES"/>
+		</rule>
+		
+		<rule id="Information Exposure Through Comments">
+			<category>SF</category>
+			<name>주석문 안에 포함된 주요정보</name>
+			<cwe>615</cwe>
+			<description>소스코드내의 주석문에 인증정보 등 시스템 주요정보가 포함되어 소스코드 유출시 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Use of a One-Way Hash without a Salt">
+			<category>SF</category>
+			<name>솔트 없이 일방향 해쉬 함수 사용</name>
+			<cwe>759</cwe>
+			<description>공격자가 솔트 없이 생성된 해쉬값을 얻게 된 경우, 미리 계산된 레인보우 테이블을 이용하여 원문을 찾을 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="HASH_WITHOUT_SALT"/>
+		</rule>
+		
+		<rule id="Download of Code Without Integrity Check">
+			<category>SF</category>
+			<name>무결성 검사 없는 코드 다운로드</name>
+			<cwe>494</cwe>
+			<description>원격으로부터 소스코드 또는 실행파일을 무결성 검사 없이 다운로드받고 이를 실행하는 경우, 공격자가 악의적인 코드를 실행할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED"/>
+		</rule>
+		
+		<rule id="Improper Restriction of Excessive Authentication Attempts">
+			<category>SF</category>
+			<name>반복된 인증시도 제한 기능 부재</name>
+			<cwe>307</cwe>
+			<description>인증시도의 수를 제한하지 않아 공격자가 무작위 인증시도를 통해 계정접근 권한을 얻을 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="Time-of-check Time-of-use (TOCTOU) Race Condition">
+			<category>TS</category>
+			<name>경쟁조건: 검사시점과 사용시점(TOCTOU)</name>
+			<cwe>367</cwe>
+			<description>멀티 프로세스 상에서 자원을 검사하는 시점과 사용하는 시점이 달라서 발생하는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Uncontrolled Recursion">
+			<category>TS</category>
+			<name>종료되지 않는 반복문 또는 재귀 함수</name>
+			<cwe>674</cwe>
+			<description>종료조건 없는 제어문 사용으로 반복문 또는 재귀 함수가 무한히 반복되어 발생할 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="IL_INFINITE_RECURSIVE_LOOP"/>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="Information Exposure Through an Error Message">
+			<category>EH</category>
+			<name>오류메시지를 통한 정보노출</name>
+			<cwe>209</cwe>
+			<description>개발자가 생성한 오류 메시지에 시스템 내부구조 등이 포함되어 민감한 정보가 노출될 수 있는 보안약점</description>
+			<detail></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="PMD" type="LogExceptionInformation"/>
+		</rule>
+		
+		<rule id="Detection of Error Condition Without Action">
+			<category>EH</category>
+			<name>오류상황 대응 부재</name>
+			<cwe>390</cwe>
+			<description>시스템에서 발생하는 오류 상황을 처리하지 않아 프로그램 실행정지등 의도하지 않은 상황이 발생할 수 있는 보안약점</description>
+			<detail></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="PMD" type="EmptyCatchBlock"/>
+		</rule>
+		
+		<rule id="Improper Check for Unusual or Exceptional Conditions">
+			<category>EH</category>
+			<name>부적절한 예외 처리</name>
+			<cwe>754</cwe>
+			<description>예외에 대한 부적절한 처리로 인해 의도하지 않은 상황이 발생될 수 있는 보안약점</description>
+			<detail></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="DE_MIGHT_IGNORE"/>
+			<pattern engine="PMD" type="AvoidCatchingGenericException"/>
+			<pattern engine="PMD" type="SignatureDeclareThrowsException"/>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="NULL Pointer Dereference">
+			<category>CQ</category>
+			<name>Null Pointer 역참조</name>
+			<cwe>476</cwe>
+			<description>Null로 설정된 변수의 주소값을 참조했을 때 발생하는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>LOW</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="NP_GUARANTEED_DEREF_ON_EXCEPTION_PATH"/>
+		</rule>
+		
+		<rule id="Improper Resource Shutdown or Release">
+			<category>CQ</category>
+			<name>부적절한 자원 해제</name>
+			<cwe>404</cwe>
+			<description>사용된 자원을 적절히 해제 하지 않으면 자원 누수 등이 발생하고, 자원이 부족하여 새로운 입력을 처리할 수 없게 되는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="OS_OPEN_STREAM"/>
+			<pattern engine="FINDBUGS" type="OS_OPEN_STREAM_EXCEPTION_PATH"/>
+			<pattern engine="FINDBUGS" type="OBL_UNSATISFIED_OBLIGATION"/>
+			<pattern engine="FINDBUGS" type="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE"/>
+			<pattern engine="FINDBUGS" type="ODR_OPEN_DATABASE_RESOURCE"/>
+			<pattern engine="PMD" type="CloseResource"/>
+		</rule>
+		
+		<rule id="Use After Free">
+			<category>CQ</category>
+			<name>해제된 자원 사용</name>
+			<cwe>416</cwe>
+			<description>메모리 등 해제된 자원을 잠조하여 예기치 않은 오류가 발생될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>INFO</severity>
+			<link></link>
+		</rule>
+		
+		<rule id="Use of Uninitialized Variable">
+			<category>CQ</category>
+			<name>초기화되지 않은 변수 사용</name>
+			<cwe>457</cwe>
+			<description>변수를 초기화하지 않고 사용하여 예기치 않은 오류가 발생될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>INFO</severity>
+			<link></link>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="Exposure of Data Element to Wrong Session">
+			<category>EC</category>
+			<name>잘못된 세션에 의한 데이터 정보 노출</name>
+			<cwe>488</cwe>
+			<description>잘못된 세션에 의해 인가되지 않은 사용자에게 중요정보가 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="MTIA_SUSPECT_STRUTS_INSTANCE_FIELD"/>
+			<pattern engine="FINDBUGS" type="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"/>
+			<pattern engine="FINDBUGS" type="SERVLET_INSTANCE_ACCESS"/>
+			<pattern engine="FINDBUGS" type="FILTER_INSTANCE_ACCESS"/>
+		</rule>
+		
+		<rule id="Leftover Debug Code">
+			<category>EC</category>
+			<name>제거되지 않고 남은 디버그 코드</name>
+			<cwe>489</cwe>
+			<description>디버깅을 위해 작성된 코드를 통해 인가되지 않은 사용자에게 중요정보가 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="PMD" type="MainMethodInJeeObject"/>
+		</rule>
+		
+		<rule id="Exposure of System Data to an Unauthorized Control Sphere">
+			<category>EC</category>
+			<name>시스템 데이터 정보노출</name>
+			<cwe>497</cwe>
+			<description>사용자가 볼 수 있는 오류 메시지나 스택 정보에 시스템 내부 데이터나 디버깅 관련 정보가 공개되는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="PMD" type="AvoidPrintStackTrace"/>
+		</rule>
+		
+		<rule id="Private Array-Typed Field Returned From A Public Method">
+			<category>EC</category>
+			<name>public 메소드로부터 반환된 private 배열</name>
+			<cwe>495</cwe>
+			<description>private로 선언된 배열을 public으로 선언된 메소드를 통해 반환(return)하면, 그 배열의 레퍼런스가 외부에 공개되어 외부에서 배열이 수정될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="EI_EXPOSE_REP"/>
+			<pattern engine="PMD" type="MethodReturnsInternalArray"/>
+		</rule>
+		
+		<rule id="Public Data Assigned to Private Array-Typed Field">
+			<category>EC</category>
+			<name>private 배열에 public 데이터 할당</name>
+			<cwe>496</cwe>
+			<description>public으로 선언된 데이터 또는 메소드의 파라미터가 private로 선언된 배열에 저장되면, private 배열을 외부에서 접근할 수 있게 되는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="EI_EXPOSE_REP2"/>
+			<pattern engine="PMD" type="ArrayIsStoredDirectly"/>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+		<rule id="Reliance on Reverse DNS Resolution for a Security-Critical Action">
+			<category>AA</category>
+			<name>DNS lookup에 의존한 보안결정</name>
+			<cwe>350</cwe>
+			<description>DNS는 공격자에 의해 DNS 스푸핑 공격 등이 가능하므로 보안결정을 DNS 이름에 의존할 경우, 보안결정 등이 노출되는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="PMD" type="ReverseDNSResolution"/>
+		</rule>
+		
+		<rule id="Use of Potentially Dangerous Function">
+			<category>AA</category>
+			<name>취약한 API 사용</name>
+			<cwe>676</cwe>
+			<description>취약하다고 알려진 함수를 사용함으로써 예기치 않은 보안위협에 노출될 수 있는 보안약점</description>
+			<detail><![CDATA[]]></detail>
+			<severity>MEDIUM</severity>
+			<link></link>
+			<pattern engine="PMD" type="UseDangerousMethod"/>
+			<pattern engine="PMD" type="JeeSessionContext"/>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
+	</rules>
 	
 </jasca-rules>

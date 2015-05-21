@@ -1,11 +1,12 @@
 package com.tyn.jasca.engine.findbugs;
 
-import com.tyn.jasca.RulePattern;
-import com.tyn.jasca.RulePatternCollection;
-import com.tyn.jasca.Violation;
 import com.tyn.jasca.Results;
+import com.tyn.jasca.Violation;
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 import com.tyn.jasca.engine.SeverityLevel;
+import com.tyn.jasca.rules.Pattern;
+import com.tyn.jasca.rules.Rule;
+import com.tyn.jasca.rules.RuleRepository;
 
 import edu.umd.cs.findbugs.AbstractBugReporter;
 import edu.umd.cs.findbugs.AnalysisError;
@@ -59,25 +60,23 @@ public class FindBugsBugReporter extends AbstractBugReporter {
 	 */
 	@Override
 	protected void doReportBug(BugInstance bugInstance) {
+		// Pattern
+		Pattern pattern = Pattern.get(
+				AnalyzerEngine.FINDBUGS,
+				bugInstance.getType(),
+				SeverityLevel.getSeverity(bugInstance.getPriority()));
 		
-		SourceLineAnnotation primarySourceLineAnnotation = bugInstance.getPrimarySourceLineAnnotation();
-		
-		// RulePattern
-		RulePatternCollection collection = RulePatternCollection.getInstance();
-		RulePattern rulePattern = collection.get(AnalyzerEngine.FINDBUGS, bugInstance.getType());
-		
-		if (!rulePattern.isRegistered()) {
-			rulePattern = new RulePattern(AnalyzerEngine.FINDBUGS, bugInstance.getType());
-			rulePattern.setCategory(bugInstance.getCategoryAbbrev());
-			rulePattern.setSeverity(SeverityLevel.getSeverity(bugInstance.getPriority()));
-			
-			collection.register(rulePattern);
-		}
-		
+		// Rule
+		RuleRepository ruleCollection = RuleRepository.getInstance();
+		Rule rule = ruleCollection.getRule(pattern);
 		
 		// Violation
 		Violation violation = new Violation();
-		violation.setRulePattern(rulePattern);
+		violation.setPattern(pattern);
+		violation.setRule(rule);
+		
+		SourceLineAnnotation primarySourceLineAnnotation = bugInstance.getPrimarySourceLineAnnotation();
+		
 		violation.setFilename(primarySourceLineAnnotation.getSourcePath());
 		violation.setBeginline(primarySourceLineAnnotation.getStartLine());
 		violation.setEndline(primarySourceLineAnnotation.getEndLine());

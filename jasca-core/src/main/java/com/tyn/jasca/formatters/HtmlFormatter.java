@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -14,15 +14,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.tyn.jasca.JascaException;
-import com.tyn.jasca.RulePattern;
 import com.tyn.jasca.Severity;
 import com.tyn.jasca.Summary;
-import com.tyn.jasca.Summary.TypeCounter;
+import com.tyn.jasca.Summary.CategoryCounter;
 import com.tyn.jasca.SummaryFormatter;
 import com.tyn.jasca.Violation;
-import com.tyn.jasca.analyzer.Analyzer;
 import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 import com.tyn.jasca.common.Utils;
+import com.tyn.jasca.rules.Pattern;
+import com.tyn.jasca.rules.Rule;
 
 /**
  * 
@@ -114,8 +114,10 @@ public class HtmlFormatter implements SummaryFormatter {
 	@Override
 	public void writeSummary(Summary summary) throws IOException {
 		
+		/*
+		 * 심각도별 요약
+		 */
 		int severityCount = Severity.values().length;
-		
 		wr("		<table class=sm1>");
 		wr("			<thead>");
 		wr("				<tr>");
@@ -129,80 +131,35 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("				<tr>");
 		wr("					<td>" + summary.getViolationCount() + "</td>");
 		for (int ordinal = 0; ordinal < severityCount; ordinal++) {
-			wr("					<td>" + summary.getSeveritySummary()[ordinal] + "</td>");
+			wr("					<td>" + summary.getSeverityCounts()[ordinal] + "</td>");
 		}
 		wr("				</tr>");
 		wr("			</tbody>");
 		wr("		</table>");
 		wr("		<br/>");
 		
-//		List<RulePatternCounter> rulePatternSummary = summary.getRulePatternSummary();
-//		int rulePatternSummaryLength = rulePatternSummary.size();
-//		
-//		wr("		<table class=sm2>");
-//		wr("			<thead>");
-//		wr("				<tr>");
-//		wr("					<td width=40%>유형</td>");
-//		wr("					<td width=20%>심각도</td>");
-//		wr("					<td width=20%>계</td>");
-//		wr("					<td width=20%>기타</td>");
-//		wr("				</tr>");
-//		wr("			</thead>");
-//		wr("			<tbody>");
-//		for (int idx = 0; idx < rulePatternSummaryLength; idx++) {
-//			RulePattern rulePattern = rulePatternSummary.get(idx).getRulePattern();
-//			String eg = rulePattern.getAnalyzerEngine().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
-//			
-//			wr("				<tr>");
-//			wr("					<td eg=" + eg + ">" + rulePattern.getTypename() + "</td>");
-//			wr("					<td>" + rulePattern.getSeverity().getText() + "</td>");
-//			wr("					<td>" + rulePatternSummary.get(idx).getCount() + "</td>");
-//			wr("					<td>" + "" + "</td>");
-//			wr("				</tr>");
-//		}
-//		wr("			</tbody>");
-//		wr("		</table>");
-//		wr("		<br/>");
 		
-		
-		summary.buildTypeSummary();
-		List<TypeCounter> typeSummary = summary.getTypeSummary();
-		int typeSummaryLength = typeSummary.size();
-		
+		/*
+		 * 카테고리별 요약
+		 */
 		wr("		<table class=sm2>");
 		wr("			<thead>");
 		wr("				<tr>");
-		wr("					<td width=40%>유형</td>");
-		wr("					<td width=20%>심각도</td>");
-		wr("					<td width=20%>계</td>");
-		wr("					<td width=20%>기타</td>");
+		wr("					<td>보안약점 유형</td>");
+		wr("					<td>탐지 건수</td>");
 		wr("				</tr>");
 		wr("			</thead>");
 		wr("			<tbody>");
-		for (int idx = 0; idx < typeSummaryLength; idx++) {
-			TypeCounter typeCounter = typeSummary.get(idx);
-			String eg = "";
-			for (int egidx = 0; egidx < typeCounter.getEngines().length; egidx++) {
-				if (typeCounter.getEngines()[egidx]) {
-					if (AnalyzerEngine.values()[egidx].equals(AnalyzerEngine.FINDBUGS)) {
-						eg += "<span class=fon>&nbsp;</span>";
-					}
-					else if (AnalyzerEngine.values()[egidx].equals(AnalyzerEngine.PMD)) {
-						eg += "<span class=pon>&nbsp;</span>";
-					}
-				}
-				else {
-					eg += "<span class=off>&nbsp;</span>";
-				}
-			}
-			
+		
+		Iterator<CategoryCounter> itr = summary.getCategoryCounterList().iterator();
+		while (itr.hasNext()) {
+			CategoryCounter categoryCounter = itr.next();
 			wr("				<tr>");
-			wr("					<td>" + eg + "&nbsp;" + typeCounter.getTypename() + "</td>");
-			wr("					<td>" + typeCounter.getSeveiry() + "</td>");
-			wr("					<td>" + typeCounter.getCount() + "</td>");
-			wr("					<td>" + "" + "</td>");
+			wr("					<td>" + categoryCounter.getCategory().getName() + "</td>");
+			wr("					<td>" + categoryCounter.getCount() + "</td>");
 			wr("				</tr>");
 		}
+		
 		wr("			</tbody>");
 		wr("		</table>");
 		wr("		<br/>");
@@ -215,7 +172,7 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("				<tr>");
 		wr("					<td rowspan=2 width=40>#</td>");
 		wr("					<td rowspan=2 width=54>심각도</td>");
-		wr("					<td width=320>유형</td>");
+		wr("					<td>보안약점</td>");
 		wr("					<td>파일명</td>");
 		wr("				</tr>");
 		wr("				<tr>");
@@ -227,21 +184,22 @@ public class HtmlFormatter implements SummaryFormatter {
 	
 	@Override
 	public void writeViolationBody(Violation violation) throws IOException {
-		RulePattern rulePattern = violation.getRulePattern();
+		Pattern pattern = violation.getPattern();
+		Rule rule = violation.getRule();
 		
-		String sv = String.valueOf(rulePattern.getSeverity().getValue());
-		String eg = rulePattern.getAnalyzerEngine().equals(Analyzer.AnalyzerEngine.FINDBUGS) ? "f" : "p";
+		String sv = String.valueOf(rule.getSeverity().getValue());
+		String eg = pattern.getAnalyzerEngine().equals(AnalyzerEngine.FINDBUGS) ? "f" : "p";
 		
 		wr("<tr sv=" + sv + ">");
 		wr("	<td rowspan=2>" + (++count) + "</td>");
-		wr("	<td rowspan=2>" + rulePattern.getSeverity().getText() + "</td>");
-		wr("	<td eg=" + eg + ">" + rulePattern.getTypename() + "</td>");
+		wr("	<td rowspan=2>" + rule.getSeverity().getText() + "</td>");
+		wr("	<td eg=" + eg + ">" + rule.getName() + "</td>");
 		wr("	<td>" + violation.getFilename() + " [" + violation.getBeginline() + "]</td>");
 		wr("</tr>");
 		wr("<tr sv=" + sv + ">");
 		wr("	<td colspan=2>");
 		wr(violation.getMessage());
-		wr("<a href=" + rulePattern.getLink() + "><span class=dtl>&nbsp;</span></a>");
+		wr("<a href=#><span class=dtl>&nbsp;</span></a>");
 		wr("	</td>");
 		wr("</tr>");
 	}

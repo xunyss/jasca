@@ -3,9 +3,13 @@ package com.tyn.jasca;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
+import com.tyn.jasca.rules.Category;
+import com.tyn.jasca.rules.Rule;
 
 /**
  * 
@@ -14,10 +18,10 @@ import com.tyn.jasca.analyzer.Analyzer.AnalyzerEngine;
 public class Summary {
 	
 	private int violationCount = 0;
-	private int[] severitySummary = null;
+	private int[] severityCounts = null;
 	
-	private List<RulePatternCounter> rulePatternSummary = null;
-	private List<TypeCounter> typeSummary = null;
+	private List<CategoryCounter> categoryCounterList = null;
+//	private List<RuleCounter> ruleCounterList = null;
 	
 	public int getViolationCount() {
 		return violationCount;
@@ -27,118 +31,91 @@ public class Summary {
 		this.violationCount = violationCount;
 	}
 
-	public int[] getSeveritySummary() {
-		return severitySummary;
+	public int[] getSeverityCounts() {
+		return severityCounts;
 	}
 
-	public void setSeveritySummary(int[] severitySummary) {
-		this.severitySummary = severitySummary;
+	public void setSeverityCounts(int[] severityCounts) {
+		this.severityCounts = severityCounts;
 	}
 
-	public List<RulePatternCounter> getRulePatternSummary() {
-		return rulePatternSummary;
+	public List<CategoryCounter> getCategoryCounterList() {
+		return categoryCounterList;
 	}
 
-	public void setRulePatternSummary(List<RulePatternCounter> rulePatternSummary) {
-		this.rulePatternSummary = rulePatternSummary;
+	public void setCategoryCounterList(List<CategoryCounter> categoryCounterList) {
+		this.categoryCounterList = categoryCounterList;
 	}
 	
-	public List<TypeCounter> getTypeSummary() {
-		return typeSummary;
-	}
-	
-	public void setTypeSummary(List<TypeCounter> typeSummary) {
-		this.typeSummary = typeSummary;
-	}
-	
-	public void buildTypeSummary() {
-		if (rulePatternSummary == null) {
-			return;
-		}
-		
-		if (typeSummary != null) {
-			typeSummary.clear();
-		}
-		
-		typeSummary = new ArrayList<TypeCounter>();
-		
-		for (RulePatternCounter rulePatternCounter : rulePatternSummary) {
-			RulePattern rulePattern = rulePatternCounter.getRulePattern();
-			String typename = rulePattern.getTypename();
-			
-			int index = 0;
-			
-			if ((index = indexOfTypeCounter(typeSummary, typename)) > -1) {
-				TypeCounter typeCounter = typeSummary.get(index);
-				typeCounter.engines[rulePattern.getAnalyzerEngine().ordinal()] = true;
-				typeCounter.count += rulePatternCounter.count;
-			}
-			else {
-				TypeCounter typeCounter = new TypeCounter();
-				typeCounter.typename = typename;
-				typeCounter.engines[rulePattern.getAnalyzerEngine().ordinal()] = true;
-				typeCounter.seveiry = rulePattern.getSeverity().getText();
-				typeCounter.count = rulePatternCounter.count;
-				
-				typeSummary.add(typeCounter);
-			}
-		}
-		
-		sortTypeSummary();
-	}
-	private int indexOfTypeCounter(List<TypeCounter> typeSummary, String typename) {
-		if (typeSummary != null) {
-			for (int index = 0; index < typeSummary.size(); index++) {
-				TypeCounter typeCounter = typeSummary.get(index);
-				if (typename.equals(typeCounter.getTypename())) {
-					return index;
-				}
-			}
-		}
-		return -1;
-	}
-	private void sortTypeSummary() {
-		Collections.sort(typeSummary, new Comparator<TypeCounter>() {
+	private void sorts() {
+		/**
+		 * 심각도별 요약
+		 */
+		Collections.sort(categoryCounterList, new Comparator<CategoryCounter>() {
 			@Override
-			public int compare(TypeCounter typeCounter1, TypeCounter typeCounter2) {
-				int countOrder = typeCounter2.getCount() - typeCounter1.getCount();
-				return countOrder != 0
-						? countOrder
-						: typeCounter1.getTypename().compareTo(typeCounter2.getTypename());
+			public int compare(CategoryCounter cc1, CategoryCounter cc2) {
+				return cc1.getCategory().compareTo(cc2.getCategory());
 			}
 		});
 	}
-
-
+	
 	/**
 	 * 
-	 * @author S.J.H.
+	 * @param violations
+	 * @return
 	 */
-	public static class RulePatternCounter {
+	public static Summary summary(Results results) {
 		
-		private RulePattern rulePattern = null;
-		private int count = 0;
+		int total = 0;
+		int[] severitySummary = new int[Severity.values().length];
+		Map<Category, Integer> categorySummary = new HashMap<Category, Integer>();
 		
-		public RulePatternCounter(RulePattern rulePattern, int typeCount) {
-			this.rulePattern = rulePattern;
-			this.count = typeCount;
+		for (Violation violation : results) {
+			Rule rule = violation.getRule();
+			
+			/*
+			 * 전체
+			 */
+			total++;
+			
+			/*
+			 * 심각도별
+			 */
+			severitySummary[rule.getSeverity().getValue() - 1]++;
+			
+			/*
+			 * 카테고리별
+			 */
+			Category category = rule.getCategory();
+			if (categorySummary.get(category) != null) {
+				categorySummary.put(category, categorySummary.get(category).intValue() + 1);
+			}
+			else {
+				categorySummary.put(category, 1);
+			}
+			
+			/*
+			 * TODO: 룰별
+			 */
 		}
-
-		public RulePattern getRulePattern() {
-			return rulePattern;
+		
+		/*
+		 * 카테고리별 요약
+		 */
+		List<CategoryCounter> categoryCounterList = new ArrayList<CategoryCounter>();
+		Iterator<Category> itr = categorySummary.keySet().iterator();
+		while (itr.hasNext()) {
+			Category category = itr.next();
+			categoryCounterList.add(new CategoryCounter(category, categorySummary.get(category)));
 		}
-
-		public void setViolationSource(RulePattern rulePattern) {
-			this.rulePattern = rulePattern;
-		}
-
-		public int getCount() {
-			return count;
-		}
-
-		public void setCount(int typeCount) {
-			this.count = typeCount;
-		}
+		
+		Summary summary = new Summary();
+		summary.setViolationCount(total);
+		summary.setSeverityCounts(severitySummary);
+		summary.setCategoryCounterList(categoryCounterList);
+		
+		summary.sorts();
+		return summary;
 	}
 	
 	
@@ -146,30 +123,39 @@ public class Summary {
 	 * 
 	 * @author S.J.H.
 	 */
-	public static class TypeCounter {
-		
-		private String typename = null;
-		
-		private boolean[] engines = new boolean[AnalyzerEngine.values().length];
-		private String seveiry = null;
-		
+	public static class CategoryCounter {
+		private Category category = null;
 		private int count = 0;
 		
-		public String getTypename() {
-			return typename;
+		public CategoryCounter(Category category, int count) {
+			this.category = category;
+			this.count = count;
 		}
+		public Category getCategory() {
+			return category;
+		}
+		public int getCount() {
+			return count;
+		}
+	}
+	
+	/**
+	 * 
+	 * @author S.J.H.
+	 */
+	public static class RuleCounter {
+		private Rule rule = null;
+		private int count = 0;
 		
-		public boolean[] getEngines() {
-			return engines;
+		public RuleCounter(Rule rule, int count) {
+			this.rule = rule;
+			this.count = count;
 		}
-
-		public String getSeveiry() {
-			return seveiry;
+		public Rule getRule() {
+			return rule;
 		}
-		
 		public int getCount() {
 			return count;
 		}
 	}
 }
-

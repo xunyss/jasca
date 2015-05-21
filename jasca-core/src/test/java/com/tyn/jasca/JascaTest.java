@@ -14,11 +14,11 @@ public class JascaTest {
 		String[] args = {
 			"-progress",
 			"-level", "low",
-		//	"-format", "html",
-			"-format", "xlsx",
+			"-format", "html",
+		//	"-format", "xlsx",
 			"-output",
-		//	"D:/xdev/git/jasca/jasca-core/target/jasca.html",
-			"D:/xdev/git/jasca/jasca-core/target/jasca.xlsx",
+			"D:/xdev/git/jasca/jasca-core/target/jasca.html",
+		//	"D:/xdev/git/jasca/jasca-core/target/jasca.xlsx",
 			
 			"D:/securecoding/workspace/sampleweb"
 		//	"D:/securecoding/workspace/sampleweb/build/classes/com/tyn/wweb/W41_2.class"

@@ -189,6 +189,7 @@ public class HtmlFormatter implements SummaryFormatter {
 		
 		String sv = String.valueOf(rule.getSeverity().getValue());
 		String eg = pattern.getAnalyzerEngine().equals(AnalyzerEngine.FINDBUGS) ? "f" : "p";
+		String deatilUrl = Utils.isEmpty(rule.getCwe()) ? "#" : "http://cwe.mitre.org/data/definitions/" + rule.getCwe() + ".html";
 		
 		wr("<tr sv=" + sv + ">");
 		wr("	<td rowspan=2>" + (++count) + "</td>");
@@ -199,7 +200,7 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("<tr sv=" + sv + ">");
 		wr("	<td colspan=2>");
 		wr(violation.getMessage());
-		wr("<a href=#><span class=dtl>&nbsp;</span></a>");
+		wr("<a href='" + deatilUrl + "' target=jasca><span class=dtl>&nbsp;</span></a>");
 		wr("	</td>");
 		wr("</tr>");
 	}

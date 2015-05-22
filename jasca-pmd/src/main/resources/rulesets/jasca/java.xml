@@ -91,7 +91,7 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
 	<rule name="JeeSessionContext"
 		language="java"
 		since="jasca 1.0"
-		message="SessionContext 객체의 사용은 보안문제를 유발할 수 있습니다"
+		message="JavaEE의 SessionContext객체의 사용은 보안문제를 유발할 수 있습니다"
 		class="net.sourceforge.pmd.lang.rule.XPathRule"
 		externalInfoUrl="http://cwe.mitre.org/data/definitions/676.html">
 		

@@ -590,6 +590,19 @@
 		
 		<!-- =================================================================== -->
 		
+		<rule id="Call to Thread run instead of start">
+			<category>CQ</category>
+			<name>스레드의 start 메소드 대신 run 메소드 호출</name>
+			<cwe>572</cwe>
+			<description>스레드의 start()를 호출하는 대신 run() 메서드를 호출</description>
+			<detail><![CDATA[]]></detail>
+			<severity>LOW</severity>
+			<link></link>
+			<pattern engine="FINDBUGS" type="RU_INVOKE_RUN"/>
+		</rule>
+		
+		<!-- =================================================================== -->
+		
 	</rules>
 	
 </jasca-rules>

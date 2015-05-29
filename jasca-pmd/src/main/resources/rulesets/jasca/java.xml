@@ -9,6 +9,27 @@
 		rulesets/jasca/java
 	</description>
 	
+	
+	<!-- =================================================================== -->
+	<!-- JASCA Java Rule -->
+	<!-- =================================================================== -->
+	
+	<rule name="LogExceptionInformation"
+		language="java"
+		since="jasca 1.0"
+		message="익셉션 {0} 의 메시지를 통하여 정보가 노출될 수 있습니다"
+		class="com.tyn.jasca.pmd.rule.LogExceptionInformationRule"
+		externalInfoUrl="http://cwe.mitre.org/data/definitions/209.html">
+		
+		<description>
+		</description>
+		<priority>3</priority>
+		<example>
+<![CDATA[
+]]>
+		</example>
+	</rule>
+	
 	<rule name="ReverseDNSResolution"
 		language="java"
 		since="jasca 1.0"
@@ -30,22 +51,9 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
 		</example>
 	</rule>
 	
-	<rule name="LogExceptionInformation"
-		language="java"
-		since="jasca 1.0"
-		message="익셉션 {0} 의 메시지를 통하여 정보가 노출될 수 있습니다"
-		class="com.tyn.jasca.pmd.rule.LogExceptionInformationRule"
-		externalInfoUrl="http://cwe.mitre.org/data/definitions/209.html">
-		
-		<description>
-		</description>
-		<priority>3</priority>
-		<example>
-<![CDATA[
-]]>
-		</example>
-	</rule>
 	
+	<!-- =================================================================== -->
+	<!-- JASCA XPath Rule -->
 	<!-- =================================================================== -->
 	
 	<rule name="MainMethodInJeeObject"
@@ -108,6 +116,38 @@ if (addr.getCanonicalHostName().endsWith("trustme.com")) {
   or
   PrimarySuffix[ends-with(@Image, 'getSessionContext')]
 ]
+]]>
+				</value>
+			</property>
+		</properties>
+		<example>
+<![CDATA[
+]]>
+		</example>
+	</rule>
+	
+	
+	<!-- =================================================================== -->
+	<!-- PMD Rule 메시지 변경 -->
+	<!-- =================================================================== -->
+	
+	<rule name="AvoidPrintStackTrace"
+		language="java"
+		since="3.2"
+		message="printStackTrace() 메소드의 사용은 시스템 데이터 정보를 노출시킬 위험이 있습니다"
+		class="net.sourceforge.pmd.lang.rule.XPathRule"
+		externalInfoUrl="http://pmd.sourceforge.net/pmd-5.3.1/pmd-java/rules/java/logging-java.html#AvoidPrintStackTrace">
+		
+		<description>
+		</description>
+		<priority>3</priority>
+		<properties>
+			<property name="xpath">
+				<value>
+<![CDATA[
+//PrimaryExpression
+ [PrimaryPrefix/Name[contains(@Image,'printStackTrace')]]
+ [PrimarySuffix[not(boolean(Arguments/ArgumentList/Expression))]]
 ]]>
 				</value>
 			</property>

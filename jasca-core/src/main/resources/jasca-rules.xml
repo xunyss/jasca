@@ -182,6 +182,7 @@
 			<detail><![CDATA[]]></detail>
 			<severity>HIGH</severity>
 			<link></link>
+			<pattern engine="FINDBUGS" type="HRS_REQUEST_PARAMETER_TO_HTTP_HEADER"/>
 			<pattern engine="FINDBUGS" type="HRS_REQUEST_PARAMETER_TO_COOKIE"/>
 		</rule>
 		
@@ -514,6 +515,7 @@
 			<link></link>
 			<pattern engine="FINDBUGS" type="MTIA_SUSPECT_STRUTS_INSTANCE_FIELD"/>
 			<pattern engine="FINDBUGS" type="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"/>
+			<pattern engine="FINDBUGS" type="MSF_MUTABLE_SERVLET_FIELD"/>
 			<pattern engine="FINDBUGS" type="SERVLET_INSTANCE_ACCESS"/>
 			<pattern engine="FINDBUGS" type="FILTER_INSTANCE_ACCESS"/>
 		</rule>
@@ -548,7 +550,6 @@
 			<detail><![CDATA[]]></detail>
 			<severity>MEDIUM</severity>
 			<link></link>
-			<pattern engine="FINDBUGS" type="EI_EXPOSE_REP"/>
 			<pattern engine="PMD" type="MethodReturnsInternalArray"/>
 		</rule>
 		
@@ -560,7 +561,6 @@
 			<detail><![CDATA[]]></detail>
 			<severity>MEDIUM</severity>
 			<link></link>
-			<pattern engine="FINDBUGS" type="EI_EXPOSE_REP2"/>
 			<pattern engine="PMD" type="ArrayIsStoredDirectly"/>
 		</rule>
 		
@@ -585,7 +585,6 @@
 			<detail><![CDATA[]]></detail>
 			<severity>MEDIUM</severity>
 			<link></link>
-			<pattern engine="PMD" type="UseDangerousMethod"/>
 			<pattern engine="PMD" type="JeeSessionContext"/>
 		</rule>
 		

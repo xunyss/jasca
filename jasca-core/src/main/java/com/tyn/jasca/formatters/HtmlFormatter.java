@@ -184,17 +184,20 @@ public class HtmlFormatter implements SummaryFormatter {
 	
 	@Override
 	public void writeViolationBody(Violation violation) throws IOException {
+		final String CWE_URL = "http://cwe.mitre.org/";
+		final String CWE_DEF_URL = CWE_URL + "data/definitions/";
+		
 		Pattern pattern = violation.getPattern();
 		Rule rule = violation.getRule();
 		
 		String sv = String.valueOf(rule.getSeverity().getValue());
 		String eg = pattern.getAnalyzerEngine().equals(AnalyzerEngine.FINDBUGS) ? "f" : "p";
-		String deatilUrl = Utils.isEmpty(rule.getCwe()) ? "#" : "http://cwe.mitre.org/data/definitions/" + rule.getCwe() + ".html";
+		String deatilUrl = Utils.isEmpty(rule.getCwe()) ? "#" : CWE_DEF_URL + rule.getCwe() + ".html";
 		
 		wr("<tr sv=" + sv + ">");
 		wr("	<td rowspan=2>" + (++count) + "</td>");
 		wr("	<td rowspan=2>" + rule.getSeverity().getText() + "</td>");
-		wr("	<td eg=" + eg + ">" + rule.getName() + "</td>");
+		wr("	<td eg=" + eg + " onclick=\"alert('" + pattern.toString()  + "');\">" + rule.getName() + "</td>");
 		wr("	<td>" + violation.getFilename() + " [" + violation.getBeginline() + "]</td>");
 		wr("</tr>");
 		wr("<tr sv=" + sv + ">");

@@ -1,4 +1,4 @@
-package com.tyn.jasca.findbugs.detector;
+package com.tyn.jasca.findbugs;
 
 /**
  * 

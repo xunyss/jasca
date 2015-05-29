@@ -9,7 +9,7 @@ import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
 import com.tyn.jasca.common.TempFileManager;
 import com.tyn.jasca.engine.AnalyzerFactory;
 import com.tyn.jasca.engine.SeverityLevel;
-import com.tyn.jasca.findbugs.detector.JascaFindBugsPlugin;
+import com.tyn.jasca.findbugs.JascaFindBugsPlugin;
 
 import edu.umd.cs.findbugs.FindBugs;
 

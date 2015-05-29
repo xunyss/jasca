@@ -9,6 +9,8 @@
 		JascaFilter
 	</description>
 	
+	<rule ref="rulesets/java/basic.xml/DontCallThreadRun"/>
+	
 	<rule ref="rulesets/java/empty.xml/EmptyTryBlock"/>
 	<rule ref="rulesets/java/empty.xml/EmptyCatchBlock"/>
 	<rule ref="rulesets/java/empty.xml/EmptyFinallyBlock"/>

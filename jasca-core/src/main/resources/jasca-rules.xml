@@ -599,6 +599,7 @@
 			<severity>LOW</severity>
 			<link></link>
 			<pattern engine="FINDBUGS" type="RU_INVOKE_RUN"/>
+			<pattern engine="PMD" type="DontCallThreadRun"/>
 		</rule>
 		
 		<!-- =================================================================== -->

@@ -53,7 +53,10 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDerectory>${project.build.directory}</outputDerectory>
+							<includeScope>compile</includeScope>
+							<!-- default path : ${project.build.directory}/dependency
+							<outputDirectory>${project.build.directory}/dependency</outputDirectory>
+							-->
 						</configuration>
 					</execution>
 				</executions>

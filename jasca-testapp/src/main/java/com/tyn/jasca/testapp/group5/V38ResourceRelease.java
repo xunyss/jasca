@@ -16,7 +16,7 @@ public class V38ResourceRelease {
 			stmt.execute("select * from table");
 		}
 		catch (SQLException e) {
-			Log.log("¿¡·¯");
+			Log.log("ì—ëŸ¬");
 		}
 	}
 }

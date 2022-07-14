@@ -23,7 +23,7 @@ public class V08XPathInjection {
 			return result;
 		}
 		catch (XPathExpressionException xee) {
-			Log.log("¿¡·¯");
+			Log.log("ì—ëŸ¬");
 			return null;
 		}
 	}

@@ -39,10 +39,10 @@ public class V07XQueryInjection {
 			}
 		}
 		catch (NamingException ne) {
-			Log.log("ø°∑Ø: NamingException");
+			Log.log("ÏóêÎü¨: NamingException");
 		}
 		catch (XQException e) {
-			Log.log("ø°∑Ø: XQException");
+			Log.log("ÏóêÎü¨: XQException");
 		}
 	}
 }

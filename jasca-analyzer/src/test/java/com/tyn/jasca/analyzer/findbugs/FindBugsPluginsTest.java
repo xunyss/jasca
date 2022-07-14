@@ -10,7 +10,7 @@ import com.tyn.jasca.analyzer.findbugs.FindBugsAnalyzer;
  */
 public class FindBugsPluginsTest {
 
-	@Test
+//	@Test
 	public void showFindbugsPlugins() throws Exception {
 		FindBugsAnalyzer engine = new FindBugsAnalyzer();
 		

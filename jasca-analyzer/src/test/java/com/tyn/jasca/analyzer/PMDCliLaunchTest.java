@@ -33,7 +33,7 @@ public class PMDCliLaunchTest {
 		return options;
 	}
 	
-	@Test
+//	@Test
 	public void runPMD() throws Exception {
 		Process process = Runtime.getRuntime().exec(getCommand());
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));

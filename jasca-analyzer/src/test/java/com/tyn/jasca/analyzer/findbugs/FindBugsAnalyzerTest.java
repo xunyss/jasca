@@ -13,7 +13,7 @@ import com.tyn.jasca.analyzer.findbugs.FindBugsConstant.ReportFormat;
  */
 public class FindBugsAnalyzerTest {
 	
-	@Test
+//	@Test
 	public void findbugsTest() {
 		FindBugsConfiguration config = new FindBugsConfiguration();
 		config.setScanNestedArchives(false);

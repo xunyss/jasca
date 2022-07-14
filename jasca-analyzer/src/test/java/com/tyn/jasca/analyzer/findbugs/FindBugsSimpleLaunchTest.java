@@ -19,7 +19,7 @@ import edu.umd.cs.findbugs.TextUICommandLine;
  */
 public class FindBugsSimpleLaunchTest {
 	
-	@Test
+//	@Test
 	public void runFindBugs() throws Exception {
 		String[] options = {
 			//	"-textui",
@@ -43,7 +43,7 @@ public class FindBugsSimpleLaunchTest {
 		FindBugs.runMain(findBugs, commandLine);
 	}
 	
-	@Test
+//	@Test
 	public void readBugXML() throws Exception {
 		BugCollection bc = new SortedBugCollection();
 		bc.readXML("D:\\xdev\\git\\jasca\\jasca-analyzer\\target\\simple-findbugs.xml");

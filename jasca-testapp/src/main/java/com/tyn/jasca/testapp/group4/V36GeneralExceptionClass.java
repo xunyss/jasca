@@ -18,7 +18,7 @@ public class V36GeneralExceptionClass {
 			filereader.close();
 		}
 		catch (Exception e) {
-			Log.log("¿¡·¯");
+			Log.log("ì—ëŸ¬");
 		}
 		finally {
 			try {
@@ -27,7 +27,7 @@ public class V36GeneralExceptionClass {
 				}
 			}
 			catch (IOException ioe) {
-				Log.log("¿¡·¯");
+				Log.log("ì—ëŸ¬");
 			}
 		}
 	}

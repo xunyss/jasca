@@ -23,7 +23,7 @@ public class V43ExposureSystemData {
 					stmt.close();
 				}
 				catch (SQLException e) {
-					Log.log("ø°∑Ø");
+					Log.log("ÏóêÎü¨");
 				}
 			}
 		}

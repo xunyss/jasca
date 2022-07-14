@@ -12,7 +12,7 @@ public class V04CommandInjection {
 			runtime.exec("cmd.exe", new String[]{"/c", cmd});
 		}
 		catch (IOException ioe) {
-			Log.log("ø°∑Ø");
+			Log.log("ÏóêÎü¨");
 		}
 	}
 }

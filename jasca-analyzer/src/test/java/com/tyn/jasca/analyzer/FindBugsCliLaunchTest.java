@@ -35,7 +35,7 @@ public class FindBugsCliLaunchTest {
 		return options;
 	}
 	
-	@Test
+//	@Test
 	public void runFindBugs() throws Exception {
 		Process process = Runtime.getRuntime().exec(getCommand());
 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));

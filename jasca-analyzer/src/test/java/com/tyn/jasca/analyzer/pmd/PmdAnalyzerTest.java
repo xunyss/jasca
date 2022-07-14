@@ -17,7 +17,7 @@ public class PmdAnalyzerTest {
 			",java-strings,java-sunsecure,java-typeresolution,java-braces,java-clone,java-comments,java-strictexception" +
 			",jasca-jasca";
 	
-	@Test
+//	@Test
 	public void pmdTest() {
 		PmdConfiguration config = new PmdConfiguration();
 		config.setDir("D:/securecoding/workspace/sampleweb");

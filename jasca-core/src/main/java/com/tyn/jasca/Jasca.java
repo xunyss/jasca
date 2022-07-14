@@ -20,29 +20,29 @@ import com.tyn.jasca.engine.findbugs.FindBugsAnalyzerFactory;
 import com.tyn.jasca.engine.pmd.PmdAnalyzerFactory;
 
 /**
- * 
+ *
  * @author S.J.H.
  */
 public class Jasca {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final Logger log = LoggerFactory.getLogger(Jasca.class);
-	
+
 	/**
 	 * sync with MAVEN version
 	 */
 	public static final String VERSION = "0.0.1-SNAPSHOT";
-	
+
 	/**
-	 * 
+	 *
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		JascaConfiguration jascaConfiguration = null;
 		if ((jascaConfiguration = processCommandine(args)) != null) {
-			
+
 			/**
 			 * execute JASCA
 			 */
@@ -50,33 +50,33 @@ public class Jasca {
 			jasca.start();
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param args
 	 */
 	private static JascaConfiguration processCommandine(String[] args) {
 		JascaConfiguration jascaConfiguration = new JascaConfiguration();
-		
-		final String USAGE = "jasca [options] [ºĞ¼®´ë»ó ÆÄÀÏ ¶Ç´Â µğ·ºÅä¸®]";
+
+		final String USAGE = "jasca [options] [ë¶„ì„ëŒ€ìƒ íŒŒì¼ ë˜ëŠ” ë””ë ‰í† ë¦¬]";
 		Options options = new Options();
-		options.addOption("verbose",	false,	"ºĞ¼®¿£Áø µğ¹ö±× ¸ğµå");
-		options.addOption("progress",	false,	"ºĞ¼® ÁøÇà·ü Ç¥½Ã");
-		options.addOption("level",		true,	"ºĞ¼® ½É°¢µµ ·¹º§ [high|medium(default)|low]");
-		options.addOption("format",		true,	"·¹Æ÷Æ® Æ÷¸Ë [html(default)|xml|xls]");
-		options.addOption("output",		true,	"·¹Æ÷Æ® °á°ú ÀúÀå ÆÄÀÏ ¸í");
-		
+		options.addOption("verbose",	false,	"ë¶„ì„ì—”ì§„ ë””ë²„ê·¸ ëª¨ë“œ");
+		options.addOption("progress",	false,	"ë¶„ì„ ì§„í–‰ë¥  í‘œì‹œ");
+		options.addOption("level",		true,	"ë¶„ì„ ì‹¬ê°ë„ ë ˆë²¨ [high|medium(default)|low]");
+		options.addOption("format",		true,	"ë ˆí¬íŠ¸ í¬ë§· [html(default)|xml|xls]");
+		options.addOption("output",		true,	"ë ˆí¬íŠ¸ ê²°ê³¼ ì €ì¥ íŒŒì¼ ëª…");
+
 		try {
 			if (args != null && args.length == 0) {
 				HelpFormatter help = new HelpFormatter();
 				help.printHelp(USAGE, options);
-				
+
 				return null;
 			}
-			
+
 			CommandLineParser parser = new BasicParser();
 			CommandLine command = parser.parse(options, args);
-			
+
 			/**
 			 * JascaConfiguration setup
 			 */
@@ -85,81 +85,81 @@ public class Jasca {
 		catch (ParseException pe) {
 			PrintWriter pw = new PrintWriter(System.out);
 			pw.write(IOUtils.LINE_SEPARATOR);
-			pw.write("ÀÔ·Â¿À·ù! : ");
+			pw.write("ì…ë ¥ì˜¤ë¥˜! : ");
 			pw.write(pe.getMessage());
 			pw.write(IOUtils.LINE_SEPARATOR);
 			pw.write(IOUtils.LINE_SEPARATOR);
 			pw.flush();
-			
+
 			HelpFormatter help = new HelpFormatter();
 			help.printHelp(USAGE, options);
-			
+
 			return null;		// exit
 		}
-		
+
 		return jascaConfiguration;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private JascaConfiguration jascaConfiguration = null;
-	
+
 	/**
-	 * 
+	 *
 	 * @param jascaConfiguration
 	 */
 	public Jasca(JascaConfiguration jascaConfiguration) {
 		this.jascaConfiguration = jascaConfiguration;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public void start() {
 		Results results = Results.getInstance();
 		results.create();
-		
+
 		try {
 			List<Analyzer> analyzerList = getEnableAnalyzer();
 			for (Analyzer analyzer : analyzerList) {
 				analyzer.execute();
 			}
-			
+
 			ReportBuilder.build(
 					results,
 					new DefaultConverter(),
 					jascaConfiguration.createFormatter(),
 					jascaConfiguration.getTarget(),
 					jascaConfiguration.getOutput());
-			
-			log.info("ºĞ¼® Á¾·á");
+
+			log.info("ë¶„ì„ ì¢…ë£Œ");
 		}
 		catch (JascaException je) {
-			log.error("ºĞ¼® ¿¡·¯ : {}", je.getMessage());
+			log.error("ë¶„ì„ ì—ëŸ¬ : {}", je.getMessage());
 		}
 		catch (Exception e) {
-			log.error("ºĞ¼® ¿¡·¯", e);
+			log.error("ë¶„ì„ ì—ëŸ¬", e);
 		}
 		finally {
 			results.clear();
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	private List<Analyzer> getEnableAnalyzer() {
 		List<Analyzer> analyzers = new ArrayList<Analyzer>();
-		
+
 		if (jascaConfiguration.getEnableEngines().get(AnalyzerEngine.FINDBUGS)) {
 			analyzers.add(FindBugsAnalyzerFactory.getInstance().getAnalyzer(jascaConfiguration));
 		}
 		if (jascaConfiguration.getEnableEngines().get(AnalyzerEngine.PMD)) {
 			analyzers.add(PmdAnalyzerFactory.getInstance().getAnalyzer(jascaConfiguration));
 		}
-		
+
 		return analyzers;
 	}
 }

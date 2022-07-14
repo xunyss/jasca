@@ -18,7 +18,7 @@ public class V37NULLPointerDereference {
 			Printer.print(filereader.read());
 		}
 		catch (FileNotFoundException fnfe) {
-			Log.log("¿À·ù: ÆÄÀÏ¾øÀ½");
+			Log.log("ì˜¤ë¥˜: íŒŒì¼ì—†ìŒ");
 		}
 		finally {
 			filereader.close();

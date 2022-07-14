@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class PMDSimpleLaunchTest {
 
-	@Test
+//	@Test
 	public void runPMD() throws Exception {
 		String[] options = {
 				"-d", "D:\\securecoding\\workspace\\sampleweb",

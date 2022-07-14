@@ -20,7 +20,7 @@ public class V09LDAPInjection {
 			Printer.print(answers);
 		}
 		catch (NamingException ne) {
-			Log.log("¿¡·¯");
+			Log.log("ì—ëŸ¬");
 		}
 	}
 	

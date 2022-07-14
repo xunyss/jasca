@@ -8,7 +8,7 @@ import org.junit.Test;
  */
 public class JascaTest {
 	
-	@Test
+//	@Test
 	public void jascaMainTest() {
 		
 		String[] args = {

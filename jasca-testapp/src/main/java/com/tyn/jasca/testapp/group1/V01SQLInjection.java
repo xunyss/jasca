@@ -15,7 +15,7 @@ public class V01SQLInjection {
 			stmt.execute("select username from user where id = '" + userid + "'");
 		}
 		catch (SQLException sqle) {
-			Log.log("ø°∑Ø");
+			Log.log("ÏóêÎü¨");
 		}
 		finally {
 			try {
@@ -23,7 +23,7 @@ public class V01SQLInjection {
 				if (conn != null) conn.close();
 			}
 			catch (SQLException e) {
-				Log.log("ø°∑Ø");
+				Log.log("ÏóêÎü¨");
 			}
 		}
 	}

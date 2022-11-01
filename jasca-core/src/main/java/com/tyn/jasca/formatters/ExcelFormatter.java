@@ -57,12 +57,12 @@ public class ExcelFormatter implements Formatter {
 	@Override
 	public void start() {
 		if (Utils.isEmpty(output)) {
-			throw new JascaException("ºĞ¼® °á°ú¸¦ ÀúÀåÇÒ ÆÄÀÏ¸íÀÌ ÀÔ·ÂµÇÁö ¾ÊÀ½");
+			throw new JascaException("ë¶„ì„ ê²°ê³¼ë¥¼ ì €ì¥í•  íŒŒì¼ëª…ì´ ì…ë ¥ë˜ì§€ ì•ŠìŒ");
 		}
 		
 		violations = new ArrayList<Violation>();
 		
-		log.debug("Excel ·¹Æ÷Æ® »ı¼º ½ÃÀÛ");
+		log.debug("Excel ë ˆí¬íŠ¸ ìƒì„± ì‹œì‘");
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class ExcelFormatter implements Formatter {
 			outputStream.flush();
 		}
 		catch (InvalidFormatException ife) {
-			throw new JascaException("¿¢¼¿ ÅÛÇÃ¸´ ¿À·ù", ife);
+			throw new JascaException("ì—‘ì…€ í…œí”Œë¦¿ ì˜¤ë¥˜", ife);
 		}
 		finally {
 			IOUtils.closeQuietly(inputStream);
@@ -120,6 +120,6 @@ public class ExcelFormatter implements Formatter {
 		violations.clear();
 		violations = null;
 		
-		log.debug("Excel ·¹Æ÷Æ® »ı¼º ³¡");
+		log.debug("Excel ë ˆí¬íŠ¸ ìƒì„± ë");
 	}
 }

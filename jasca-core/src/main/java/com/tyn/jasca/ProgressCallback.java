@@ -5,7 +5,7 @@ import com.tyn.jasca.analyzer.pmd.PmdProgress;
 import edu.umd.cs.findbugs.FindBugsProgress;
 
 /**
- * FINDBUGS, PMD ¿£ÁøÀÇ Äİ¹é Áö¿ø
+ * FINDBUGS, PMD ì—”ì§„ì˜ ì½œë°± ì§€ì›
  * 
  * @author S.J.H.
  */

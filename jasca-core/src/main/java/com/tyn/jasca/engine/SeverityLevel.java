@@ -24,7 +24,7 @@ import edu.umd.cs.findbugs.Priorities;
  * 
  * @author S.J.H.
  * 
- * @ TODO ¿ÜºÎ ¼³Á¤À¸·Î Ã³¸® °¡´ÉÇÏµµ·Ï ¼öÁ¤
+ * @ TODO ì™¸ë¶€ ì„¤ì •ìœ¼ë¡œ ì²˜ë¦¬ ê°€ëŠ¥í•˜ë„ë¡ ìˆ˜ì •
  */
 public class SeverityLevel {
 	

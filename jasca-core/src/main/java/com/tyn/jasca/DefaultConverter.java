@@ -29,7 +29,7 @@ public class DefaultConverter implements ViolationConverter {
 	public Violation convert(Violation violation) {
 		/*
 		 * filename change
-		 * TODO ½ÇÁ¦ ÆÄÀÏÁ¶»ç¸¦ ÅëÇÑ Á¤È®ÇÑ º¯È¯
+		 * TODO ì‹¤ì œ íŒŒì¼ì¡°ì‚¬ë¥¼ í†µí•œ ì •í™•í•œ ë³€í™˜
 		 */
 		if (AnalyzerEngine.PMD.equals(violation.getPattern().getAnalyzerEngine())) {
 			String filepath = violation.getFilename();

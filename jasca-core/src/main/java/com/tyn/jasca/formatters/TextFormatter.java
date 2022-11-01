@@ -17,7 +17,7 @@ import com.tyn.jasca.common.Utils;
  * 
  * @author S.J.H.
  * 
- * @ TODO TextFormatter ±¸Çö
+ * @ TODO TextFormatter êµ¬í˜„
  */
 public class TextFormatter implements Formatter {
 

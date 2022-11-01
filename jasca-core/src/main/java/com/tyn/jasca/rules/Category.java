@@ -9,7 +9,7 @@ public class Category implements Comparable<Category> {
 	public static Category ETC;
 	static {
 		ETC = new Category("ETC");
-		ETC.setName("±âÅ¸");
+		ETC.setName("ê¸°íƒ€");
 		ETC.setOrder(Integer.MAX_VALUE);
 	}
 	

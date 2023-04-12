@@ -21,13 +21,13 @@ import edu.umd.cs.findbugs.HTMLBugReporter;
 import edu.umd.cs.findbugs.Project;
 
 /**
- * edu.umd.cs.findbugs.HTMLBugReporter Å¬·¡½º¿Í
+ * edu.umd.cs.findbugs.HTMLBugReporter í´ë˜ìŠ¤ì™€
  * TransformerFactory factory;
- * ÀÇ ±¸ÇöÃ¼¸¸ ´Ù¸§.
+ * ì˜ êµ¬í˜„ì²´ë§Œ ë‹¤ë¦„.
  * 
- * PMD ÀÇ dependency ·Î ÀÎÇØ
- * TransformerFactory.newInstance() °¡
- * net.sf.saxon.TransformerFactoryImpl Å¬·¡½º °´Ã¼°¡ ¹İÈ¯ µÊ
+ * PMD ì˜ dependency ë¡œ ì¸í•´
+ * TransformerFactory.newInstance() ê°€
+ * net.sf.saxon.TransformerFactoryImpl í´ë˜ìŠ¤ ê°ì²´ê°€ ë°˜í™˜ ë¨
  * 
  * @see edu.umd.cs.findbugs.HTMLBugReporter
  * 
@@ -66,7 +66,7 @@ public class PatchedHTMLBugReporter extends BugCollectionBugReporter {
 			 * S.J.H. modify..
 			 */
 			String implClassName = null;
-		//	if ("51.0".equals(System.getProperty("java.class.version"))) {		// TODO JRE ¹öÀüº°·Î ´Ù¸¦ ¼ö ÀÖÀ½
+		//	if ("51.0".equals(System.getProperty("java.class.version"))) {		// TODO JRE ë²„ì „ë³„ë¡œ ë‹¤ë¥¼ ìˆ˜ ìˆìŒ
 				implClassName = "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl";
 		//	}
 			TransformerFactory factory = TransformerFactory.newInstance(implClassName, null);

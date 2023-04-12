@@ -9,7 +9,7 @@ import com.tyn.jasca.Violation;
  * 
  * @author S.J.H.
  * 
- * @ TODO JsonFormatter ±¸Çö
+ * @ TODO JsonFormatter êµ¬í˜„
  */
 public class JsonFormatter implements Formatter {
 

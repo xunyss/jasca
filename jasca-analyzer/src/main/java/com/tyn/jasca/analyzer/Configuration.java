@@ -4,7 +4,7 @@ package com.tyn.jasca.analyzer;
  * 
  * @author S.J.H.
  * 
- * @ TODO Configuration ÀÎÅÍÆäÀÌ½º ÇÊ¿äÀÖ³ª?
+ * @ TODO Configuration ì¸í„°í˜ì´ìŠ¤ í•„ìš”ìˆë‚˜?
  */
 public interface Configuration {
 	

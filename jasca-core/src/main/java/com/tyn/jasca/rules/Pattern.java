@@ -37,7 +37,7 @@ public class Pattern {
 	public static Pattern get(AnalyzerEngine analyzerEngine, String typename, Severity severity) {
 		
 		/*
-		 * hashCode, equals ¸Ş¼Òµå¸¦ ¿À¹ö¶óÀÌµù ÇÏÁö ¾Ê¾Æµµ Hash Collection ¿¡ »ç¿ëÇÒ ¼ö ÀÖÀ½À» º¸Àå ÇÔ.
+		 * hashCode, equals ë©”ì†Œë“œë¥¼ ì˜¤ë²„ë¼ì´ë”© í•˜ì§€ ì•Šì•„ë„ Hash Collection ì— ì‚¬ìš©í•  ìˆ˜ ìˆìŒì„ ë³´ì¥ í•¨.
 		 */
 		int key = key(analyzerEngine, typename).hashCode();
 		Pattern pattern = patterns.get(key);

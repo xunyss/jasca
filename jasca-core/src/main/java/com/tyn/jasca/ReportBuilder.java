@@ -34,7 +34,7 @@ public class ReportBuilder {
 		converter.setOutput(output);
 		
 		/*
-		 * º¯È¯ °á°ú°¡ null ÀÌ¸é ·¹Æ÷ÆÃ Ç×¸ñ¿¡¼­ Á¦°Å
+		 * ë³€í™˜ ê²°ê³¼ê°€ null ì´ë©´ ë ˆí¬íŒ… í•­ëª©ì—ì„œ ì œê±°
 		 */
 		for (Iterator<Violation> vitr = results.iterator(); vitr.hasNext(); ) {
 			Violation violation = vitr.next();

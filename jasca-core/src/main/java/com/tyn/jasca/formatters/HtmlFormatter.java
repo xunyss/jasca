@@ -75,7 +75,7 @@ public class HtmlFormatter implements SummaryFormatter {
 	@Override
 	public void start() {
 		if (Utils.isEmpty(output)) {
-			throw new JascaException("ºĞ¼® °á°ú¸¦ ÀúÀåÇÒ ÆÄÀÏ¸íÀÌ ÀÔ·ÂµÇÁö ¾ÊÀ½");
+			throw new JascaException("ë¶„ì„ ê²°ê³¼ë¥¼ ì €ì¥í•  íŒŒì¼ëª…ì´ ì…ë ¥ë˜ì§€ ì•ŠìŒ");
 		}
 		
 		try {
@@ -104,7 +104,7 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("		<link rel='stylesheet' type='text/css' href='" + Utils.getFileNameExcludeExt(output) + "/" + style + ".css' />");
 		wr("	</head>");
 		wr("	<body>");
-		wr("		<h3>Ãë¾àÁ¡ Áø´Ü REPORT</h3>");
+		wr("		<h3>ì·¨ì•½ì  ì§„ë‹¨ REPORT</h3>");
 		wr("		<p class=smr>");
 		wr("			<span class=prj>Project : " + Utils.getSlashedPath(input) + "</span>");
 		wr("			<span class=adt>Date : " + Utils.getCurrDatetime() + "</span>");
@@ -115,13 +115,13 @@ public class HtmlFormatter implements SummaryFormatter {
 	public void writeSummary(Summary summary) throws IOException {
 		
 		/*
-		 * ½É°¢µµº° ¿ä¾à
+		 * ì‹¬ê°ë„ë³„ ìš”ì•½
 		 */
 		int severityCount = Severity.values().length;
 		wr("		<table class=sm1>");
 		wr("			<thead>");
 		wr("				<tr>");
-		wr("					<td>ÇÕ°è</td>");
+		wr("					<td>í•©ê³„</td>");
 		for (int ordinal = 0; ordinal < severityCount; ordinal++) {
 			wr("					<td>" + Severity.values()[ordinal].getText() + "</td>");
 		}
@@ -140,13 +140,13 @@ public class HtmlFormatter implements SummaryFormatter {
 		
 		
 		/*
-		 * Ä«Å×°í¸®º° ¿ä¾à
+		 * ì¹´í…Œê³ ë¦¬ë³„ ìš”ì•½
 		 */
 		wr("		<table class=sm2>");
 		wr("			<thead>");
 		wr("				<tr>");
-		wr("					<td>º¸¾È¾àÁ¡ À¯Çü</td>");
-		wr("					<td>Å½Áö °Ç¼ö</td>");
+		wr("					<td>ë³´ì•ˆì•½ì  ìœ í˜•</td>");
+		wr("					<td>íƒì§€ ê±´ìˆ˜</td>");
 		wr("				</tr>");
 		wr("			</thead>");
 		wr("			<tbody>");
@@ -171,12 +171,12 @@ public class HtmlFormatter implements SummaryFormatter {
 		wr("			<thead>");
 		wr("				<tr>");
 		wr("					<td rowspan=2 width=40>#</td>");
-		wr("					<td rowspan=2 width=54>½É°¢µµ</td>");
-		wr("					<td>º¸¾È¾àÁ¡</td>");
-		wr("					<td>ÆÄÀÏ¸í</td>");
+		wr("					<td rowspan=2 width=54>ì‹¬ê°ë„</td>");
+		wr("					<td>ë³´ì•ˆì•½ì </td>");
+		wr("					<td>íŒŒì¼ëª…</td>");
 		wr("				</tr>");
 		wr("				<tr>");
-		wr("					<td colspan=2>¸Ş½ÃÁö</td>");
+		wr("					<td colspan=2>ë©”ì‹œì§€</td>");
 		wr("				</tr>");
 		wr("			</thead>");
 		wr("			<tbody>");

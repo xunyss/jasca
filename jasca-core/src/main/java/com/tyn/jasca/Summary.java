@@ -49,7 +49,7 @@ public class Summary {
 	
 	private void sorts() {
 		/**
-		 * ½É°¢µµº° ¿ä¾à
+		 * ì‹¬ê°ë„ë³„ ìš”ì•½
 		 */
 		Collections.sort(categoryCounterList, new Comparator<CategoryCounter>() {
 			@Override
@@ -61,7 +61,7 @@ public class Summary {
 	
 	/**
 	 * 
-	 * @param violations
+	 * @param results
 	 * @return
 	 */
 	public static Summary summary(Results results) {
@@ -74,17 +74,17 @@ public class Summary {
 			Rule rule = violation.getRule();
 			
 			/*
-			 * ÀüÃ¼
+			 * ì „ì²´
 			 */
 			total++;
 			
 			/*
-			 * ½É°¢µµº°
+			 * ì‹¬ê°ë„ë³„
 			 */
 			severitySummary[rule.getSeverity().getValue() - 1]++;
 			
 			/*
-			 * Ä«Å×°í¸®º°
+			 * ì¹´í…Œê³ ë¦¬ë³„
 			 */
 			Category category = rule.getCategory();
 			if (categorySummary.get(category) != null) {
@@ -95,12 +95,12 @@ public class Summary {
 			}
 			
 			/*
-			 * TODO: ·êº°
+			 * TODO: ë£°ë³„
 			 */
 		}
 		
 		/*
-		 * Ä«Å×°í¸®º° ¿ä¾à
+		 * ì¹´í…Œê³ ë¦¬ë³„ ìš”ì•½
 		 */
 		List<CategoryCounter> categoryCounterList = new ArrayList<CategoryCounter>();
 		Iterator<Category> itr = categorySummary.keySet().iterator();

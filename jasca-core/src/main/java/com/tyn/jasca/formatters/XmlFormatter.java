@@ -9,7 +9,7 @@ import com.tyn.jasca.Violation;
  * 
  * @author S.J.H.
  * 
- * @ TODO XmlFormatter ±¸Çö
+ * @ TODO XmlFormatter êµ¬í˜„
  */
 public class XmlFormatter implements Formatter {
 

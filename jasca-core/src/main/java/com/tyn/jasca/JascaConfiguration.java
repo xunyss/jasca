@@ -19,9 +19,9 @@ import com.tyn.jasca.formatters.XmlFormatter;
 public class JascaConfiguration {
 	
 	/**
-	 * ºĞ¼®½Ã »ç¿ëÇÒ ºĞ¼®¿£Áø
+	 * ë¶„ì„ì‹œ ì‚¬ìš©í•  ë¶„ì„ì—”ì§„
 	 * 
-	 * @ TODO ¿ÜºÎ ÇÁ·ÎÆÛÆ¼ ¼³Á¤
+	 * @ TODO ì™¸ë¶€ í”„ë¡œí¼í‹° ì„¤ì •
 	 */
 	private Map<AnalyzerEngine, Boolean> enableEngines = new HashMap<AnalyzerEngine, Boolean>(); {
 		enableEngines.put(AnalyzerEngine.FINDBUGS,	true);
@@ -90,16 +90,16 @@ public class JascaConfiguration {
 		 * validation check
 		 */
 		if (!("high".equals(level) || "medium".equals(level) || "low".equals(level) || "info".equals(level))) {
-			throw new ParseException("ºĞ¼® ½É°¢µµ ·¹º§ ÀÔ·Â ¿À·ù");
+			throw new ParseException("ë¶„ì„ ì‹¬ê°ë„ ë ˆë²¨ ì…ë ¥ ì˜¤ë¥˜");
 		}
 		if (!("html".equals(format) || "xls".equals(format) || "xlsx".equals(format) || "xml".equals(format))) {
-			throw new ParseException("·¹Æ÷Æ® Æ÷¸Ë ÀÔ·Â ¿À·ù");
+			throw new ParseException("ë ˆí¬íŠ¸ í¬ë§· ì…ë ¥ ì˜¤ë¥˜");
 		}
 		if (Utils.isEmpty(output) && ("html".equals(format) || "xls".equals(format) || "xlsx".equals(format))) {
-			throw new ParseException("°á°úÀúÀå ÆÄÀÏ¸í ¹ÌÀÔ·Â");
+			throw new ParseException("ê²°ê³¼ì €ì¥ íŒŒì¼ëª… ë¯¸ì…ë ¥");
 		}
 		if (target.length != 1) {
-			throw new ParseException("ºĞ¼®´ë»ó ÀÔ·Â ¿À·ù");
+			throw new ParseException("ë¶„ì„ëŒ€ìƒ ì…ë ¥ ì˜¤ë¥˜");
 		}
 		
 		

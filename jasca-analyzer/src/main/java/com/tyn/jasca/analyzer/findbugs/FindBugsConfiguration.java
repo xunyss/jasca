@@ -165,8 +165,8 @@ public class FindBugsConfiguration implements Configuration {
 	 * <pre>
 	 * -effort[:min|less|default|more|max]
 	 * (default = default)
-	 * (-workHard : -effort ¼³Á¤ÀÌ max º¸´Ù ÀÛÀ» °æ¿ì more ·Î ¸¸µë)
-	 * (-conserveSpace : -effort:min °ú µ¿ÀÏ)
+	 * (-workHard : -effort ì„¤ì •ì´ max ë³´ë‹¤ ì‘ì„ ê²½ìš° more ë¡œ ë§Œë“¬)
+	 * (-conserveSpace : -effort:min ê³¼ ë™ì¼)
 	 * </pre>
 	 * 
 	 * @param effortLevel

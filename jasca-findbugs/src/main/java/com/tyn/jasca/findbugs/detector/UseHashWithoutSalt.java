@@ -91,7 +91,7 @@ public class UseHashWithoutSalt extends OpcodeStackDetector {
 			String refType = invoke.getReferenceType(cpg).toString();
 			String sig = invoke.getSignature(cpg);
 			
-			/** TODO INVOKEVIRTUAL ¸Ş¼Òµå¸¦ È£ÃâÇÑ reference ÆÇ´ÜÇÏ´Â ¹æ¹ı ¿¬±¸
+			/** TODO INVOKEVIRTUAL ë©”ì†Œë“œë¥¼ í˜¸ì¶œí•œ reference íŒë‹¨í•˜ëŠ” ë°©ë²• ì—°êµ¬
 			TypeDataflow typeDataflow = classContext.getTypeDataflow(method);
 			TypeFrame frame = typeDataflow.getFactAtLocation(location);
 			*/

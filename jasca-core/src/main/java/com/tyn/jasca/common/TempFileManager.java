@@ -15,8 +15,8 @@ public class TempFileManager {
 		tempDirectory.mkdirs();
 		tempDirectory.deleteOnExit();
 		
-		// TODO ½ÃÀÛ½Ã ¸ğµç ÆÄÀÏ »èÁ¦ (recursive)
-		// µğ·ºÅä¸®°¡ ºñ¾îÀÖÁö ¾ÊÀ¸¸é tempDirectory°¡ Áö¿öÁöÁö ¾ÊÀ½
+		// TODO ì‹œì‘ì‹œ ëª¨ë“  íŒŒì¼ ì‚­ì œ (recursive)
+		// ë””ë ‰í† ë¦¬ê°€ ë¹„ì–´ìˆì§€ ì•Šìœ¼ë©´ tempDirectoryê°€ ì§€ì›Œì§€ì§€ ì•ŠìŒ
 	}
 	
 	/**

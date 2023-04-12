@@ -11,8 +11,8 @@ import java.util.List;
  * @author S.J.H.
  * 
  * @ TODO make this thread safe
- * @ TODO JASCA context Àû¿ë
- * @ TODO summary ¼öÁı
+ * @ TODO JASCA context ì ìš©
+ * @ TODO summary ìˆ˜ì§‘
  */
 public class Results implements Iterable<Violation> {
 	

@@ -115,7 +115,7 @@ public class RuleRepository {
 			loadRules(rootNode.getElementsByTagName("rules").item(0));
 		}
 		catch (Exception e) {
-			throw new JascaException(JASCA_RULES_XML + "·Îµù ¿¡·¯", e);
+			throw new JascaException(JASCA_RULES_XML + "ë¡œë”© ì—ëŸ¬", e);
 		}
 		finally {
 			IOUtils.closeQuietly(inputStream);
